@@ -1,0 +1,318 @@
+- author: Mario Zieschang
+  entries:
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    - {default: 0, name: requires_serial_number, notnull: 1, type: bit}
+    - {lenght: 255, name: commodity_group_key, type: varchar}
+    - {name: has_children, type: bit}
+    - foreign: {refcolumn: id, reftable: commodity_group}
+      name: parent
+      notnull: 1
+      type: uuid
+    name: commodity_group
+    type: createtable
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    name: item_sequence
+    type: createtable
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    - {lenght: 255, name: service, type: varchar}
+    - {lenght: 255, name: production_trigger, type: varchar}
+    - foreign: {refcolumn: id, reftable: producers}
+      name: sub_producer
+      type: uuid
+    name: producers
+    type: createtable
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    - {name: max_possible_admissions, type: smallint}
+    - {name: max_possible_admissions_per_day, type: smallint}
+    - {name: daily_valid_from, type: timestamp}
+    - {name: daily_valid_until, type: timestamp}
+    - {name: valid_from_fixed, type: timestamp}
+    - {name: valid_to_fixed, type: timestamp}
+    - {lenght: 255, name: activation_delay_str, type: varchar}
+    - {lenght: 255, name: validity_period_after_entrance_str, type: varchar}
+    - {lenght: 255, name: validity_period_after_purchase_str, type: varchar}
+    name: ticket_validity_description
+    type: createtable
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    name: tags
+    type: createtable
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    - {name: create_time, type: timestamp}
+    - {lenght: 255, name: type, type: varchar}
+    - {default: product, lenght: 255, name: usage_type, type: varchar}
+    - {lenght: 1024, name: data, type: varchar}
+    - {default: 0, name: black_and_white, notnull: 1, type: bit}
+    name: product_images
+    type: createtable
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    - {name: last_clean_up, type: timestamp}
+    name: assortment
+    type: createtable
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    - {name: base_price_max, type: numeric}
+    - {name: base_price_min, type: numeric}
+    - {name: purchase_price, type: numeric}
+    - {name: warranty_period, type: integer}
+    - {name: set_type, type: smallint}
+    - {name: costs, type: numeric}
+    - {default: current, name: active_assortment_from, notnull: 1, type: timestamp}
+    - {default: 1, name: discountable, notnull: 1, type: bit}
+    - {default: 1, name: price_changeable, notnull: 1, type: bit}
+    - {default: 0, name: track_inventory, notnull: 1, type: bit}
+    - {default: 0, name: packaging, notnull: 1, type: bit}
+    - {default: 0, name: preparation_product, notnull: 1, type: bit}
+    - {default: 0, name: requires_serial_number, notnull: 1, type: bit}
+    - {lenght: 255, name: base_price_unit, notnull: 1, type: varchar}
+    - foreign: {notnull: 1, refcolumn: id, reftable: sector}
+      name: sector
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: sector}
+      name: alternative_sector
+      type: uuid
+    - foreign: {notnull: 1, refcolumn: id, reftable: commodity_group}
+      name: commodity_group
+      type: uuid
+    - foreign: {refcolumn: id, reftable: item_sequence}
+      name: item_sequence
+      type: uuid
+    - foreign: {refcolumn: id, reftable: producers}
+      name: producer
+      type: uuid
+    - foreign: {refcolumn: id, reftable: ticket_validity_description}
+      name: ticket_validity_description
+      type: uuid
+    - foreign: {refcolumn: id, reftable: assortment}
+      name: assortment
+      type: uuid
+    - foreign: {refcolumn: id, reftable: tags}
+      name: suggestion_tag
+      type: uuid
+    - foreign: {refcolumn: id, reftable: product_images}
+      name: image
+      type: uuid
+    name: product
+    type: createtable
+  - columns:
+    - {name: number, notnull: 1, type: integer}
+    - {name: container_amount, notnull: 1, type: numeric}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      type: uuid
+    constraints:
+    - name: product_product_codes
+      primarykey: [number, container_amount, product]
+    name: product_product_codes
+    type: createtable
+  - columns:
+    - {default: uuid, name: id, notnull: 1, primarykey: 1, type: uuid}
+    - {lenght: 255, name: type, notnull: 1, type: varchar}
+    - {name: text, type: text}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      type: uuid
+    - foreign: {refcolumn: id, reftable: languages}
+      name: language
+      type: uuid
+    name: product_product_texts
+    type: createtable
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    - {lenght: 255, name: text, notnull: 1, type: varchar}
+    - {default: RECEIPT, lenght: 255, name: type, notnull: 1, type: varchar}
+    name: info_text
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: info_text}
+      name: info_text
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: product_info_texts
+      primarykey: [product, info_text]
+    name: product_info_texts
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: product_listed_orgs
+      primarykey: [product, org]
+    name: product_listed_orgs
+    type: createtable
+  - columns:
+    - {default: uuid, name: id, notnull: 1, primarykey: 1, type: uuid}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: price_group
+      notnull: 1
+      type: uuid
+    name: product_prices
+    type: createtable
+  - columns:
+    - {default: uuid, name: id, notnull: 1, primarykey: 1, type: uuid}
+    - foreign: {refcolumn: id, reftable: tags}
+      name: tag
+      notnull: 1
+      type: uuid
+    - {default: 1.0, name: quantity, notnull: 1, type: numeric}
+    - {name: position, type: smallint}
+    name: subproduct_selections
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: subproduct_selections}
+      name: subproduct_selection
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: product_subproduct_selections
+      primarykey: [product, subproduct_selection]
+    name: product_subproduct_selections
+    type: createtable
+  - columns:
+    - {default: uuid, name: id, notnull: 1, primarykey: 1, type: uuid}
+    - {default: 1, name: active, type: bit}
+    - {default: 1.0, name: quantity, notnull: 1, type: numeric}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - {name: position, type: smallint}
+    name: subproduct_relations
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: subproduct_relations}
+      name: subproduct_relation
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: product_subproduct_relations
+      primarykey: [product, subproduct_relation]
+    name: product_subproduct_relations
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: tags}
+      name: tag
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: product_tags
+      primarykey: [product, tag]
+    name: product_tags
+    type: createtable
+  - columns:
+    - {default: uuid, name: id, notnull: 1, primarykey: 1, type: uuid}
+    - foreign: {refcolumn: id, reftable: subproduct_selections}
+      name: subproduct_selection
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: price_group
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      notnull: 1
+      type: uuid
+    - {name: valid_from, type: timestamp}
+    - {name: value, notnull: 1, type: numeric}
+    name: subproduct_selection_prices
+    type: createtable
+  - columns:
+    - {default: uuid, name: id, notnull: 1, primarykey: 1, type: uuid}
+    - foreign: {refcolumn: id, reftable: subproduct_relations}
+      name: subproduct_relation
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: price_group
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      notnull: 1
+      type: uuid
+    - {name: valid_from, type: timestamp}
+    - {name: value, notnull: 1, type: numeric}
+    name: subproduct_relation_prices
+    type: createtable
+  id: 002.01-maz
+- author: Mario Zieschang
+  entries:
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    - {name: type, type: smallint}
+    - {default: 0, name: requires_serial_number, type: bit}
+    - {default: 0, name: denomination_input, type: bit}
+    - {lenght: 255, name: commodity_group_key, type: varchar}
+    - {name: has_children, type: bit}
+    - foreign: {refcolumn: id, reftable: producers}
+      name: producer
+      notnull: 1
+      type: uuid
+    name: account
+    type: createtable
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    name: entry_gate
+    type: createtable
+  - columns:
+    - {tpl: tpl_std_client_ref}
+    - {name: capacity, type: numeric}
+    - {name: duration, type: smallint}
+    - {lenght: 255, name: location, type: varchar}
+    - {name: start, type: timestamp}
+    name: events
+    type: createtable
+  - columns:
+    - {default: uuid, name: id, notnull: 1, primarykey: 1, type: uuid}
+    - {lenght: 255, name: name, notnull: 1, type: varchar}
+    - {lenght: 255, name: external_id, notnull: 1, type: varchar}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: events}
+      name: event
+      notnull: 1
+      type: uuid
+    name: event_categories
+    type: createtable
+  id: 002.02-maz
