@@ -8,19 +8,22 @@ my $eumm_version = $ExtUtils::MakeMaker::VERSION;
 $eumm_version =~ s/_//;
 
 WriteMakefile(
-    NAME                => 'SS',
-    AUTHOR              => q{YOUR NAME <youremail@example.com>},
-    VERSION_FROM        => 'lib/SS.pm',
-    ABSTRACT            => 'YOUR APPLICATION ABSTRACT',
-    ($eumm_version >= 6.3001
-      ? ('LICENSE'=> 'perl')
-      : ()),
-    PL_FILES            => {},
+    NAME         => 'SS',
+    AUTHOR       => q{YOUR NAME <youremail@example.com>},
+    VERSION_FROM => 'lib/SS.pm',
+    ABSTRACT     => 'YOUR APPLICATION ABSTRACT',
+    (
+        $eumm_version >= 6.3001
+        ? ( 'LICENSE' => 'perl' )
+        : ()
+    ),
+    PL_FILES  => {},
     PREREQ_PM => {
-        'Test::More' => 0,
-        'YAML'       => 0,
-        'Dancer2'     => 0.158000,
+        'Test::More'              => 0,
+        'YAML'                    => 0,
+        'Dancer2'                 => 0.158000,
+        'DBIx::Schema::Changelog' => 0.7.0,
     },
-    dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'SS-*' },
+    dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
+    clean => { FILES    => 'SS-*' },
 );

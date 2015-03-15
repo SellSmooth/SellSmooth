@@ -1,0 +1,1893 @@
+- author: Mario Zieschang
+  entries:
+  - columns:
+    - {tpl: tpl_minimal}
+    - {name: last_activity, type: time}
+    - {name: ap_id, type: uuid}
+    - {name: address_information, type: bigint}
+    - {default: 0, name: last_instore_barcode, type: bigint}
+    - {default: 0, lenght: 1, name: test_mode, type: bit}
+    - {default: 0, lenght: 1, name: contactable_by_referral_partner, notnull: 1, type: bit}
+    - {default: 0, lenght: 1, name: sepa_registered, notnull: 1, type: bit}
+    - {name: creation_date, type: time}
+    - {lenght: 255, name: timezone, type: varchar}
+    - {lenght: 5, name: language, type: character}
+    - {lenght: 255, name: alias, type: varchar}
+    - foreign: {refcolumn: id, reftable: client}
+      name: master
+      type: uuid
+    - {name: franchisor_id, type: uuid}
+    - {lenght: 8, name: support_code, type: varchar}
+    - {lenght: 255, name: type, type: varchar}
+    name: client
+    type: createtable
+  - columns:
+    - {tpl: tpl_min_client_ref}
+    - {lenght: 255, name: address_line1, type: varchar}
+    - {lenght: 255, name: address_line2, type: varchar}
+    - {lenght: 255, name: city, type: varchar}
+    - {lenght: 255, name: company, type: varchar}
+    - {lenght: 255, name: country, type: varchar}
+    - {lenght: 255, name: department, type: varchar}
+    - {lenght: 255, name: gln, type: varchar}
+    - {lenght: 255, name: STATE, type: varchar}
+    - {lenght: 255, name: tax_id, type: varchar}
+    - {lenght: 255, name: zip_code, type: varchar}
+    name: address_information
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - {name: x, notnull: 1, type: integer}
+    - {name: y, notnull: 1, type: integer}
+    name: table_overview
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: table_overview}
+      name: table_overview
+      notnull: 1
+      type: uuid
+    - {name: table_column, type: integer}
+    - {lenght: 255, name: direction, type: varchar}
+    - {name: table_row, type: integer}
+    - {default: 0, name: x, notnull: 1, type: integer}
+    - {default: 0, name: y, notnull: 1, type: integer}
+    - {lenght: 255, name: TYPE, type: varchar}
+    name: table_overview_tables
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - {lenght: 255, name: additional_information, type: varchar}
+    - {lenght: 255, name: contact_person_firstname, type: varchar}
+    - {lenght: 255, name: contact_person_phone, type: varchar}
+    - {lenght: 255, name: contact_person_email, type: varchar}
+    - {lenght: 255, name: customer_number, type: varchar}
+    - {lenght: 255, name: contact_telefax, type: varchar}
+    - {lenght: 255, name: contact_website, type: varchar}
+    - {lenght: 255, name: contact_person_salutation, type: varchar}
+    - {lenght: 255, name: contact_person_surname, type: varchar}
+    - {lenght: 255, name: contact_person_mobile, type: varchar}
+    - {lenght: 255, name: contact_person_telefax, type: varchar}
+    - {lenght: 255, name: contact_phone, type: varchar}
+    - {lenght: 255, name: contact_email, type: varchar}
+    - {lenght: 255, name: creditor_identifier, type: varchar}
+    - {lenght: 255, name: order_phone, type: varchar}
+    - {lenght: 255, name: order_email, type: varchar}
+    - {name: order_weekdays, type: integer}
+    - {name: order_time_from, type: time}
+    - {name: order_time_to, type: time}
+    - {name: delivery_weekdays, type: integer}
+    - {name: delivery_time, type: integer}
+    - {name: delayed_delivery_starting, type: integer}
+    - {lenght: 255, name: shipper, type: varchar}
+    - {name: payment_currency, type: uuid}
+    - {lenght: 255, name: payment_method, type: varchar}
+    - {lenght: 255, name: bank, type: varchar}
+    - {lenght: 255, name: rounting_code, type: varchar}
+    - {lenght: 255, name: bic, type: varchar}
+    - {lenght: 255, name: account_number, type: varchar}
+    - {lenght: 255, name: iban, type: varchar}
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: address_information
+      type: uuid
+    - {name: return_information, type: uuid}
+    - {default: 0, name: number_value, type: bigint}
+    - {name: order_exchange_entry, type: uuid}
+    - {name: master_product, type: uuid}
+    - {name: deposit_product, type: uuid}
+    name: supplier
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: supplier}
+      name: supplier
+      notnull: 1
+      type: uuid
+    - {lenght: 255, name: condition_text, notnull: 1, type: varchar}
+    - {name: price, notnull: 1, type: numeric}
+    name: supplier_shipping_costs
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - {lenght: 255, name: service, type: varchar}
+    - {lenght: 255, name: production_trigger, type: varchar}
+    name: producer
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - {default: 0, lenght: 1, name: net_prices, type: bit}
+    name: price_group
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - {name: parent_commodity_group, type: uuid}
+    - {lenght: 255, name: commodity_group_key, type: varchar}
+    - {lenght: 1, name: has_children, notnull: 1, type: bit}
+    name: commodity_group
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    name: sector
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - {name: create_time, type: time}
+    - {lenght: 255, name: type, type: varchar}
+    - {lenght: 1024, name: data, type: varchar}
+    - {lenght: 1, name: black_and_white, type: bit}
+    - {default: product, lenght: 255, name: usage_type, notnull: 1, type: varchar}
+    name: image
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {name: daily_valid_from, type: time}
+    - {name: daily_valid_untils, type: time}
+    - {name: max_possible_admissions, type: integer}
+    - {name: max_possible_admissions_per_day, type: integer}
+    - {name: valid_from_fixed, type: time}
+    - {name: valid_to_fixed, type: time}
+    - {lenght: 255, name: activation_delay_str, type: varchar}
+    - {lenght: 255, name: validity_period_after_entrance_str, type: varchar}
+    - {lenght: 255, name: validity_period_after_purchase_str, type: varchar}
+    name: ticket_validity_descriptions
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - {lenght: 255, name: barcode, type: varchar}
+    - {name: base_price_max, type: numeric}
+    - {name: base_price_min, type: numeric}
+    - {lenght: 1, name: discountable, notnull: 1, type: bit}
+    - {lenght: 1, name: price_changeable, notnull: 1, type: bit}
+    - {name: alternative_sector, type: uuid}
+    - foreign: {refcolumn: id, reftable: commodity_group}
+      name: commodity_group
+      notnull: 1
+      type: uuid
+    - {name: item_sequence, type: uuid}
+    - foreign: {refcolumn: id, reftable: producer}
+      name: producer
+      type: uuid
+    - foreign: {refcolumn: id, reftable: sector}
+      name: sector
+      notnull: 1
+      type: uuid
+    - {name: ticket_validity_description, type: uuid}
+    - {default: 0, lenght: 1, name: track_inventory, type: bit}
+    - {default: 0, lenght: 1, name: requires_serial_number, type: bit}
+    - {lenght: '17,4', name: purchase_price, type: decimal}
+    - {lenght: 255, name: base_price_unit, type: varchar}
+    - {lenght: '17,4', name: ackaging_quantity, type: decimal}
+    - {lenght: 1, name: active_assortment, type: bit}
+    - {name: active_assortment_from, type: time}
+    - {name: active_assortment_to, type: time}
+    - {default: 0, lenght: 1, name: preparation_product, notnull: 1, type: bit}
+    - foreign: {refcolumn: id, reftable: image}
+      name: image
+      type: uuid
+    - {default: '0.0000', lenght: '17,4', name: costs, notnull: 1, type: decimal}
+    - {default: 0, lenght: 1, name: packaging, type: bit}
+    - {name: warranty_period, type: bigint}
+    - {name: suggestion_tag, type: uuid}
+    - {default: 0, name: set_type, notnull: 1, type: integer}
+    name: product
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - {name: amount, type: numeric}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      type: uuid
+    - {name: position, type: integer}
+    name: subproduct_relation
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - {lenght: '17,4', name: storage_space, type: decimal}
+    - {lenght: '17,4', name: sales_area, type: decimal}
+    - {lenght: '17,4', name: stretch_zone, type: decimal}
+    - {lenght: '17,4', name: viewing_zone, type: decimal}
+    - {lenght: '17,4', name: grip_zone, type: decimal}
+    - {lenght: '17,4', name: bend_zone, type: decimal}
+    name: storage_profiles
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - {default: 0, lenght: 1, name: monday, notnull: 1, type: bit}
+    - {default: 0, lenght: 1, name: tuesday, notnull: 1, type: bit}
+    - {default: 0, lenght: 1, name: wednesday, notnull: 1, type: bit}
+    - {default: 0, lenght: 1, name: thursday, notnull: 1, type: bit}
+    - {default: 0, lenght: 1, name: friday, notnull: 1, type: bit}
+    - {default: 0, lenght: 1, name: saturday, notnull: 1, type: bit}
+    - {default: 0, lenght: 1, name: sunday, notnull: 1, type: bit}
+    - {name: monday_from, type: time}
+    - {name: tuesday_from, type: time}
+    - {name: wednesday_from, type: time}
+    - {name: thursday_from, type: time}
+    - {name: friday_from, type: time}
+    - {name: saturday_from, type: time}
+    - {name: sunday_from, type: time}
+    - {name: monday_to, type: time}
+    - {name: tuesday_to, type: time}
+    - {name: wednesday_to, type: time}
+    - {name: thursday_to, type: time}
+    - {name: friday_to, type: time}
+    - {name: saturday_to, type: time}
+    - {name: sunday_to, type: time}
+    name: opening_profiles
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: parent
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: address_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: storage_profiles}
+      name: storage_profile
+      type: uuid
+    - foreign: {refcolumn: id, reftable: opening_profiles}
+      name: opening_profile
+      type: uuid
+    - {name: centrality_index, type: integer}
+    - {lenght: '17,4', name: monthly_operating_costs_rent, type: decimal}
+    - {lenght: '17,4', name: monthly_staff_costs, type: decimal}
+    - {name: eh_number, type: bigint}
+    - {lenght: 1, name: has_children, notnull: 1, type: bit}
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: price_group
+      type: uuid
+    - {default: 0, lenght: 1, name: warehouse, type: bit}
+    - {name: economic_zone, type: uuid}
+    name: organizational_unit
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: subproduct_relation}
+      name: subproduct_relation
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: price_group
+      type: uuid
+    - {name: valid_from, type: time}
+    - {name: value, notnull: 1, type: numeric}
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: organizational_unit
+      type: uuid
+    - {lenght: 255, name: product_code, type: varchar}
+    name: subproduct_relation_prices
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - {name: sub_product_selection, notnull: 1, type: bigint}
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: price_group
+      type: uuid
+    - {name: valid_from, type: time}
+    - {name: value, notnull: 1, type: numeric}
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: organizational_unit
+      type: uuid
+    - {lenght: 255, name: product_code, type: varchar}
+    name: sub_product_selection_prices
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: supplier}
+      name: supplier
+      notnull: 1
+      type: uuid
+    - {name: day, notnull: 1, type: integer}
+    - {name: percent_value, notnull: 1, type: numeric}
+    name: supplier_discounts
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - {lenght: 255, name: company, type: varchar}
+    - {lenght: 255, name: email, type: varchar}
+    - {lenght: 255, name: firstname, type: varchar}
+    - {lenght: 255, name: password_hash, type: varchar}
+    - {lenght: 255, name: password_salt, type: varchar}
+    - {lenght: 255, name: surname, type: varchar}
+    - {default: '10.00', name: commission_percent, type: numeric}
+    - {name: last_payment, type: time}
+    - {lenght: 255, name: ap_id, type: varchar}
+    name: referral_partner
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - foreign: {refcolumn: id, reftable: referral_partner}
+      name: referral_partner
+      type: uuid
+    - {lenght: 255, name: country_prefix, type: varchar}
+    name: referral_partner_phones
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    name: payment_service_profiles
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: payment_service_profiles}
+      name: payment_serv_prof
+      type: uuid
+    - {lenght: 255, name: merchant_key, type: varchar}
+    - {lenght: 255, name: merchant_name, type: varchar}
+    - {lenght: 255, name: merchant_site_id, type: varchar}
+    - {name: service_type, type: integer}
+    - {lenght: 1024, name: device_url, type: varchar}
+    name: payment_service_profile_configs
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    name: event
+    type: createtable
+  - columns:
+    - {tpl: tpl_min_client_ref}
+    - foreign: {refcolumn: id, reftable: event}
+      name: event
+      notnull: 1
+      type: uuid
+    - {lenght: 255, name: external_id, type: varchar}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      type: uuid
+    name: event_categories
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: price_group
+      type: uuid
+    name: customer_groups
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - {name: birthday, type: time}
+    - {name: gender, type: integer}
+    - {lenght: 255, name: lastname, type: varchar}
+    - {lenght: 255, name: email, type: varchar}
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: address_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: customer_groups}
+      name: customer_group
+      type: uuid
+    - {name: loyalty_reward_points, type: numeric}
+    - {lenght: 255, name: phone, type: varchar}
+    - {lenght: 255, name: sugar_crm_id, type: varchar}
+    - {lenght: 255, name: company, type: varchar}
+    name: customer
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: customer}
+      name: customer
+      notnull: 1
+      type: uuid
+    - {name: date, type: time}
+    - {lenght: 255, name: text, notnull: 1, type: varchar}
+    - {lenght: 255, name: creator_name, type: varchar}
+    name: customer_customer_informations
+    type: createtable
+  - columns:
+    - {tpl: tpl_full}
+    - foreign: {refcolumn: id, reftable: customer}
+      name: customer
+      notnull: 1
+      type: uuid
+    - {lenght: 255, name: type, type: varchar}
+    name: customer_cards
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    name: tags
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: customer}
+      name: supplier
+      notnull: 1
+      type: uuid
+    - {lenght: 255, name: order_number, notnull: 1, type: varchar}
+    - {name: box_size, notnull: 1, type: numeric}
+    - {lenght: '19,4', name: price, notnull: 1, type: decimal}
+    - {lenght: 255, name: box_description, type: varchar}
+    name: supplier_item_prices
+    type: createtable
+  - columns:
+    - {tpl: tpl_min_client_ref}
+    - {default: 0, name: years, notnull: 1, type: integer}
+    - {default: 0, name: months, notnull: 1, type: integer}
+    - {default: 0, name: weeks, notnull: 1, type: integer}
+    - {default: 0, name: days, notnull: 1, type: integer}
+    - {default: 0, name: hours, notnull: 1, type: integer}
+    - {default: 0, name: minutes, notnull: 1, type: integer}
+    - {default: 0, name: seconds, notnull: 1, type: integer}
+    name: time_period
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - {name: order_quantity, type: numeric}
+    - {name: delivery_quantity, type: numeric}
+    - {lenght: 255, name: order_quantity_unit, type: varchar}
+    - {lenght: 255, name: delivery_quantity_unit, type: varchar}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - {lenght: 255, name: supplier_item_number, type: varchar}
+    - {lenght: 255, name: buyer_item_number, type: varchar}
+    - {lenght: 255, name: name, type: varchar}
+    - {lenght: 255, name: color, type: varchar}
+    - {lenght: 255, name: SIZE, type: varchar}
+    - {lenght: 255, name: code, type: varchar}
+    - {lenght: 255, name: batch, type: varchar}
+    - {lenght: 255, name: part_delivery, type: varchar}
+    - {name: best_before_date, type: time}
+    - {name: container_quantity, type: numeric}
+    - {name: delivery_container, type: numeric}
+    name: dispatch_item
+    type: createtable
+  - columns:
+    - {tpl: tpl_min_client_ref}
+    - {name: product_amount_greater, type: uuid}
+    - {name: product_amount_greater_quantity, type: numeric}
+    - {name: tag_amount_gr, type: uuid}
+    - {name: tag_amount_gr_qty, type: numeric}
+    - {name: tag_value_gr, type: uuid}
+    - {name: tag_value_gr_qty, type: numeric}
+    - {name: tag_amount_eq, type: uuid}
+    - {name: tag_amount_eq_qty, type: numeric}
+    - {name: product_amount_eq, type: uuid}
+    - {name: product_amount_eq_qty, type: numeric}
+    - {lenght: 255, name: code, type: varchar}
+    - {name: min_total, type: numeric}
+    - {name: min_item_quantity, type: numeric}
+    - {name: valid_from, type: time}
+    - {name: valid_to, type: time}
+    - {name: time_from, type: time}
+    - {name: time_to, type: time}
+    name: promotion_action_trigger
+    type: createtable
+  - columns:
+    - {tpl: tpl_min_client_ref}
+    - {lenght: 255, name: code, type: varchar}
+    - {lenght: 255, name: print_text, type: varchar}
+    - {lenght: 255, name: print_type, type: varchar}
+    - {name: encash_daysafter_purchase_from, type: integer}
+    - {name: encash_daysafter_purchase_to, type: integer}
+    - {lenght: 255, name: encash_type, type: varchar}
+    - {name: valid_from, type: time}
+    - {name: valid_to, type: time}
+    name: promotion_action_settings
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {lenght: 255, name: iso_code, type: varchar}
+    name: language
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - {lenght: 255, name: TYPE, notnull: 1, type: varchar}
+    - {name: text, type: text}
+    - foreign: {refcolumn: id, reftable: language}
+      name: language
+      type: uuid
+    name: product_product_texts
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: price_group
+      type: uuid
+    - {name: valid_from, type: time}
+    - {name: value, notnull: 1, type: numeric}
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      type: uuid
+    - {lenght: 255, name: product_code, notnull: 1, type: varchar}
+    name: product_prices
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {name: TYPE, type: integer}
+    - {default: 0, lenght: 1, name: requires_serial_number, type: bit}
+    - foreign: {refcolumn: id, reftable: producer}
+      name: producer
+      type: uuid
+    - {default: 0, lenght: 1, name: denomination_input, notnull: 1, type: bit}
+    name: account
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - {default: uuid, name: secret, type: uuid}
+    name: api_application
+    type: createtable
+  - columns:
+    - {tpl: tpl_min_client_ref}
+    - {name: api_key, type: uuid}
+    - {lenght: 255, name: token, type: varchar}
+    - foreign: {refcolumn: id, reftable: api_application}
+      name: app_id
+      type: uuid
+    name: api_access
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {default: RECEIPT, lenght: 255, name: type, notnull: 1, type: varchar}
+    name: info_texts
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: tags}
+      name: tag
+      notnull: 1
+      type: uuid
+    - {default: '1.00', name: quantity, notnull: 1, type: numeric}
+    - {name: position, type: integer}
+    name: sub_product_selection
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - {name: container_amount, notnull: 1, type: numeric}
+    - {lenght: 255, name: number, notnull: 1, type: varchar}
+    constraints:
+    - name: sub_product_selection
+      primarykey: [product, container_amount, number]
+    name: product_product_codes
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: info_texts}
+      name: info_text
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: product_product_codes
+      primarykey: [product, info_text]
+    name: product_info_texts
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: sub_product_selection}
+      name: sub_product_selection
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: product_info_texts
+      primarykey: [product, sub_product_selection]
+    name: product_sub_product_selections
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: subproduct_relation}
+      name: subproduct_relation
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: product_sub_product_selections
+      primarykey: [product, subproduct_relation]
+    name: product_subproduct_relations
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: supplier_item_prices}
+      name: supplier_item_price
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: product_subproduct_relations
+      primarykey: [product, supplier_item_price]
+    name: product_supplier_item_price
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: tags}
+      name: tag
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: product_tags
+      primarykey: [product, tag]
+    name: product_tags
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {lenght: 512, name: description, type: varchar}
+    - {name: last_clean_up, type: time}
+    name: assortment
+    type: createtable
+  - columns:
+    - {tpl: tpl_simple}
+    - foreign: {refcolumn: id, reftable: assortment}
+      name: assortment
+      notnull: 1
+      type: uuid
+    - {name: sale_check_month_period, notnull: 1, type: bigint}
+    - {name: sale_check_limit, notnull: 1, type: bigint}
+    - {lenght: 255, name: non_stock_mode, notnull: 1, type: varchar}
+    - {name: non_stock_transfer_assortment, type: uuid}
+    - {lenght: 255, name: stock_mode, notnull: 1, type: varchar}
+    - {name: stock_transfer_assortment, type: uuid}
+    - {name: excecution_month_interval, type: bigint}
+    - {name: last_excecution, type: time}
+    - {name: next_excecution, type: time}
+    - {default: SALE_QUANTITY, lenght: 255, name: adjustment_criteria, notnull: 1,
+      type: varchar}
+    - {default: '3', name: marginal_income_check_month_period, type: bigint}
+    - {default: '2.0000', lenght: '17,4', name: marginal_income_min_percent, notnull: 1,
+      type: decimal}
+    - {lenght: 255, name: marginal_income_type, type: varchar}
+    - {name: booking_days, type: bigint}
+    name: assortment_adjustment
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - {name: valid_from, type: time}
+    - {name: valid_to, type: time}
+    - foreign: {refcolumn: id, reftable: assortment}
+      name: assortment
+      type: uuid
+    name: assortment_validity
+    type: createtable
+  - columns:
+    - {tpl: tpl_simple_client_ref}
+    - {lenght: 255, name: category_name, type: varchar}
+    - {name: creation_time, type: time}
+    - foreign: {refcolumn: id, reftable: event}
+      name: event
+      type: uuid
+    - {name: expiration_time, type: time}
+    - {name: seats, type: bigint}
+    name: attendance
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {lenght: 255, name: login_code, type: varchar}
+    - {lenght: 255, name: surname, type: varchar}
+    - {name: background_color, type: integer}
+    name: employees
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: employees}
+      name: employee
+      notnull: 1
+      type: uuid
+    - {default: '', lenght: 255, name: permissions, notnull: 1, type: varchar}
+    constraints:
+    - name: employee_permissions
+      primarykey: [employee, permissions]
+    name: employee_permissions
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: product}
+      name: filter_product
+      type: uuid
+    - foreign: {refcolumn: id, reftable: tags}
+      name: filter_tag
+      type: uuid
+    - foreign: {refcolumn: id, reftable: commodity_group}
+      name: filter_commodity_group
+      type: uuid
+    - {name: max_repeat_quantity, type: numeric}
+    - {name: calc_operand, type: numeric}
+    - {lenght: 255, name: calc_operator, type: varchar}
+    - {lenght: 255, name: type, type: varchar}
+    name: promotion_action_benefit
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {name: redemption_count, type: integer}
+    name: promotion
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {name: settings, type: bigint}
+    - {lenght: 255, name: system, notnull: 1, type: varchar}
+    - {name: benefit, type: bigint}
+    name: promotion_action
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: promotion_action}
+      name: promotion_action
+      notnull: 1
+      type: uuid
+    - {name: triggers, notnull: 1, type: bigint}
+    constraints:
+    - name: promotion_action_triggers
+      primarykey: [promotion_action, triggers]
+    name: promotion_action_triggers
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: promotion_action_settings}
+      name: promo_action_stgs
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: orgs
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: promotion_action_settings_orgs
+      primarykey: [promo_action_stgs, orgs]
+    name: promotion_action_settings_orgs
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: promotion_action_trigger}
+      name: promo_action_tr
+      notnull: 1
+      type: uuid
+    - {default: '0', name: calendar_days, notnull: 1, type: integer}
+    constraints:
+    - name: promotion_action_trigger_calendar_days
+      primarykey: [promo_action_tr, calendar_days]
+    name: promo_action_tr_calendar_days
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: promotion_action_trigger}
+      name: promo_action_tr
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: customer_groups}
+      name: customer_groups
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: promotion_action_trigger_customer_groups
+      primarykey: [promo_action_tr, customer_groups]
+    name: promotion_action_trigger_customer_groups
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: promotion_action_trigger}
+      name: promo_action_tr
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: customer}
+      name: customer
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: promotion_action_trigger_customers
+      primarykey: [promo_action_tr, customer]
+    name: promotion_action_trigger_customers
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: promotion_action_trigger}
+      name: promo_action_tr
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: promotion_action_trigger_orgs
+      primarykey: [promo_action_tr, org]
+    name: promotion_action_trigger_orgs
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: promotion_action_trigger}
+      name: promo_action_tr
+      notnull: 1
+      type: uuid
+    - {default: '0', name: week_days, notnull: 1, type: integer}
+    constraints:
+    - name: promotion_action_trigger_week_days
+      primarykey: [promo_action_tr, week_days]
+    name: promotion_action_trigger_week_days
+    type: createtable
+  - columns:
+    - {tpl: tpl_simple}
+    - {lenght: 50, name: cent_name, type: varchar}
+    - {name: decimal_places, notnull: 1, type: integer}
+    - {name: currency_key, type: varchar, lenght: 10}
+    - {name: symbol, type: varchar, lenght: 10}
+    name: currencies
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: currencies}
+      name: currency
+      notnull: 1
+      type: uuid
+    - {lenght: 255, name: name, type: varchar}
+    - {default: '0.00', name: nominal_value, notnull: 1, type: numeric}
+    - {default: '', lenght: 255, name: type, notnull: 1, type: varchar}
+    - {lenght: 1, name: visible, notnull: 1, type: bit}
+    constraints:
+    - name: currency_denominations
+      primarykey: [nominal_value, type, currency]
+    name: currency_denominations
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: currencies}
+      name: currency
+      notnull: 1
+      type: uuid
+    - {name: valid_from, notnull: 1, type: time}
+    - {lenght: '16,5', name: factor, notnull: 1, type: decimal}
+    constraints:
+    - name: currency_rates
+      primarykey: [currency, valid_from]
+    name: currency_rates
+    type: createtable
+  - columns:
+    - {tpl: tpl_simple_client_ref}
+    name: user_permissions
+    type: createtable
+  - columns:
+    - {tpl: tpl_simple_client_ref}
+    - foreign: {refcolumn: id, reftable: user_roles}
+      name: parent
+      type: uuid
+    name: user_roles
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: user_roles}
+      name: user_role
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: user_permissions}
+      name: user_permission
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: user_role_has_permissions
+      primarykey: [user_role, user_permission]
+    name: user_role_has_permissions
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {lenght: 255, name: surname, notnull: 1, type: varchar}
+    - {lenght: 255, name: email, notnull: 1, type: varchar}
+    - {lenght: 255, name: password_hash, notnull: 1, type: varchar}
+    - {lenght: 255, name: password_salt, notnull: 1, type: varchar}
+    - {lenght: 255, name: requested_email, notnull: 1, type: varchar}
+    - {default: 0, name: email_change_count, notnull: 1, type: smallint}
+    - {default: en_us, lenght: 5, name: locale, notnull: 1, type: character}
+    constraints:
+    - name: unique_users_email
+      unique: [email]
+    name: users
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: users}
+      name: '"user"'
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: user_orgs
+      primarykey: ['"user"', org]
+    name: user_orgs
+    type: createtable
+  - columns:
+    - foreign: {primarykey: 1, refcolumn: id, reftable: users}
+      name: '"user"'
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: user_roles}
+      name: user_role
+      notnull: 1
+      type: uuid
+    name: user_has_role
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {lenght: 100, name: main_feature, type: varchar}
+    - {default: current, name: start, notnull: 1, type: time}
+    - {lenght: 255, name: subscription_length, type: varchar}
+    - {lenght: 255, name: paypal_profile_id, type: varchar}
+    - {name: last_pay_reminder, type: time}
+    - {default: 1, name: enabled, notnull: 1, type: bit}
+    - {name: modification_restriction, type: time}
+    - {name: next_invoice, type: time}
+    name: subscriptions
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: users}
+      name: '"user"'
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: subscriptions}
+      name: subscription
+      notnull: 1
+      type: uuid
+    - {name: finished_time, type: time}
+    - {name: main_feature, type: smallint}
+    - {name: net_total, type: numeric}
+    - {name: request_time, type: time}
+    - {name: state, type: smallint}
+    - {name: tax, type: numeric}
+    - {lenght: 255, name: token, type: varchar}
+    - {lenght: 255, name: total, type: numeric}
+    - {lenght: 255, name: payment_type, type: varchar}
+    name: purchase
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {name: allowed_balance_difference, type: numeric}
+    - {lenght: 1, name: balance, notnull: 1, type: bit}
+    - {lenght: 1, name: cash_due, notnull: 1, type: bit}
+    - {lenght: 255, name: service_parameter, type: varchar}
+    - {name: service_processing_mode, type: integer}
+    - {name: service_type, type: integer}
+    - foreign: {refcolumn: id, reftable: currencies}
+      name: currency
+      type: uuid
+    - {lenght: 1, name: use_cash_drawer, notnull: 1, type: bit}
+    - {default: 0, lenght: 1, name: denominated_balance, type: bit}
+    - {default: 0, name: number_value, type: bigint}
+    - {name: no_signature_approval_limit, type: numeric}
+    - {default: 1, lenght: 1, name: auto_finalize_transactions, notnull: 1, type: bit}
+    - {default: 0, name: transaction_receipts, notnull: 1, type: integer}
+    - {default: 0, name: receipt_print_copies, type: integer}
+    - {default: NONE, lenght: 255, name: origin_controlling, notnull: 1, type: varchar}
+    - {default: 0, lenght: 1, name: force_print, notnull: 1, type: bit}
+    - {default: 0, lenght: 1, name: force_customer_number, notnull: 1, type: bit}
+    name: payment_method
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {lenght: 255, name: distributor_code, type: varchar}
+    - {lenght: 255, name: friendsbonus_identification, type: varchar}
+    - {lenght: 255, name: friendsbonus_secret, type: varchar}
+    - {lenght: 255, name: secret, type: varchar}
+    - {lenght: 255, name: system_hash, type: varchar}
+    - foreign: {refcolumn: id, reftable: customer_groups}
+      name: default_customer_group
+      type: uuid
+    - foreign: {refcolumn: id, reftable: product}
+      name: default_payment_method
+      type: uuid
+    - foreign: {refcolumn: id, reftable: customer_groups}
+      name: friendsbonus_customer_group
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: warehouse
+      type: uuid
+    - foreign: {refcolumn: id, reftable: language}
+      name: language
+      type: uuid
+    - {lenght: 255, name: last_receipt_number, type: varchar}
+    - {name: lastzcount, type: bigint}
+    name: pos
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: buyer_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: delivery_address_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: final_recipient_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: supplier_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: transport_service_provider_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: invoice_recipient_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: users}
+      name: booked_by
+      type: uuid
+    - foreign: {refcolumn: id, reftable: users}
+      name: created_by
+      type: uuid
+    - foreign: {refcolumn: id, reftable: supplier}
+      name: supplier
+      type: uuid
+    - foreign: {refcolumn: id, reftable: customer}
+      name: customer
+      type: uuid
+    - foreign: {refcolumn: id, reftable: pos}
+      name: pos
+      type: uuid
+    - {name: source, type: uuid}
+    - {name: target, type: uuid}
+    - {name: booking_time, type: time}
+    - {name: create_time, type: time}
+    - {name: delivery_date, type: time}
+    - {name: shipping_date, type: time}
+    - {default: 0, name: positions, type: integer}
+    name: dispatch_notification
+    type: createtable
+  - columns:
+    - {tpl: tpl_min_client_ref}
+    - foreign: {refcolumn: id, reftable: dispatch_notification}
+      name: dispatch_notification
+      type: uuid
+    - {name: dispatch_position, type: integer}
+    - {lenght: 255, name: packaging, type: varchar}
+    - {lenght: 255, name: shipping_unit_numer, type: varchar}
+    - {lenght: 255, name: piece_of, type: varchar}
+    - {name: gross_volume, type: numeric}
+    - {lenght: 255, name: volume_unit, type: varchar}
+    - {name: gross_weight, type: numeric}
+    - {lenght: 255, name: weight_unit, type: varchar}
+    - {lenght: 255, name: box_pieces, type: varchar}
+    - {lenght: 255, name: box_piece_type, type: varchar}
+    name: dispatch_container
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: dispatch_container}
+      name: dispatch_notification
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: dispatch_item}
+      name: items
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: dispatch_container_items
+      primarykey: [dispatch_notification, items]
+    name: dispatch_container_items
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    name: economic_zone
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {name: finish_time, type: time}
+    - {name: printed_page_content, type: text}
+    - {lenght: 255, name: printed_page_type, type: varchar}
+    - {name: receipt_count, type: bigint}
+    - {name: zcount, type: bigint}
+    - foreign: {refcolumn: id, reftable: pos}
+      name: pos
+      notnull: 1
+      type: uuid
+    name: end_of_day_statement
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: employees}
+      name: employee
+      type: uuid
+    - foreign: {refcolumn: id, reftable: currencies}
+      name: currency
+      type: uuid
+    - foreign: {refcolumn: id, reftable: customer}
+      name: customer
+      type: uuid
+    - foreign: {refcolumn: id, reftable: customer_groups}
+      name: customer_group
+      type: uuid
+    - foreign: {refcolumn: id, reftable: pos}
+      name: pos
+      type: uuid
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: price_group
+      type: uuid
+    - {name: z_count, type: bigint}
+    - {name: create_time, type: time}
+    - {name: finish_time, type: time}
+    - {name: gross_total_amount, type: numeric}
+    - {name: modified_time, type: time}
+    - {name: net_total_amount, type: numeric}
+    - {lenght: 255, name: order_number, type: varchar}
+    - {name: tax_amount, type: numeric}
+    - {lenght: 1, name: voided, notnull: 1, type: bit}
+    - {default: '0.00', name: receipt_discount_amount, notnull: 1, type: numeric}
+    - {default: '0.00', name: receipt_discount_gross_amount, notnull: 1, type: numeric}
+    - {default: '0.00', name: receipt_discount_net_amount, notnull: 1, type: numeric}
+    - {name: gross_revenue_amount, type: numeric}
+    - {name: net_revenue_amount, type: numeric}
+    name: receipt
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: account}
+      name: account
+      type: uuid
+    - foreign: {refcolumn: id, reftable: employees}
+      name: employee
+      type: uuid
+    - foreign: {refcolumn: id, reftable: pos}
+      name: pos
+      type: uuid
+    - foreign: {refcolumn: id, reftable: receipt}
+      name: receipt
+      type: uuid
+    - {name: amount, type: numeric}
+    - {name: booking_time, type: time}
+    - {name: receipt_index, notnull: 1, type: integer}
+    name: account_transaction
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: account_transaction}
+      name: account_transaction
+      type: uuid
+    - {lenght: 255, name: info_texts, type: varchar}
+    - {default: 0, name: info_texts_key, notnull: 1, type: integer}
+    constraints:
+    - name: account_transaction_info_texts
+      primarykey: [account_transaction, info_texts_key]
+    name: account_transaction_info_texts
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    name: entry_gate
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: client}
+      name: franchisee
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: purchase_price_group
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: selling_price_group
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: assortment}
+      name: assortment
+      type: uuid
+    - foreign: {refcolumn: id, reftable: language}
+      name: language
+      type: uuid
+    - {name: created_on, type: time}
+    name: franchise_relationship
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: client}
+      name: franchisor
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: client}
+      name: franchisee
+      notnull: 1
+      type: uuid
+    - {default: 0, lenght: 1, name: locked, notnull: 1, type: bit}
+    - {name: created_on, type: time}
+    - {lenght: 255, name: franchisee_name, type: varchar}
+    name: franchise_relationship_request
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: users}
+      name: '"user"'
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: opening_profiles}
+      name: opening_profile
+      notnull: 1
+      type: uuid
+    - {lenght: 255, name: inventory_procedure, type: varchar}
+    - {name: process_time, type: time}
+    - {default: 0, lenght: 1, name: one_commodity_group_per_list, type: bit}
+    - {default: 0, name: max_products_per_list, type: integer}
+    - {default: 0, lenght: 1, name: automatic_booking, type: bit}
+    - {default: 0, name: automatic_booking_days, type: integer}
+    name: inventory_processes
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: inventory_processes}
+      name: inventory_process
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: inventory_process_orgs
+      primarykey: [inventory_process, org]
+    name: inventory_process_orgs
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: users}
+      name: '"user"'
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: pos}
+      name: pos
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: inventory_processes}
+      name: inventory_process
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: employees}
+      name: employee
+      notnull: 1
+      type: uuid
+    - {name: modified_time, type: time}
+    - {name: finish_time, type: time}
+    - {name: booking_time, type: time}
+    name: inventory_receipt
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {name: nominal_goods, type: numeric}
+    - {name: actual_goods, type: numeric}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: inventory_receipt}
+      name: receipt
+      notnull: 1
+      type: uuid
+    name: inventory_item
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    name: item_sequence
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    name: login_ticket
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {name: target, type: uuid}
+    - {name: source, type: uuid}
+    - foreign: {refcolumn: id, reftable: supplier}
+      name: supplier
+      type: uuid
+    - {default: 0, lenght: 1, name: load_short_stocks, type: bit}
+    name: stock_order_template
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: product_listed_orgs
+      primarykey: [product, org]
+    name: product_listed_orgs
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: payment_method}
+      name: payment_method
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: info_texts}
+      name: receipt_info_texts
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: payment_method_receipt_info_texts
+      primarykey: [payment_method, receipt_info_texts]
+    name: payment_method_receipt_info_texts
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: employees}
+      name: employee
+      type: uuid
+    - foreign: {refcolumn: id, reftable: currencies}
+      name: currency
+      type: uuid
+    - foreign: {refcolumn: id, reftable: payment_method}
+      name: payment_method
+      type: uuid
+    - foreign: {refcolumn: id, reftable: pos}
+      name: pos
+      type: uuid
+    - foreign: {refcolumn: id, reftable: receipt}
+      name: receipt
+      type: uuid
+    - {name: amount, type: numeric}
+    - {lenght: 255, name: cancel_transaction_id, type: varchar}
+    - {name: credit, type: numeric}
+    - {name: input_amount, type: numeric}
+    - {name: receipt_index, notnull: 1, type: integer}
+    - {name: rounding_error, type: numeric}
+    - {lenght: 255, name: transaction_id, type: varchar}
+    - {name: transaction_time, type: time}
+    - {lenght: 255, name: transaction_token, type: varchar}
+    - {lenght: 255, name: transport_key, type: varchar}
+    - {lenght: 255, name: card_holder, type: varchar}
+    - {lenght: 255, name: card_number, type: varchar}
+    - {name: pre_auth_amount, type: numeric}
+    - {name: post_auth_amount, type: numeric}
+    - {default: 1, lenght: 1, name: finalized, notnull: 1, type: bit}
+    name: payment
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {name: value, type: numeric}
+    name: prepaid_card
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: pos}
+      name: pos
+      type: uuid
+    - foreign: {refcolumn: id, reftable: employees}
+      name: employee
+      type: uuid
+    - foreign: {refcolumn: id, reftable: account}
+      name: account
+      type: uuid
+    - {lenght: 1, name: voided, notnull: 1, type: bit}
+    - {name: amount, type: numeric}
+    - {name: booking_time, type: time}
+    - {lenght: 255, name: receipt_number, type: varchar}
+    name: prepaid_card_transaction
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      type: uuid
+    - foreign: {refcolumn: id, reftable: assortment}
+      name: assortment
+      type: uuid
+    - foreign: {refcolumn: id, reftable: commodity_group}
+      name: commodity_group
+      type: uuid
+    - foreign: {refcolumn: id, reftable: customer_groups}
+      name: customer_group
+      type: uuid
+    - foreign: {refcolumn: id, reftable: price_group}
+      name: price_group
+      type: uuid
+    - foreign: {refcolumn: id, reftable: tags}
+      name: tag
+      type: uuid
+    - {name: minimum_amount, type: numeric}
+    - {name: price_operand, type: numeric}
+    - {lenght: 255, name: price_operator, type: varchar}
+    - {name: interval_parameter, type: integer}
+    - {lenght: 255, name: interval_type, type: varchar}
+    - {name: valid_to, type: time}
+    - {name: valid_from, type: time}
+    - {name: time_to, type: time}
+    - {name: time_from, type: time}
+    name: price_rule
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: purchase}
+      name: purchase
+      notnull: 1
+      type: uuid
+    - {default: '', lenght: 255, name: features, notnull: 1, type: varchar}
+    constraints:
+    - name: purchase_features
+      primarykey: [purchase, features]
+    name: purchase_features
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: purchase}
+      name: purchase
+      notnull: 1
+      type: uuid
+    - {name: unit_amounts, type: integer}
+    - {default: '0', name: unit_amounts_key, notnull: 1, type: integer}
+    constraints:
+    - name: purchase_unit_amounts
+      primarykey: [purchase, unit_amounts_key]
+    name: purchase_unit_amounts
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: receipt}
+      name: receipt
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: promotion}
+      name: promotion
+      type: uuid
+    - {lenght: 1, name: redeemed, type: bit}
+    - {lenght: 1, name: generated, type: bit}
+    name: promotion_position
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: receipt}
+      name: receipt
+      notnull: 1
+      type: uuid
+    - {name: discount_tax_payments, type: uuid}
+    constraints:
+    - name: receipt_discount_tax_payments
+      primarykey: [receipt, discount_tax_payments]
+    name: receipt_discount_tax_payments
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: receipt}
+      name: receipt
+      notnull: 1
+      type: uuid
+    - {lenght: 255, name: info_texts, type: varchar}
+    - {default: 0, name: info_texts_key, notnull: 1, type: integer}
+    constraints:
+    - name: receipt_info_texts
+      primarykey: [receipt, info_texts_key]
+    name: receipt_info_texts
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: economic_zone}
+      name: economic_zone
+      type: uuid
+    - {lenght: 1, name: included, notnull: 1, type: bit}
+    name: sales_tax
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - {name: amount, type: numeric}
+    - {name: current_tax_rate, type: numeric}
+    - foreign: {refcolumn: id, reftable: sales_tax}
+      name: sales_tax
+      type: uuid
+    name: tax_payments
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: receipt}
+      name: receipt
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: tax_payments}
+      name: tax_payment
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: receipt_tax_payments
+      primarykey: [receipt, tax_payment]
+    name: receipt_tax_payments
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: client}
+      name: referral_partner
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: client}
+      name: referrals
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: referral_partner_referrals
+      primarykey: [referral_partner, referrals]
+    name: referral_partner_referrals
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {default: '0.00', name: default_value, notnull: 1, type: numeric}
+    name: revenue_destination
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: receipt}
+      name: receipt
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      type: uuid
+    - foreign: {refcolumn: id, reftable: employees}
+      name: employee
+      type: uuid
+    - foreign: {refcolumn: id, reftable: commodity_group}
+      name: commodity_group
+      type: uuid
+    - foreign: {refcolumn: id, reftable: item_sequence}
+      name: item_sequence
+      type: uuid
+    - foreign: {refcolumn: id, reftable: pos}
+      name: pos
+      type: uuid
+    - foreign: {refcolumn: id, reftable: sector}
+      name: sector
+      type: uuid
+    - {name: base_item_price, type: numeric}
+    - {name: booking_time, type: time}
+    - {name: gross_item_price, type: numeric}
+    - {name: item_number, type: integer}
+    - {name: item_price, type: numeric}
+    - {lenght: 1, name: manual_price, notnull: 1, type: bit}
+    - {name: net_item_price, type: numeric}
+    - {lenght: '18,3', name: quantity, type: decimal}
+    - {name: receipt_index, notnull: 1, type: integer}
+    - {lenght: 255, name: receipt_number, type: varchar}
+    - {default: '0.0000', lenght: '17,4', name: purchase_price, notnull: 1, type: decimal}
+    - {default: '0.0000', lenght: '17,4', name: cost, notnull: 1, type: decimal}
+    - {default: 0, name: set_type, notnull: 1, type: integer}
+    - {default: 0, name: receipt_indent, notnull: 1, type: integer}
+    name: sales
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: sales}
+      name: sale
+      notnull: 1
+      type: uuid
+    - {lenght: 255, name: info_texts, type: varchar}
+    - {default: 0, name: info_texts_key, notnull: 1, type: integer}
+    name: sale_info_texts
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: sales}
+      name: sale
+      notnull: 1
+      type: uuid
+    - {lenght: 255, name: serial_numbers, type: varchar}
+    name: sale_serial_numbers
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: sales_tax}
+      name: sales_tax
+      notnull: 1
+      type: uuid
+    - {lenght: '15,6', name: percentage, notnull: 1, type: decimal}
+    - {name: valid_from, notnull: 1, type: time}
+    constraints:
+    - name: sales_tax_rates
+      primarykey: [sales_tax, percentage, valid_from]
+    name: sales_tax_rates
+    type: createtable
+  - columns:
+    - {tpl: tpl_minimal}
+    - foreign: {refcolumn: id, reftable: sales}
+      name: sale
+      notnull: 1
+      type: uuid
+    - {name: tax_payments, type: bigint}
+    name: sale_tax_payments
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: sector}
+      name: sector
+      notnull: 1
+      type: uuid
+    - {name: revenue_shares, type: numeric}
+    - foreign: {refcolumn: id, reftable: revenue_destination}
+      name: revenue_shares_key
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: sector_revenue_shares
+      primarykey: [sector, revenue_shares_key]
+    name: sector_revenue_shares
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: sector}
+      name: sector
+      type: uuid
+    - {name: tax_index, type: integer}
+    - foreign: {refcolumn: id, reftable: sales_tax}
+      name: tax
+      notnull: 1
+      type: uuid
+    constraints:
+    - name: sector_tax_items
+      primarykey: [sector, tax]
+    name: sector_tax_items
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {name: target, type: uuid}
+    - {name: source, type: uuid}
+    - {name: supplier, type: uuid}
+    - {name: booked_by, type: uuid}
+    - {name: created_by, type: uuid}
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: transport_service_provider_information
+      type: uuid
+    - {name: customer, type: uuid}
+    - {name: pos, type: uuid}
+    - {name: booking_time, type: time}
+    - {name: currency, type: character}
+    - {name: pick_up_date, type: time}
+    - {name: required_from, type: time}
+    - {name: required_to, type: time}
+    - {lenght: 255, name: special_offer_code, type: varchar}
+    - {name: buyer_information, type: bigint}
+    - {name: delivery_address_information, type: bigint}
+    - {name: final_recipient_information, type: bigint}
+    - {name: supplier_information, type: bigint}
+    - {name: invoice_recipient_information, type: bigint}
+    - {name: auto_finalization, type: time}
+    - {name: pos_finalization_time, type: time}
+    - {name: dispatch_notification_creation_time, type: time}
+    - {name: stock_receipt_creation_time, type: time}
+    - {name: return_creation_time, type: time}
+    - {name: stock_receipt_finalization_time, type: time}
+    - {default: 0, lenght: 1, name: auto_send, notnull: 1, type: bit}
+    - {default: 0, lenght: 1, name: send, notnull: 1, type: bit}
+    - {name: deposit, type: numeric}
+    - {default: '0', name: positions, type: integer}
+    name: stock_orders
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {name: quantity, type: numeric}
+    - {lenght: '19,4', name: purchase_price, type: decimal}
+    - {name: sales_price, type: numeric}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      type: uuid
+    - foreign: {refcolumn: id, reftable: stock_orders}
+      name: stock_order
+      type: uuid
+    - {lenght: 255, name: supplier_item_number, type: varchar}
+    - {lenght: 255, name: product_number, type: varchar}
+    - {lenght: 255, name: color, type: varchar}
+    - {lenght: 255, name: SIZE, type: varchar}
+    - {lenght: 255, name: code, type: varchar}
+    - {name: desired_overall_quantity, type: numeric}
+    - {name: actual_overall_quantity, type: numeric}
+    - {name: container_quantity, type: numeric}
+    - {lenght: '17,4', name: item_price, type: decimal}
+    - {name: booked_quantity, type: numeric}
+    - {name: delivery_date, type: time}
+    - {default: '0.00', name: received_quantity, type: numeric}
+    - {name: item_index, type: integer}
+    name: stock_order_item
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: pos}
+      name: pos
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: target
+      type: uuid
+    - {lenght: 255, name: customer, type: varchar}
+    - {lenght: 255, name: customer_phone, type: varchar}
+    - {name: deposit, type: numeric}
+    - {name: finish_time, type: time}
+    - {name: pick_up_date, type: time}
+    - {default: '0', name: positions, type: integer}
+    - {default: 0, lenght: 1, name: assigned, notnull: 1, type: bit}
+    name: stock_order_requests
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: stock_order_requests}
+      name: order_request
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: supplier}
+      name: supplier
+      notnull: 1
+      type: uuid
+    - {name: quantity, type: numeric}
+    name: stock_order_request_item
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      notnull: 1
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: warehouse
+      notnull: 1
+      type: uuid
+    - {name: goods, type: numeric}
+    - {name: ordered_goods, type: numeric}
+    - {name: reorder_level, type: numeric}
+    - {name: max_level, type: numeric}
+    - {name: last_stock_decrease_time, type: time}
+    - {name: last_stock_increase_time, type: time}
+    - {name: last_stock_request_time, type: time}
+    - {name: last_stock_order_time, type: time}
+    - {name: last_inventory_time, type: time}
+    - {name: last_inventory_list_add_time, type: time}
+    - {default: '0.00000000', lenght: '13,8', name: average_purchase_price, notnull: 1,
+      type: decimal}
+    name: stock
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: pos}
+      name: pos
+      type: uuid
+    - foreign: {refcolumn: id, reftable: employees}
+      name: employee
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: target
+      type: uuid
+    - foreign: {refcolumn: id, reftable: users}
+      name: booked_by
+      type: uuid
+    - foreign: {refcolumn: id, reftable: supplier}
+      name: supplier
+      type: uuid
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: source
+      type: uuid
+    - foreign: {refcolumn: id, reftable: users}
+      name: created_by
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: buyer_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: delivery_address_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: final_recipient_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: supplier_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: transport_service_provider_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: address_information}
+      name: invoice_recipient_information
+      type: uuid
+    - foreign: {refcolumn: id, reftable: dispatch_notification}
+      name: dispatch_notification
+      type: uuid
+    - foreign: {refcolumn: id, reftable: stock_orders}
+      name: order_id
+      type: uuid
+    - foreign: {refcolumn: id, reftable: customer}
+      name: customer
+      type: uuid
+    - {name: arrival, type: time}
+    - {lenght: 255, name: order_number, type: varchar}
+    - {name: booking_time, type: time}
+    - {lenght: 255, name: description, type: varchar}
+    - {lenght: 255, name: transport_document_type, type: varchar}
+    - {lenght: 255, name: transport_document_number, type: varchar}
+    - {default: '0', name: positions, type: integer}
+    name: stock_receipt
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: product}
+      name: product
+      type: uuid
+    - foreign: {refcolumn: id, reftable: stock_receipt}
+      name: receipt
+      type: uuid
+    - {name: received_goods, type: numeric}
+    - {lenght: 255, name: supplier_item_number, type: varchar}
+    - {lenght: 255, name: buyer_item_number, type: varchar}
+    - {lenght: 255, name: color, type: varchar}
+    - {lenght: 255, name: size, type: varchar}
+    - {lenght: 255, name: code, type: varchar}
+    - {default: '0.00', name: expected_goods, type: numeric}
+    - {default: '0.00000', lenght: '16,5', name: item_price, type: decimal}
+    - {default: 0, lenght: 1, name: clear_ordered_goods, notnull: 1, type: bit}
+    name: stock_receipt_item
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: subscriptions}
+      name: subscription
+      notnull: 1
+      type: uuid
+    - {default: '', lenght: 255, name: additions, notnull: 1, type: varchar}
+    constraints:
+    - name: subscription_additions
+      primarykey: [subscription, additions]
+    name: subscription_additions
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: subscriptions}
+      name: subscription
+      notnull: 1
+      type: uuid
+    - {name: unit_amounts, type: integer}
+    - {default: '0', name: unit_amounts_key, notnull: 1, type: integer}
+    constraints:
+    - name: subscription_unit_amounts
+      primarykey: [subscription, unit_amounts_key]
+    name: subscription_unit_amounts
+    type: createtable
+  - columns:
+    - foreign: {refcolumn: id, reftable: ticket_validity_descriptions}
+      name: ticket_valid_descr
+      notnull: 1
+      type: uuid
+    - {name: entry_gates, notnull: 1, type: uuid}
+    constraints:
+    - name: ticket_valid_descr_entry_gates
+      primarykey: [ticket_valid_descr, entry_gates]
+    name: ticket_valid_descr_entry_gates
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - {lenght: 1, name: paid_time, type: bit}
+    name: time_tracking_entities
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: time_tracking_entities}
+      name: time_tracking_entity
+      type: uuid
+    - foreign: {refcolumn: id, reftable: employees}
+      name: employee
+      type: uuid
+    - {name: start, type: time}
+    - foreign: {refcolumn: id, reftable: organizational_unit}
+      name: org
+      type: uuid
+    name: time_tracking_entry
+    type: createtable
+  id: 001.01-maz
+- author: Mario Zieschang
+  entries:
+  - add:
+    - [Euro, cent, 3, EUR, "\u20AC"]
+    - [Dollar, Cent, 3, USD, $]
+    - [Swiss fran, Rappen, 2, CHF, CHF]
+    cols: [name, cent_name, decimal_places, currency_key, symbol]
+    name: currencies
+    type: insert
+  id: 001.02-maz
