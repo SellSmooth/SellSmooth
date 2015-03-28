@@ -1,4 +1,4 @@
-package SellSmooth::Plugins::Products;
+package SellSmooth::Plugins::Install;
 
 use strict;
 use warnings;
@@ -9,8 +9,9 @@ with 'SellSmooth::Plugin';
 
 debug __PACKAGE__;
 
-get '/' => sub {
-    template 'index';
+get '/install' => sub {
+
+    template 'install/index';
 };
 
 1;

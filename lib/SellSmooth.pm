@@ -11,7 +11,6 @@ use SellSmooth::Plugins;
 our $VERSION = '0.1.0';
 
 my $plugins = SellSmooth::Plugins->new();
-debug Dumper( $plugins->plugins() );
-load $_ foreach @{ $plugins->plugins() };
+load $_ foreach @{ $plugins->enabled() };
 
 1;

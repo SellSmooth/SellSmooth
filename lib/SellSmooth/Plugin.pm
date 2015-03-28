@@ -16,7 +16,23 @@ use strict;
 use warnings FATAL => 'all';
 use Moose::Role;
 
-has conf => ( is => 'ro' );
+has conf    => ( is => 'ro' );
+has enabled => ( is => 'rw' );
+
+=head1 SUBROUTINES/METHODS
+
+=head2 BUILD
+
+Run to check driver version with installed db driver.
+
+Creates changelog table if it's not existing.
+
+=cut
+
+sub BUILD {
+    my $self = shift;
+    $self->enabled( $self->conf()->{enabled} ? 1 : 0 );
+}
 
 1;    # End of SellSmooth::Plugin
 
