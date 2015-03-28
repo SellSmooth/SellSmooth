@@ -40,7 +40,7 @@
             <h3>Your application's environment</h3>
 
             <ul>
-                <li>Location: <code>/home/mziescha/Workspace/SellSmooth/SellSmooth/SS</code></li>
+                <li>Location: <code>/home/mziescha/Workspace/SellSmooth/SellSmooth</code></li>
                 <li>Template engine: <code>[% settings.template %]</code></li>
                 <li>Logger: <code>[% settings.logger %]</code></li>
                 <li>Environment: <code>[% settings.environment %]</code></li>
@@ -80,7 +80,7 @@
                 </tr>
                 <tr>
                     <td>Appdir</td>
-                    <td><tt>/home/mziescha/Workspace/SellSmooth/SellSmooth/SS</tt></td>
+                    <td><tt>/home/mziescha/Workspace/SellSmooth/SellSmooth</tt></td>
                 </tr>
                 <tr>
                     <td>Template engine</td>
@@ -128,7 +128,7 @@
               it's just here to help you get started. The template used to
               generate this content is located in
               <code>views/index.tt</code>.
-              You can add some routes to <tt>lib/SS.pm</tt>.
+              You can add some routes to <tt>lib/SellSmooth.pm</tt>.
               </p>
             </li>
 
