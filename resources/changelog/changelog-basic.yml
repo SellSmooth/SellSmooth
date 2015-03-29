@@ -1,0 +1,10 @@
+- author: Mario Zieschang
+  entries:
+  - add:
+    - [Euro, cent, 3, EUR, "\u20AC"]
+    - [Dollar, Cent, 3, USD, $]
+    - [Swiss fran, Rappen, 2, CHF, CHF]
+    cols: [name, cent_name, decimal_places, currency_key, symbol]
+    name: currencies
+    type: insert
+  id: 003.01-maz

@@ -37,6 +37,5 @@ templates:
     columns:
     - tpl : tpl_full
     - tpl : tpl_client
-changelogs:
-  - "init"
+changelogs: ["core", "base","basic"]
 
