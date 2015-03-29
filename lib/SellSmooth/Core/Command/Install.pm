@@ -1,4 +1,4 @@
-package SellSmooth::Core::Command;
+package SellSmooth::Core::Command::Install;
 
 =head1 NAME
 
@@ -6,58 +6,79 @@ SellSmooth::Core::Command - Command Line module for SellSmooth::Core
 
 =head1 VERSION
 
-Version 0.8.0
+Version 0.1.0
 
 =cut
 
-our $VERSION = '0.8.0';
+our $VERSION = '0.1.0';
 
 use strict;
 use warnings;
 use Data::Dumper;
-use DBI;
-use Pod::Usage;
-use Getopt::Long;
-use SellSmooth::Core::Command::Install;
+use Email::Valid;
+use MooseX::Types::Moose qw(Str Defined);
 
-# -----------------------------------------------
-# Preloaded methods go here.
-# -----------------------------------------------
-# Encapsulated class data.
-{
+use Moose;
 
-    sub _process_command_line {
-        my ( $self, %config ) = @_;
-        $config{'argv'} = [@ARGV];
-        GetOptions(
+has conf => ( isa => 'Defined', is => 'ro', );
 
-            # without params
-            'i|install' => \$config{install},
-
-        );
-        return %config;
-    }
-}    ############# End of encapsulated class data.      ########################
+has email     => ( isa => 'Str', is => 'rw', );
+has firstname => ( isa => 'Str', is => 'rw', );
+has lastname  => ( isa => 'Str', is => 'rw', );
+has prefix     => ( isa => 'Str', is => 'rw', );
 
 =head2 run
 
-    Is called from the changelog-run in bin directory
+Is called from the changelog-run in bin directory
 
 =cut
 
 sub run {
-    my $self   = shift;
-    my %config = ();
-    %config = $self->_process_command_line(%config);
-    if ( $config{install} ) {
-        SellSmooth::Core::Command::Install->new( config => \%config )->run();
+    my ($self) = @_;
+    while (1) {
+        unless ( $self->email() ) {
+            print "Email: ";
+            my $tmp = <>;
+            chomp($tmp);
+            if ( !Email::Valid->address($tmp) ) {
+                print "No valid email!\n";
+                next;
+            }
+            $self->email($tmp);
+        }
+        unless ( $self->firstname() ) {
+            print "Firstname: ";
+            my $tmp = <>;
+            chomp($tmp);
+            $self->firstname($tmp);
+        }
+        unless ( $self->lastname() ) {
+            print "Lastname: ";
+            my $tmp = <>;
+            chomp($tmp);
+            $self->lastname($tmp);
+        }
+        unless ( $self->prefix() ) {
+            print "Table prefix: ";
+            my $tmp = <>;
+            chomp($tmp);
+            $self->prefix($tmp);
+        }
+        last;
     }
-    else { pod2usage( { -verbose => 1 } ); }
+
+    print 'Email:        ' . $self->email() . $/;
+    print 'Firstname:    ' . $self->firstname() . $/;
+    print 'Lastname:     ' . $self->lastname() . $/;
+    print 'Table prefix: ' . $self->prefix() . $/;
 }
+
+no Moose;
 
 1;
 
 __END__
+
 
 =head1 SYNOPSIS
 

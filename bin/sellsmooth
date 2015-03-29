@@ -1,63 +1,15 @@
-package SellSmooth::Core::Command;
+#!/usr/bin/perl -w
 
 =head1 NAME
 
-SellSmooth::Core::Command - Command Line module for SellSmooth::Core
-
-=head1 VERSION
-
-Version 0.8.0
+sellsmooth - Command Line module for SellSmooth
 
 =cut
 
-our $VERSION = '0.8.0';
-
-use strict;
-use warnings;
-use Data::Dumper;
-use DBI;
-use Pod::Usage;
-use Getopt::Long;
-use SellSmooth::Core::Command::Install;
-
-# -----------------------------------------------
-# Preloaded methods go here.
-# -----------------------------------------------
-# Encapsulated class data.
-{
-
-    sub _process_command_line {
-        my ( $self, %config ) = @_;
-        $config{'argv'} = [@ARGV];
-        GetOptions(
-
-            # without params
-            'i|install' => \$config{install},
-
-        );
-        return %config;
-    }
-}    ############# End of encapsulated class data.      ########################
-
-=head2 run
-
-    Is called from the changelog-run in bin directory
-
-=cut
-
-sub run {
-    my $self   = shift;
-    my %config = ();
-    %config = $self->_process_command_line(%config);
-    if ( $config{install} ) {
-        SellSmooth::Core::Command::Install->new( config => \%config )->run();
-    }
-    else { pod2usage( { -verbose => 1 } ); }
-}
-
-1;
-
-__END__
+use FindBin;
+use lib File::Spec->catfile( $FindBin::Bin, '..', 'lib' );
+use SellSmooth::Core::Command;
+SellSmooth::Core::Command->run;
 
 =head1 SYNOPSIS
 
@@ -81,21 +33,17 @@ __END__
 
 =over 4
 
-=item L<module::Starter>   The package from which the idea originated.
+=item L<DBIx::Admin::CreateTable>
+
+The package from which the idea originated.
 
 =back
 
 =head1 AUTHOR
 
-=over 4
-
 Mario Zieschang, C<< <mario.zieschang at combase.de> >>
 
-=back
-
 =head1 LICENSE AND COPYRIGHT
-
-=over 1
 
 Copyright 2015 Mario Zieschang.
 
@@ -115,7 +63,7 @@ by someone other than you, you are nevertheless required to ensure that
 your Modified Version complies with the requirements of this license.
 
 This license does not grant you the right to use any trademark, service
-mark, trade name, or logo of the Copyright Holder.
+mark, tradename, or logo of the Copyright Holder.
 
 This license includes the non-exclusive, worldwide, free-of-charge
 patent license to make, have made, use, offer to sell, sell, import and
@@ -134,7 +82,5 @@ YOUR LOCAL LAW. UNLESS REQUIRED BY LAW, NO COPYRIGHT HOLDER OR
 CONTRIBUTOR WILL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, OR
 CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THE PACKAGE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-=back
 
 =cut
