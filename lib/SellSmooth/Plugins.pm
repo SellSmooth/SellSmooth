@@ -11,19 +11,16 @@ use MooseX::Types::Moose qw(ArrayRef Str Defined);
 use MooseX::Types::LoadableClass qw(LoadableClass);
 use Method::Signatures::Simple;
 
-has plugins => ( default => sub { [] } );
+has plugins => ( default => sub { {} } );
 has enabled => ( default => sub { [] } );
 
-has plugin_files => ( is => 'rw', );
+has plugin_files => ( isa => 'ArrayRef', is => 'rw', );
+has plugin_name  => ( isa => 'Str',      is => 'rw', );
 
 has plugin_dir => (
-    isa     => 'Str',
-    default => sub { "$FindBin::Bin/../plugins.d" }
-);
-
-has plugin_name => (
     isa => 'Str',
-    is  => 'rw',
+
+    default => sub { File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d' ) }
 );
 
 has plugin_class => (
@@ -55,8 +52,8 @@ Creates changelog table if it's not existing.
 =cut
 
 sub BUILD {
-    my $self  = shift;
-    my @files = glob( $self->plugin_dir() . '/*.yml' );
+    my $self = shift;
+    my @files = glob( File::Spec->catfile( $self->plugin_dir(), '*.yml' ) );
     $self->plugin_files( \@files );
     foreach ( @{ $self->plugin_files() } ) {
         my $conf = LoadFile($_);
@@ -66,9 +63,14 @@ sub BUILD {
         $self->plugin_name( $conf->{name} );
         my $class = 'SellSmooth::Plugins::' . $conf->{name};
 
-        push( @{ $self->plugins() }, $self->plugin() );
+        $self->plugins()->{$_} = $self->plugin();
         push( @{ $self->enabled() }, $class );
     }
 }
 
+no Moose;
+
 1;
+
+__END__
+

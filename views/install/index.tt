@@ -1,147 +1,99 @@
+<section id="inner-headline">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1>Installationsassistent</h1>
+			<ul class="breadcrumb">
+				<li class="active"><a>Sprachauswahl</a></li>
+				<li><a>Lizenzvereinbarung</a></li>
+				<li><a>Systemkompatibilität</a></li>
+				<li><a>Datenbankkompatibilität</a></li>
+				<li><a>Shopeinstellungen</a></li>
+				<li><a>Systemkonfiguration</a></li>
+				<li><a>Installation</a> des Shops</li>
+				<li><a>Clienteinstellungen</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+</section>
+<section id="content">
+<div class="container">
+	<form action="/install/licence" method="get">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="contentTitle">
+					<h1>Sprachauswahl</h1>
+				</div>
+				<noscript>
+					<h4 class="errorBlock" style="margin-bottom:10px">
+						JavaScript muss in Ihrem Browser aktiviert sein, um SellSmooth zu installieren.	<a href="http://sellsmooth.org" target="_blank">
+							<img src="theme/img/help.png" style="height:16px;width:16px" />
+						</a>
+					</h4>
+				</noscript>
+				<h2>Herzlich Willkommen beim SellSmooth 1.6.0.14 Installationsassistenten</h2>
+				<p>SellSmooth lässt sich einfach und schnell installieren. In wenigen Momenten sind Sie Teil einer Gemeinschaft von über 200.000 Shopbesitzern. Sie sind gerade dabei, Ihren eigenen, einzigartigen Shop zu erstellen, den Sie täglich leicht verwalten können.</p>
+				<p>Falls Sie Hilfe benötigen, haben Sie folgende Möglichkeiten: Schauen Sie in <a href="http://doc.SellSmooth.com/display/PS16/SellSmooth+1.6+documentation" target="_blank">unsere Dokumentation</a> oder kontaktieren Sie unser Support-Team: +33 (0)1 40 18 30 04.</p>
 
-<!--
-    Credit goes to the Ruby on Rails team for this page
-    has been heavily based on the default Rails page that is
-    built with a scaffolded application.
-
-    Thanks a lot to them for their work.
-
-    See Ruby on Rails if you want a kickass framework in Ruby:
-    http://www.rubyonrails.org/
--->
-
-<div id="page">
-      <div id="sidebar">
-        <ul id="sidebar-items">
-          <li>
-            <h3>Join the community</h3>
-            <ul class="links">
-
-              <li><a href="http://perldancer.org/">PerlDancer</a></li>
-              <li><a href="http://twitter.com/PerlDancer/">Official Twitter</a></li>
-              <li><a href="https://github.com/PerlDancer/Dancer2/">GitHub Community</a></li>
-            </ul>
-          </li>
-
-          <li>
-            <h3>Browse the documentation</h3>
-
-            <ul class="links">
-              <li><a
-              href="https://metacpan.org/pod/Dancer2::Manual">Introduction</a></li>
-              <li><a href="https://metacpan.org/pod/Dancer2::Cookbook">Cookbook</a></li>
-              <li><a
-              href="https://metacpan.org/pod/Dancer2::Tutorial"
-              title="a tutorial to build a small blog engine with Dancer">Tutorial</a></li>
-            </ul>
-          </li>
-
-          <li>
-            <h3>Your application's environment</h3>
-
-            <ul>
-                <li>Location: <code>/home/mziescha/Workspace/SellSmooth/SellSmooth/SS</code></li>
-                <li>Template engine: <code>[% settings.template %]</code></li>
-                <li>Logger: <code>[% settings.logger %]</code></li>
-                <li>Environment: <code>[% settings.environment %]</code></li>
-            </ul>
-
-          </li>
-        </ul>
-
-      </div>
-
-      <div id="content">
-        <div id="header">
-          <h1>Perl is dancing</h1>
-          <h2>You&rsquo;ve joined the dance floor!</h2>
-        </div>
-
-        <div id="getting-started">
-          <h1>Getting started</h1>
-          <h2>Here&rsquo;s how to get dancing:</h2>
-
-          <h3><a href="#" id="about_env_link">About your application's environment</a></h3>
-
-          <div id="about-content" style="display: none;">
-            <table>
-                <tbody>
-                <tr>
-                    <td>Perl version</td>
-                    <td><tt>[% perl_version %]</tt></td>
-                </tr>
-                <tr>
-                    <td>Dancer2 version</td>
-                    <td><tt>[% dancer_version %]</tt></td>
-                </tr>
-                <tr>
-                    <td>Backend</td>
-                    <td><tt>[% settings.apphandler %]</tt></td>
-                </tr>
-                <tr>
-                    <td>Appdir</td>
-                    <td><tt>/home/mziescha/Workspace/SellSmooth/SellSmooth/SS</tt></td>
-                </tr>
-                <tr>
-                    <td>Template engine</td>
-                    <td><tt>[% settings.template %]</tt></td>
-                </tr>
-                <tr>
-                    <td>Logger engine</td>
-                    <td><tt>[% settings.logger %]</tt></td>
-                </tr>
-                <tr>
-                    <td>Running environment</td>
-                    <td><tt>[% settings.environment %]</tt></td>
-                </tr>
-                </tbody>
-            </table>
-          </div>
-
-    <script type="text/javascript">
-    $('#about_env_link').click(function() {
-        $('#about-content').slideToggle('fast', function() {
-            // ok
-        });
-        return false;
-    });
-    </script>
-
-
-          <ol>
-            <li>
-              <h2>Tune your application</h2>
-
-              <p>
-              Your application is configured via a global configuration file,
-              <tt>config.yml</tt> and an "environment" configuration file,
-              <tt>environments/development.yml</tt>. Edit those files if you
-              want to change the settings of your application.
-              </p>
-            </li>
-
-            <li>
-              <h2>Add your own routes</h2>
-
-              <p>
-              The default route that displays this page can be removed,
-              it's just here to help you get started. The template used to
-              generate this content is located in
-              <code>views/index.tt</code>.
-              You can add some routes to <tt>lib/SS.pm</tt>.
-              </p>
-            </li>
-
-            <li>
-                <h2>Enjoy web development again</h2>
-
-                <p>
-                Once you've made your changes, restart your standalone server
-                (bin/app.psgi) and you're ready to test your web application.
-                </p>
-            </li>
-
-          </ol>
-        </div>
-      </div>
-    </div>
+				<!-- List of languages -->
+				<h3>Installation fortführen in:</h3>
+				<select id="langList" name="language">
+					<option value="ca">
+					Català (Catalan)		</option>
+					<option value="de" selected="selected">
+					Deutsch (German)		</option>
+					<option value="en">
+					English (English)		</option>
+					<option value="es">
+					Español (Spanish)		</option>
+					<option value="fr">
+					Français (French)		</option>
+					<option value="qc">
+					Français CA (French)		</option>
+					<option value="id">
+					Indonesia (Indonesia)		</option>
+					<option value="it">
+					Italiano (Italian)		</option>
+					<option value="hu">
+					Magyar (Hungarian)		</option>
+					<option value="nl">
+					Nederlands (Dutch)		</option>
+					<option value="no">
+					Norsk (Norwegian)		</option>
+					<option value="pl">
+					Polski (Polish)		</option>
+					<option value="br">
+					Português (Brasil)		</option>
+					<option value="pt">
+					Português (Portuguese)		</option>
+					<option value="ro">
+					Română (Romanian)		</option>
+					<option value="sr">
+					Srpski (Serbian)		</option>
+					<option value="tr">
+					Türkçe (Turkish)		</option>
+					<option value="cs">
+					Čeština (Czech)		</option>
+					<option value="ru">
+					Русский (Russian)		</option>
+					<option value="mk">
+					македонски јазик (Macedonian)		</option>
+					<option value="he">
+					עברית (Hebrew)		</option>
+					<option value="fa">
+					پارسی (Persian)		</option>
+					<option value="bn">
+					বাংলা  (Bengali)		</option>
+					<option value="tw">
+					正體中文 (Traditional Chinese)		</option>
+					<option value="zh">
+					简体字 (Simplified Chinese)		</option>
+				</select>
+				<p>Die obige Sprachauswahl bezieht sich auf den Installationsassistenten. Sobald Ihr Shop installiert ist, können Sie aus 60 Sprachen Ihre Shopsprache wählen! </p>
+				<input type="submit" value="Weiter" />
+			</div>
+		</div>
+	</form>
+</div>
+</section>

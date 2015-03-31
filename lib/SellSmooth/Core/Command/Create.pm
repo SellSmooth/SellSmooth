@@ -1,8 +1,8 @@
-package SellSmooth::Core::Command::Install;
+package SellSmooth::Core::Command::Create;
 
 =head1 NAME
 
-SellSmooth::Core::Command - Command Line module for SellSmooth::Core
+SellSmooth::Core::Command::Create - Command Line module for SellSmooth::Core
 
 =head1 VERSION
 
@@ -17,15 +17,10 @@ use warnings;
 use Data::Dumper;
 use Email::Valid;
 use MooseX::Types::Moose qw(Str Defined);
-
 use Moose;
 
 has conf => ( isa => 'Defined', is => 'ro', );
-
-has email     => ( isa => 'Str', is => 'rw', );
-has firstname => ( isa => 'Str', is => 'rw', );
-has lastname  => ( isa => 'Str', is => 'rw', );
-has prefix     => ( isa => 'Str', is => 'rw', );
+has name => ( isa => 'Str',     is => 'rw', );
 
 =head2 run
 
@@ -36,41 +31,16 @@ Is called from the changelog-run in bin directory
 sub run {
     my ($self) = @_;
     while (1) {
-        unless ( $self->email() ) {
+        unless ( $self->name() ) {
             print "Email: ";
             my $tmp = <>;
             chomp($tmp);
-            if ( !Email::Valid->address($tmp) ) {
-                print "No valid email!\n";
-                next;
-            }
-            $self->email($tmp);
-        }
-        unless ( $self->firstname() ) {
-            print "Firstname: ";
-            my $tmp = <>;
-            chomp($tmp);
-            $self->firstname($tmp);
-        }
-        unless ( $self->lastname() ) {
-            print "Lastname: ";
-            my $tmp = <>;
-            chomp($tmp);
-            $self->lastname($tmp);
-        }
-        unless ( $self->prefix() ) {
-            print "Table prefix: ";
-            my $tmp = <>;
-            chomp($tmp);
-            $self->prefix($tmp);
+            $self->name($tmp);
         }
         last;
     }
 
-    print 'Email:        ' . $self->email() . $/;
-    print 'Firstname:    ' . $self->firstname() . $/;
-    print 'Lastname:     ' . $self->lastname() . $/;
-    print 'Table prefix: ' . $self->prefix() . $/;
+    print 'Shop name: ' . $self->email() . $/;
 }
 
 no Moose;
@@ -82,19 +52,19 @@ __END__
 
 =head1 SYNOPSIS
 
-	sellsmooth  [commands] [options]
+    sellsmooth  [commands] [options]
 
 =head1 OPTIONS
 
 =over 4
 
-	Commands:
-	-c, --client   : Will create a new client
+    Commands:
+    -c, --client   : Will create a new client
 
-	Options:
-	-u, --user        : User to connect with remote db
-	-p, --pass        : Pass for user to connect with remote db
-	-e, --email, -@   : Email of author of new file or driver
+    Options:
+    -u, --user        : User to connect with remote db
+    -p, --pass        : Pass for user to connect with remote db
+    -e, --email, -@   : Email of author of new file or driver
 
 =back
 

@@ -1,0 +1,85 @@
+<section id="inner-headline">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1>Installationsassistent</h1>
+			<ul class="breadcrumb">
+				<li class="active"><a>Sprachauswahl</a></li>
+				<li class="active"><a>Lizenzvereinbarung</a></li>
+				<li class="active"><a>Systemkompatibilität</a></li>
+				<li><a>Datenbankkompatibilität</a></li>
+				<li><a>Shopeinstellungen</a></li>
+				<li><a>Systemkonfiguration</a></li>
+				<li><a>Installation</a> des Shops</li>
+				<li><a>Clienteinstellungen</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+</section>
+<section id="content">
+<div class="container">
+	<form action="/install/db" method="get">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="contentTitle">
+					<h1>Systemkompatibilität</h1>
+				</div>
+				<noscript>
+					<h4 class="errorBlock" style="margin-bottom:10px">
+						JavaScript muss in Ihrem Browser aktiviert sein, um SellSmooth zu installieren.	<a href="http://sellsmooth.org" target="_blank">
+							<img src="theme/img/help.png" style="height:16px;width:16px" />
+						</a>
+					</h4>
+				</noscript>
+				<h2>Wir überprüfen derzeit die Kompatibilität von SellSmooth mit Ihrer Systemumgebung.</h2>
+				<p>Bei Fragen nutzen Sie bitte unsere <a href="http://doc.SellSmooth.com/display/PS16/SellSmooth+1.6+documentation" target="_blank">Dokumentation</a> oder <a href="http://www.SellSmooth.com/forums/" target="_blank">Community Forum</a>.</p>
+
+				<h3 class="okBlock">Die Kompatibilität von SellSmooth mit Ihrem System wurde überprüft!</h3>
+				<!-- Display tests results -->
+				<ul id="required">
+					<li class="title ok">Erforderliche PHP-Einstellungen</li>
+					<li class="required first ok">PHP 5.1.2 oder höher ist nicht aktiv			</li>
+					<li class="required  ok">Dateien können nicht hochgeladen werden			</li>
+					<li class="required  ok">Neue Dateien und Ordner können nicht erstellt werden			</li>
+					<li class="required  ok">GD library is not installed			</li>
+					<li class="required  ok">MySQL-Unterstützung ist nicht aktiviert			</li>
+					<li class="title ok">Dateien</li>
+					<li class="required first ok">Not all files were successfully uploaded on your server			</li>
+					<li class="title ok">Rechte für Dateien und Verzeichnisse</li>
+					<li class="required first ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/config/			</li>
+					<li class="required  ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/cache/			</li>
+					<li class="required  ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/log/			</li>
+					<li class="required  ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/img/			</li>
+					<li class="required  ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/mails/			</li>
+					<li class="required  ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/modules/			</li>
+					<li class="required  ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/themes/default-bootstrap/lang/			</li>
+					<li class="required  ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/themes/default-bootstrap/pdf/lang/			</li>
+					<li class="required  ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/themes/default-bootstrap/cache/			</li>
+					<li class="required  ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/translations/			</li>
+					<li class="required  ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/upload/			</li>
+					<li class="required  ok">ReKursiveSchreibrechte für Benutzer www-data bei ~/download/			</li>
+				</ul>
+				<ul id="optional">
+					<li class="title ok">Empfohlene PHP-Einstellungen</li>
+					<li class="required first ok">Externe URLs können nicht geöffnet werden			</li>
+					<li class="required  ok">PHP-Anweisung register_globals ist aktiviert			</li>
+					<li class="required  ok">GZIP-Komprimierung ist nicht aktiviert			</li>
+					<li class="required  ok">Mcrypt-Erweiterung ist nicht aktiviert			</li>
+					<li class="required  ok">Mbstring-Erweiterung ist nicht aktiviert			</li>
+					<li class="required  ok">PHP-Option magic quotes ist aktiviert			</li>
+					<li class="required  ok">Dom-Erweiterung ist nicht geladen			</li>
+					<li class="required  ok">PDO MySQL-Erweiterung ist nicht geladen			</li>
+				</ul>
+				<p><input class="button" value="Einstellungen aktualisieren " id="req_bt_refresh" type="submit"></p>
+				<input type="submit" value="Weiter" />
+			</div>
+		</div>
+	</form>
+</div>
+</section>
+
+
+
+
+	

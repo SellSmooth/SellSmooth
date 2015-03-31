@@ -9,8 +9,5 @@ with 'SellSmooth::Plugin';
 
 debug __PACKAGE__;
 
-get '/' => sub {
-    template 'index';
-};
 
 1;
