@@ -51,14 +51,16 @@
 						<label for="dbPassword">Datenbank Passwort </label>
 						<input class="text" size="10" id="dbPassword" name="dbPassword" value="" type="password">
 					</p>
-					<!--
+					
 					<p>
 						<label for="dbEngine">Datenbank</label>
 						<select id="dbEngine" name="dbEngine">
-							<option value="InnoDB" selected="selected">InnoDB</option>
-							<option value="MyISAM" >MyISAM</option>
+							<option value="Pg" selected="selected">Postgres</option>
+							<option value="MySQL" >MySQL</option>
+							<!--option value="oracle" >Oracle</option>
+							<option value="MySQL" >MariaDb</option-->
 						</select>
-					</p>-->
+					</p>
 					<p>
 						<label for="db_prefix">Tabellen-Präfix</label>
 						<input class="text" id="db_prefix" name="db_prefix" value="sell_" type="text">

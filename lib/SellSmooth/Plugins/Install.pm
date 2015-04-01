@@ -3,16 +3,20 @@ package SellSmooth::Plugins::Install;
 use strict;
 use warnings;
 use Dancer2;
+use Data::Dumper;
+use MooseX::Types::Moose qw(HashRef Str Defined Int);
 use Moose;
+
+with 'SellSmooth::Plugin';
 
 has conf => ( isa => 'Defined', is => 'ro', );
 
-has email        => ( isa => 'Str', is => 'rw', );
-has firstname    => ( isa => 'Str', is => 'rw', );
-has lastname     => ( isa => 'Str', is => 'rw', );
-has table_prefix => ( isa => 'Str', is => 'rw', );
-
-with 'SellSmooth::Plugin';
+has install_language => ( isa => 'Str',     is => 'rw', );
+has license          => ( isa => 'Int',     is => 'rw', );
+has system_check     => ( isa => 'Int',     is => 'rw', );
+has db_settings      => ( isa => 'HashRef', is => 'ro', default => sub { {} } );
+has shop_settings    => ( isa => 'HashRef', is => 'ro', default => sub { {} } );
+has client_settings  => ( isa => 'HashRef', is => 'ro', default => sub { {} } );
 
 debug __PACKAGE__;
 
@@ -23,6 +27,9 @@ get '/install' => sub {
 };
 
 get '/install/licence' => sub {
+    my $self = shift;
+    #$self->install_language( params->{language} );
+    debug Dumper($self);
 
     #Lizenzvereinbarung
     template 'install/licence', {}, { layout => 'install' };
