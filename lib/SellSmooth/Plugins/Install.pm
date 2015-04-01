@@ -43,15 +43,9 @@ get '/install/db' => sub {
 get '/install/shop' => sub {
 
     #Shopeinstellungen
-    #Thema auswählen (Ticketing, Hospitality, )
+    #Grundsystem auswählen (Simple, Admin, Standard, Full)
     #Plugins installieren
     template 'install/shop', {}, { layout => 'install' };
-};
-
-get '/install/system_conf' => sub {
-
-    #Systemkonfiguration
-    template 'install/system_conf', {}, { layout => 'install' };
 };
 
 get '/install/install' => sub {
@@ -63,6 +57,7 @@ get '/install/install' => sub {
 get '/install/client' => sub {
 
     #Clienteinstellungen
+    #Thema auswählen (Ticketing, Hospitality, Retail)
     template 'install/client', {}, { layout => 'install' };
 };
 

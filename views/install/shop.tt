@@ -1,3 +1,69 @@
-<h3>Shop Settings</h3>
+<section id="inner-headline">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1>Installationsassistent</h1>
+			<ul class="breadcrumb">
+				<li class="active"><a>Sprachauswahl</a></li>
+				<li class="active"><a>Lizenzvereinbarung</a></li>
+				<li class="active"><a>Systemkompatibilität</a></li>
+				<li class="active"><a>Datenbankkompatibilität</a></li>
+				<li class="active"><a>Shopeinstellungen</a></li>
+				<li><a>Installation</a> des Shops</li>
+				<li><a>Clienteinstellungen</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+</section>
+<section id="content">
+<div class="container">
+	<form action="/install/install" method="get">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="contentTitle">
+					<h1>Shopeinstellungen</h1>
+				</div>
+				<noscript>
+					<h4 class="errorBlock" style="margin-bottom:10px">
+						JavaScript muss in Ihrem Browser aktiviert sein, um SellSmooth zu installieren.	<a href="http://sellsmooth.org" target="_blank">
+							<img src="theme/img/help.png" style="height:16px;width:16px" />
+						</a>
+					</h4>
+				</noscript>
+				<h2>Treffen Sie ihre vorauswahl für die gewünschte Shop aus.</h2>
+				<select type="">
+					<option>Console - No backend a simple shop just customer front end</option>
+					<option>Simple - Simple Backen possible</option>
+					<option>Retail</option>
+				</select>
+				<h2>Optional könne Sie hier noch zusätzliche plugins auswählen.</h2>
+				<div style="overflow:scroll; height: 250px">
+				    <input type="checkbox" id="name" name="plugins[]" value="01">01 - Description of SellSmooth plugin 01<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="02">02 - Description of SellSmooth plugin 02<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="03">03 - Description of SellSmooth plugin 03<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="04">04 - Description of SellSmooth plugin 04<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="05">05 - Description of SellSmooth plugin 05<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="06">06 - Description of SellSmooth plugin 06<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="07">07 - Description of SellSmooth plugin 07<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="08">08 - Description of SellSmooth plugin 08<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="09">09 - Description of SellSmooth plugin 09<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="10">10 - Description of SellSmooth plugin 10<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="11">11 - Description of SellSmooth plugin 11<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="12">12 - Description of SellSmooth plugin 12<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="13">13 - Description of SellSmooth plugin 13<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="14">14 - Description of SellSmooth plugin 14<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="15">15 - Description of SellSmooth plugin 15<br>
+				    <input type="checkbox" id="name" name="plugins[]" value="16">16 - Description of SellSmooth plugin 16<br>
+				</div>
+				<input type="submit" value="Weiter" />
+			</div>
+		</div>
+	</form>
+</div>
+</section>
 
-<a href="/install/system_conf">Systemkonfiguration</a>
+
+
+
+	

@@ -1,1 +1,46 @@
-<h3>Finalize</h3>
+<section id="inner-headline">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1>Installationsassistent</h1>
+			<ul class="breadcrumb">
+				<li class="active"><a>Sprachauswahl</a></li>
+				<li class="active"><a>Lizenzvereinbarung</a></li>
+				<li class="active"><a>Systemkompatibilität</a></li>
+				<li class="active"><a>Datenbankkompatibilität</a></li>
+				<li class="active"><a>Shopeinstellungen</a></li>
+				<li class="active"><a>Installation des Shops</a></li>
+				<li class="active"><a>Clienteinstellungen</a></li>
+				<li class="active"><a>Fertig stellen</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+</section>
+<section id="content">
+<div class="container">
+	<form action="/" method="get">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="contentTitle">
+					<h1>Installation des Shops</h1>
+				</div>
+				<noscript>
+					<h4 class="errorBlock" style="margin-bottom:10px">
+						JavaScript muss in Ihrem Browser aktiviert sein, um SellSmooth zu installieren.	<a href="http://sellsmooth.org" target="_blank">
+							<img src="theme/img/help.png" style="height:16px;width:16px" />
+						</a>
+					</h4>
+				</noscript>
+				<h2>Hier müsste ne console hin was der shop grade macht und bei abschluß noch darauf warten dass der Server neu gestartet wird.</h2>
+				<input type="submit" value="Weiter" />
+			</div>
+		</div>
+	</form>
+</div>
+</section>
+
+
+
+
+	

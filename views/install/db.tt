@@ -9,7 +9,6 @@
 				<li class="active"><a>Systemkompatibilität</a></li>
 				<li class="active"><a>Datenbankkompatibilität</a></li>
 				<li><a>Shopeinstellungen</a></li>
-				<li><a>Systemkonfiguration</a></li>
 				<li><a>Installation</a> des Shops</li>
 				<li><a>Clienteinstellungen</a></li>
 			</ul>
@@ -19,7 +18,7 @@
 </section>
 <section id="content">
 <div class="container">
-	<form action="/install/db" method="get">
+	<form action="/install/shop" method="get">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="contentTitle">
@@ -32,10 +31,7 @@
 						</a>
 					</h4>
 				</noscript>
-				<h2>Konfigurieren Sie Ihre Datenbank, indem Sie  folgende Felder ausfüllen</h2>
-				<p>
-					Um SellSmooth zu nutzen, müssen Sie <a href="http://sellsmooth.org" target="_blank">eine Datenbank erstellen</a>, in der alle datenbezogenen Aktivitäten Ihres Shops gespeichert werden.<br>
-					Bitte füllen Sie die untenstehenden Felder aus, damit SellSmooth sich mit Ihrer Datenbank verbinden kann.	</p>
+				<h2>Konfigurieren Sie Ihren Shop, indem Sie  folgende Felder ausfüllen</h2>
 
 				<div id="formCheckSQL">
 					<p class="first" style="margin-top: 15px;">
@@ -65,7 +61,7 @@
 					</p>-->
 					<p>
 						<label for="db_prefix">Tabellen-Präfix</label>
-						<input class="text" id="db_prefix" name="db_prefix" value="ps_" type="text">
+						<input class="text" id="db_prefix" name="db_prefix" value="sell_" type="text">
 					</p>
 						<p class="aligned last">
 						<input id="btTestDB" class="button" value="Testen Sie die Verbindung mit Ihrer Datenbank" type="button">

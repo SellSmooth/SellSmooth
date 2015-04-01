@@ -9,7 +9,6 @@
 				<li><a>Systemkompatibilität</a></li>
 				<li><a>Datenbankkompatibilität</a></li>
 				<li><a>Shopeinstellungen</a></li>
-				<li><a>Systemkonfiguration</a></li>
 				<li><a>Installation</a> des Shops</li>
 				<li><a>Clienteinstellungen</a></li>
 			</ul>
@@ -39,56 +38,31 @@
 				<!-- List of languages -->
 				<h3>Installation fortführen in:</h3>
 				<select id="langList" name="language">
-					<option value="ca">
-					Català (Catalan)		</option>
-					<option value="de" selected="selected">
-					Deutsch (German)		</option>
-					<option value="en">
-					English (English)		</option>
-					<option value="es">
-					Español (Spanish)		</option>
-					<option value="fr">
-					Français (French)		</option>
-					<option value="qc">
-					Français CA (French)		</option>
-					<option value="id">
-					Indonesia (Indonesia)		</option>
-					<option value="it">
-					Italiano (Italian)		</option>
-					<option value="hu">
-					Magyar (Hungarian)		</option>
-					<option value="nl">
-					Nederlands (Dutch)		</option>
-					<option value="no">
-					Norsk (Norwegian)		</option>
-					<option value="pl">
-					Polski (Polish)		</option>
-					<option value="br">
-					Português (Brasil)		</option>
-					<option value="pt">
-					Português (Portuguese)		</option>
-					<option value="ro">
-					Română (Romanian)		</option>
-					<option value="sr">
-					Srpski (Serbian)		</option>
-					<option value="tr">
-					Türkçe (Turkish)		</option>
-					<option value="cs">
-					Čeština (Czech)		</option>
-					<option value="ru">
-					Русский (Russian)		</option>
-					<option value="mk">
-					македонски јазик (Macedonian)		</option>
-					<option value="he">
-					עברית (Hebrew)		</option>
-					<option value="fa">
-					پارسی (Persian)		</option>
-					<option value="bn">
-					বাংলা  (Bengali)		</option>
-					<option value="tw">
-					正體中文 (Traditional Chinese)		</option>
-					<option value="zh">
-					简体字 (Simplified Chinese)		</option>
+					<option value="ca">Català (Catalan)		</option>
+					<option value="de" selected="selected"> Deutsch (German)		</option>
+					<option value="en"> English (English)		</option>
+					<option value="es"> Español (Spanish)		</option>
+					<option value="fr"> Français (French)		</option>
+					<option value="qc"> Français CA (French)		</option>
+					<option value="id"> Indonesia (Indonesia)		</option>
+					<option value="it"> Italiano (Italian)		</option>
+					<option value="hu"> Magyar (Hungarian)		</option>
+					<option value="nl"> Nederlands (Dutch)		</option>
+					<option value="no"> Norsk (Norwegian)		</option>
+					<option value="pl"> Polski (Polish)		</option>
+					<option value="br"> Português (Brasil)		</option>
+					<option value="pt"> Português (Portuguese)		</option>
+					<option value="ro"> Română (Romanian)		</option>
+					<option value="sr"> Srpski (Serbian)		</option>
+					<option value="tr"> Türkçe (Turkish)		</option>
+					<option value="cs"> Čeština (Czech)		</option>
+					<option value="ru"> Русский (Russian)		</option>
+					<option value="mk"> македонски јазик (Macedonian)		</option>
+					<option value="he"> עברית (Hebrew)		</option>
+					<option value="fa"> پارسی (Persian)		</option>
+					<option value="bn"> বাংলা  (Bengali)		</option>
+					<option value="tw"> 正體中文 (Traditional Chinese)		</option>
+					<option value="zh"> 简体字 (Simplified Chinese)		</option>
 				</select>
 				<p>Die obige Sprachauswahl bezieht sich auf den Installationsassistenten. Sobald Ihr Shop installiert ist, können Sie aus 60 Sprachen Ihre Shopsprache wählen! </p>
 				<input type="submit" value="Weiter" />
