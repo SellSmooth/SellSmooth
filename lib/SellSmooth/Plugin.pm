@@ -15,9 +15,10 @@ our $VERSION = '0.1.0';
 use strict;
 use warnings FATAL => 'all';
 use Moose::Role;
+use MooseX::Types::Moose qw(Defined Int);
 
-has conf    => ( is => 'ro' );
-has enabled => ( is => 'rw' );
+has conf    => ( isa => 'Defined', is => 'ro' );
+has enabled => ( isa => 'Int',     is => 'rw' );
 
 =head1 SUBROUTINES/METHODS
 

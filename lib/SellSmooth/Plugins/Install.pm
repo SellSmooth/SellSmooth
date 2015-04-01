@@ -4,51 +4,51 @@ use strict;
 use warnings;
 use Dancer2;
 use Data::Dumper;
-use MooseX::Types::Moose qw(HashRef Str Defined Int);
 use Moose;
+use SellSmooth::Plugins::Install::Params;
 
 with 'SellSmooth::Plugin';
 
-has conf => ( isa => 'Defined', is => 'ro', );
-
-has install_language => ( isa => 'Str',     is => 'rw', );
-has license          => ( isa => 'Int',     is => 'rw', );
-has system_check     => ( isa => 'Int',     is => 'rw', );
-has db_settings      => ( isa => 'HashRef', is => 'ro', default => sub { {} } );
-has shop_settings    => ( isa => 'HashRef', is => 'ro', default => sub { {} } );
-has client_settings  => ( isa => 'HashRef', is => 'ro', default => sub { {} } );
+my $params = undef;
 
 debug __PACKAGE__;
 
 get '/install' => sub {
+    $params = SellSmooth::Plugins::Install::Params->new();
 
     #Sprachauswahl
     template 'install/index', {}, { layout => 'install' };
 };
 
 get '/install/licence' => sub {
-    my $self = shift;
-    #$self->install_language( params->{language} );
-    debug Dumper($self);
-
+    return redirect '/install' unless $params;
+    $params->install_language( params->{language} );
+    
     #Lizenzvereinbarung
     template 'install/licence', {}, { layout => 'install' };
 };
 
 get '/install/system' => sub {
-
+    return redirect '/install' unless $params;
+    $params->license( ( params->{licence_agrement} ) ? 1 : 0 );
+    
     #Systemkompatibilität
     template 'install/system', {}, { layout => 'install' };
 };
 
 get '/install/db' => sub {
-
+    return redirect '/install' unless $params;
+    $params->system_check(1);
+    
     #Datenbankkompatibilität
     template 'install/db', {}, { layout => 'install' };
 };
 
 get '/install/shop' => sub {
-
+    return redirect '/install' unless $params;
+    my %p = params;
+    $params->db_settings( \%p );
+    
     #Shopeinstellungen
     #Grundsystem auswählen (Simple, Admin, Standard, Full)
     #Plugins installieren
@@ -56,12 +56,17 @@ get '/install/shop' => sub {
 };
 
 get '/install/install' => sub {
+    return redirect '/install' unless $params;
+    my %p = params;
+    $params->shop_settings( \%p );
+    debug Dumper($params);
 
     #Installation des Shops
-    template 'install/install', {}, { layout => 'install' };
+    redirect '/install/client';
 };
 
 get '/install/client' => sub {
+    return redirect '/install' unless $params;
 
     #Clienteinstellungen
     #Thema auswählen (Ticketing, Hospitality, Retail)
@@ -69,45 +74,15 @@ get '/install/client' => sub {
 };
 
 get '/install/finalize' => sub {
+    return redirect '/install' unless $params;
+    my %p = params;
+    $params->client_settings( \%p );
+    debug Dumper($params);
+
+    #Client erstellen
+    # template daten für den client speichern
     template 'install/finalize', {}, { layout => 'install' };
 };
-
-#while (1) {
-#    unless ( $self->email() ) {
-#        print "Email: ";
-#        my $tmp = <>;
-#        chomp($tmp);
-#        if ( !Email::Valid->address($tmp) ) {
-#            print "No valid email!\n";
-#            next;
-#        }
-#        $self->email($tmp);
-#    }
-#    unless ( $self->firstname() ) {
-#        print "Firstname: ";
-#        my $tmp = <>;
-#        chomp($tmp);
-#        $self->firstname($tmp);
-#    }
-#    unless ( $self->lastname() ) {
-#        print "Lastname: ";
-#        my $tmp = <>;
-#        chomp($tmp);
-#        $self->lastname($tmp);
-#    }
-#    unless ( $self->prefix() ) {
-#        print "Table prefix: ";
-#        my $tmp = <>;
-#        chomp($tmp);
-#        $self->prefix($tmp);
-#    }
-#    last;
-#}
-#
-#print 'Email:        ' . $self->email() . $/;
-#print 'Firstname:    ' . $self->firstname() . $/;
-#print 'Lastname:     ' . $self->lastname() . $/;
-#print 'Table prefix: ' . $self->prefix() . $/;
 
 no Moose;
 
