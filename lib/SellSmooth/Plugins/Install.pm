@@ -11,6 +11,7 @@ use YAML::XS qw/LoadFile/;
 use Data::YAML::Writer;
 use SellSmooth::Base::Client;
 use SellSmooth::Base::User;
+use SellSmooth::Base::Template;
 
 with 'SellSmooth::Plugin';
 
@@ -125,11 +126,58 @@ get '/install/finalize' => sub {
 
     my $userHdl = SellSmooth::Base::User->new();
     $p{user} = $userHdl->create( \%p );
-    debug Dumper( \%p );
 
-    #Client erstellen
-    # template daten für den client speichern
+    ###########################################################################
+    my $tpl = SellSmooth::Base::Template->new( client => $p{client} );
 
+    my $ass = {};
+    foreach ( @{ $tpl->assortment() } ) {
+        $ass->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'Assortment', $_ );
+    }
+
+    my $ez = SellSmooth::Core::Writedataservice::create( 'EconomicZone',
+        $tpl->economic_zone() );
+
+    my $orgs = {};
+    foreach ( @{ $tpl->org() } ) {
+        $_->{economic_zone} = $ez->{id};
+        $orgs->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'OrganizationalUnit',
+            $_ );
+    }
+
+    my $cg = {};
+    foreach ( @{ $tpl->commodity_group() } ) {
+        $cg->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'CommodityGroup', $_ );
+    }
+
+    my $st = {};
+    foreach ( @{ $tpl->sales_tax() } ) {
+        $_->{economic_zone} = $ez->{id};
+        $st->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'SalesTax', $_ );
+    }
+
+    my $se = {};
+    foreach ( @{ $tpl->sector() } ) {
+        $se->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'Sector', $_ );
+    }
+
+    my $pr = {};
+    foreach ( @{ $tpl->product() } ) {
+        $_->{assortment}      = $ass->{ $_->{assortment} }->{id};
+        $_->{sector}          = $se->{ $_->{sector} }->{id};
+        $_->{commodity_group} = $cg->{ $_->{commodity_group} }->{id};
+        $pr->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'Product', $_ );
+    }
+
+    debug Dumper( $ass, $ez, $orgs, $cg, $st, $se, $pr );
+
+    ###########################################################################
     open my $rfh, '<', $install_file
       or die "can't open config file: $install_file $!";
     my $hash = LoadFile($install_file);

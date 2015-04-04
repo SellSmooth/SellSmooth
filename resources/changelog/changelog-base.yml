@@ -11,7 +11,7 @@
     name: storage_profiles
     type: createtable
   - columns:
-    - {tpl: tpl_full}
+    - {tpl: tpl_full_client_ref}
     - foreign: {refcolumn: id, reftable: organizational_unit}
       name: parent
       type: uuid
@@ -416,45 +416,6 @@
     - name: product_tags
       primarykey: [product, tag]
     name: product_tags
-    type: createtable
-  - columns:
-    - {tpl: tpl_full_client_ref}
-    - {lenght: 512, name: description, type: varchar}
-    - {name: last_clean_up, type: time}
-    name: assortment
-    type: createtable
-  - columns:
-    - {tpl: tpl_simple}
-    - foreign: {refcolumn: id, reftable: assortment}
-      name: assortment
-      notnull: 1
-      type: uuid
-    - {name: sale_check_month_period, notnull: 1, type: bigint}
-    - {name: sale_check_limit, notnull: 1, type: bigint}
-    - {lenght: 255, name: non_stock_mode, notnull: 1, type: varchar}
-    - {name: non_stock_transfer_assortment, type: uuid}
-    - {lenght: 255, name: stock_mode, notnull: 1, type: varchar}
-    - {name: stock_transfer_assortment, type: uuid}
-    - {name: excecution_month_interval, type: bigint}
-    - {name: last_excecution, type: time}
-    - {name: next_excecution, type: time}
-    - {default: SALE_QUANTITY, lenght: 255, name: adjustment_criteria, notnull: 1,
-      type: varchar}
-    - {default: '3', name: marginal_income_check_month_period, type: bigint}
-    - {default: '2.0000', lenght: '17,4', name: marginal_income_min_percent, notnull: 1,
-      type: decimal}
-    - {lenght: 255, name: marginal_income_type, type: varchar}
-    - {name: booking_days, type: bigint}
-    name: assortment_adjustment
-    type: createtable
-  - columns:
-    - {tpl: tpl_minimal}
-    - {name: valid_from, type: time}
-    - {name: valid_to, type: time}
-    - foreign: {refcolumn: id, reftable: assortment}
-      name: assortment
-      type: uuid
-    name: assortment_validity
     type: createtable
   - columns:
     - {tpl: tpl_simple_client_ref}
@@ -950,7 +911,7 @@
       name: selling_price_group
       notnull: 1
       type: uuid
-    - foreign: {refcolumn: id, reftable: assortment}
+    - foreign: {refcolumn: id, reftable: assortments}
       name: assortment
       type: uuid
     - foreign: {refcolumn: id, reftable: language}
@@ -1154,7 +1115,7 @@
     - foreign: {refcolumn: id, reftable: product}
       name: product
       type: uuid
-    - foreign: {refcolumn: id, reftable: assortment}
+    - foreign: {refcolumn: id, reftable: assortments}
       name: assortment
       type: uuid
     - foreign: {refcolumn: id, reftable: commodity_group}

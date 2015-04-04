@@ -275,29 +275,29 @@
     name: supplier_shipping_costs
     type: createtable
   - columns:
-    - {tpl: tpl_full}
+    - {tpl: tpl_full_client_ref}
     - {lenght: 255, name: service, type: varchar}
     - {lenght: 255, name: production_trigger, type: varchar}
     name: producer
     type: createtable
   - columns:
-    - {tpl: tpl_full}
+    - {tpl: tpl_full_client_ref}
     - {default: 0, lenght: 1, name: net_prices, type: bit}
     name: price_group
     type: createtable
   - columns:
-    - {tpl: tpl_full}
+    - {tpl: tpl_full_client_ref}
     - {name: parent_commodity_group, type: uuid}
     - {lenght: 255, name: commodity_group_key, type: varchar}
     - {lenght: 1, name: has_children, notnull: 1, type: bit}
     name: commodity_group
     type: createtable
   - columns:
-    - {tpl: tpl_full}
+    - {tpl: tpl_full_client_ref}
     name: sector
     type: createtable
   - columns:
-    - {tpl: tpl_full}
+    - {tpl: tpl_full_client_ref}
     - {name: create_time, type: time}
     - {lenght: 255, name: type, type: varchar}
     - {lenght: 1024, name: data, type: varchar}
@@ -319,7 +319,13 @@
     name: ticket_validity_descriptions
     type: createtable
   - columns:
-    - {tpl: tpl_full}
+    - {tpl: tpl_full_client_ref}
+    - {lenght: 512, name: description, type: varchar}
+    - {name: last_clean_up, type: time}
+    name: assortments
+    type: createtable
+  - columns:
+    - {tpl: tpl_full_client_ref}
     - foreign: {refcolumn: id, reftable: commodity_group}
       name: commodity_group
       notnull: 1
@@ -335,6 +341,9 @@
     - foreign: {refcolumn: id, reftable: sector}
       name: alternative_sector
       type: uuid
+    - foreign: {notnull: 1, refcolumn: id, reftable: assortments}
+      name: assortment
+      type: uuid
     - {default: 0, lenght: 1, name: preparation_product, notnull: 1, type: bit}
     - foreign: {refcolumn: id, reftable: image}
       name: image
@@ -343,16 +352,13 @@
     - {name: suggestion_tag, type: uuid}
     - {name: base_price_max, type: numeric}
     - {name: base_price_min, type: numeric}
-    - {lenght: 1, name: discountable, notnull: 1, type: bit}
-    - {lenght: 1, name: price_changeable, notnull: 1, type: bit}
+    - {default: 1, lenght: 1, name: discountable, notnull: 1, type: bit}
+    - {default: 1, lenght: 1, name: price_changeable, notnull: 1, type: bit}
     - {default: 0, lenght: 1, name: track_inventory, type: bit}
     - {default: 0, lenght: 1, name: requires_serial_number, type: bit}
     - {lenght: '17,4', name: purchase_price, type: decimal}
     - {lenght: 255, name: base_price_unit, type: varchar}
     - {lenght: '17,4', name: ackaging_quantity, type: decimal}
-    - {lenght: 1, name: active_assortment, type: bit}
-    - {name: active_assortment_from, type: time}
-    - {name: active_assortment_to, type: time}
     - {default: '0.0000', lenght: '17,4', name: costs, notnull: 1, type: decimal}
     - {default: 0, lenght: 1, name: packaging, type: bit}
     - {name: warranty_period, type: bigint}

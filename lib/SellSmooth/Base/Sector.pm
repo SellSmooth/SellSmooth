@@ -1,8 +1,8 @@
-package SellSmooth::Base::User;
+package SellSmooth::Base::Sector;
 
 =head1 NAME
 
-SellSmooth::Base::User - Abstract plugin class.
+SellSmooth::Base::Sector - Abstract plugin class.
 
 =head1 VERSION
 
@@ -17,8 +17,8 @@ use warnings;
 use Dancer2;
 use Moose;
 use Data::Dumper;
-use SellSmooth::Core::Password;
 use SellSmooth::Core::Writedataservice;
+use SellSmooth::Core::Loaddataservice;
 
 with 'SellSmooth::Base::Object';
 
@@ -32,19 +32,15 @@ with 'SellSmooth::Base::Object';
 
 sub create {
     my ( $self, $params ) = @_;
-    my $pas = SellSmooth::Core::Password->crypt( $params->{admin_password} );
+    debug Dumper($params);
     return SellSmooth::Core::Writedataservice::create(
-        'User',
+        'Sector',
         {
-            name          => $params->{admin_firstname},
-            surname       => $params->{admin_lastname},
-            email         => $params->{admin_email},
-            client        => $params->{client}->{id},
-            password_salt => $pas->{salt},
-            password_hash => $pas->{sh},
+            name   => $params->{name},
+            number => $params->{number},
+            client => $params->{client}->{id},
         }
     );
-
 }
 
 =item update
@@ -74,7 +70,7 @@ sub remove {
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
-1;    # End of SellSmooth::Base::User
+1;    # End of SellSmooth::Base::Client
 
 __END__
 

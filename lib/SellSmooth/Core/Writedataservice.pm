@@ -8,7 +8,6 @@ use TryCatch;
 ###############################################################################
 sub create {
 	my ( $schema, $options ) = @_;
-	debug Dumper($schema, $options);
 	try {
 		my $res = schema->resultset($schema)->create($options);
 		return undef unless ($res);
