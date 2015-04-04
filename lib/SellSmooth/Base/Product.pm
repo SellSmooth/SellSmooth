@@ -32,10 +32,7 @@ with 'SellSmooth::Base::Object';
 
 sub create {
     my ( $self, $params ) = @_;
-
-    
-      name: commodity_group
-      name: sector
+    return SellSmooth::Core::Writedataservice::create( 'Product', $params );
 }
 
 =item update

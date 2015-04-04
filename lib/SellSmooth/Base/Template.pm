@@ -85,6 +85,33 @@ has org => (
     }
 );
 
+has currency => (
+    lazy    => 1,
+    default => method {
+        [
+            {
+                name       => 'Euro',
+                number     => 1,
+                client     => $self->client()->{id},
+            }
+        ];
+    }
+);
+has price_list => (
+    lazy    => 1,
+    default => method {
+        [
+            {
+                name       => 'Standard',
+                number     => 1,
+                currency   => 1,
+                net_prices => 0,
+                client     => $self->client()->{id},
+            }
+        ];
+    }
+);
+
 has product => (
     lazy    => 1,
     default => method {

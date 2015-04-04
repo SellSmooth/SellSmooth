@@ -153,6 +153,19 @@ get '/install/finalize' => sub {
           SellSmooth::Core::Writedataservice::create( 'CommodityGroup', $_ );
     }
 
+    my $cur = {};
+    foreach ( @{ $tpl->currency() } ) {
+        $cur->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'Currency', $_ );
+    }
+
+    my $pl = {};
+    foreach ( @{ $tpl->price_list() } ) {
+        $_->{currency}      = $cur->{ $_->{currency} }->{id};
+        $pl->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'PriceList', $_ );
+    }
+
     my $st = {};
     foreach ( @{ $tpl->sales_tax() } ) {
         $_->{economic_zone} = $ez->{id};
@@ -165,17 +178,14 @@ get '/install/finalize' => sub {
         $se->{ $_->{number} } =
           SellSmooth::Core::Writedataservice::create( 'Sector', $_ );
     }
-
-    my $pr = {};
+    my $prHdnl = SellSmooth::Base::Product->new();
+    my $pr     = {};
     foreach ( @{ $tpl->product() } ) {
         $_->{assortment}      = $ass->{ $_->{assortment} }->{id};
         $_->{sector}          = $se->{ $_->{sector} }->{id};
         $_->{commodity_group} = $cg->{ $_->{commodity_group} }->{id};
-        $pr->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'Product', $_ );
+        $pr->{ $_->{number} } = $prHdnl->create($_);
     }
-
-    debug Dumper( $ass, $ez, $orgs, $cg, $st, $se, $pr );
 
     ###########################################################################
     open my $rfh, '<', $install_file

@@ -283,7 +283,7 @@
   - columns:
     - {tpl: tpl_full_client_ref}
     - {default: 0, lenght: 1, name: net_prices, type: bit}
-    name: price_group
+    name: price_lists
     type: createtable
   - columns:
     - {tpl: tpl_full_client_ref}

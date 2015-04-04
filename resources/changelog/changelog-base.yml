@@ -24,8 +24,8 @@
     - foreign: {refcolumn: id, reftable: opening_profiles}
       name: opening_profile
       type: uuid
-    - foreign: {refcolumn: id, reftable: price_group}
-      name: price_group
+    - foreign: {refcolumn: id, reftable: price_lists}
+      name: price_list
       type: uuid
     - foreign: {refcolumn: id, reftable: economic_zones}
       name: economic_zone
@@ -45,8 +45,8 @@
       name: subproduct_relation
       notnull: 1
       type: uuid
-    - foreign: {refcolumn: id, reftable: price_group}
-      name: price_group
+    - foreign: {refcolumn: id, reftable: price_lists}
+      name: price_list
       type: uuid
     - {name: valid_from, type: time}
     - {name: value, notnull: 1, type: numeric}
@@ -59,8 +59,8 @@
   - columns:
     - {tpl: tpl_minimal}
     - {name: sub_product_selection, notnull: 1, type: bigint}
-    - foreign: {refcolumn: id, reftable: price_group}
-      name: price_group
+    - foreign: {refcolumn: id, reftable: price_lists}
+      name: price_list
       type: uuid
     - {name: valid_from, type: time}
     - {name: value, notnull: 1, type: numeric}
@@ -135,8 +135,8 @@
     type: createtable
   - columns:
     - {tpl: tpl_full}
-    - foreign: {refcolumn: id, reftable: price_group}
-      name: price_group
+    - foreign: {refcolumn: id, reftable: price_lists}
+      name: price_list
       type: uuid
     name: customer_groups
     type: createtable
@@ -285,8 +285,8 @@
       name: product
       notnull: 1
       type: uuid
-    - foreign: {refcolumn: id, reftable: price_group}
-      name: price_group
+    - foreign: {refcolumn: id, reftable: price_lists}
+      name: price_list
       type: uuid
     - {name: valid_from, type: time}
     - {name: value, notnull: 1, type: numeric}
@@ -844,8 +844,8 @@
     - foreign: {refcolumn: id, reftable: pos}
       name: pos
       type: uuid
-    - foreign: {refcolumn: id, reftable: price_group}
-      name: price_group
+    - foreign: {refcolumn: id, reftable: price_lists}
+      name: price_list
       type: uuid
     - {name: z_count, type: bigint}
     - {name: create_time, type: time}
@@ -903,12 +903,12 @@
       name: franchisee
       notnull: 1
       type: uuid
-    - foreign: {refcolumn: id, reftable: price_group}
-      name: purchase_price_group
+    - foreign: {refcolumn: id, reftable: price_lists}
+      name: purchase_price_list
       notnull: 1
       type: uuid
-    - foreign: {refcolumn: id, reftable: price_group}
-      name: selling_price_group
+    - foreign: {refcolumn: id, reftable: price_lists}
+      name: selling_price_list
       notnull: 1
       type: uuid
     - foreign: {refcolumn: id, reftable: assortments}
@@ -1124,8 +1124,8 @@
     - foreign: {refcolumn: id, reftable: customer_groups}
       name: customer_group
       type: uuid
-    - foreign: {refcolumn: id, reftable: price_group}
-      name: price_group
+    - foreign: {refcolumn: id, reftable: price_lists}
+      name: price_list
       type: uuid
     - foreign: {refcolumn: id, reftable: tags}
       name: tag
