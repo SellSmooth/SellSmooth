@@ -26,4 +26,3 @@ engines:
     template_toolkit:
       start_tag: '[%'
       end_tag:   '%]'
-

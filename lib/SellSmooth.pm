@@ -11,11 +11,11 @@ use SellSmooth::Plugins;
 
 our $VERSION = '0.1.0';
 
-my $plugins = SellSmooth::Plugins->new();
-load $_ foreach @{ $plugins->enabled() };
+my $plg = SellSmooth::Plugins->new();
+load $_ foreach @{ $plg->enabled() };
 
 get '/' => sub {
-    return redirect '/install' unless ( SellSmooth::Core->check_install() );
+    return redirect '/install' unless ( SellSmooth::Core->check_install($plg) );
     template 'index';
 };
 

@@ -57,13 +57,13 @@ sub BUILD {
     $self->plugin_files( \@files );
     foreach ( @{ $self->plugin_files() } ) {
         my $conf = LoadFile($_);
-        next unless ( $conf->{enabled} || $conf->{name} );
+        next unless ( $conf->{enabled} );
 
         $self->plugin_conf($conf);
         $self->plugin_name( $conf->{name} );
         my $class = 'SellSmooth::Plugins::' . $conf->{name};
 
-        $self->plugins()->{$_} = $self->plugin();
+        $self->plugins()->{ $conf->{name} } = $self->plugin();
         push( @{ $self->enabled() }, $class );
     }
 }
