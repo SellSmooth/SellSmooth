@@ -660,7 +660,7 @@
     - {lenght: 255, name: email, notnull: 1, type: varchar}
     - {lenght: 255, name: password_hash, notnull: 1, type: varchar}
     - {lenght: 255, name: password_salt, notnull: 1, type: varchar}
-    - {lenght: 255, name: requested_email, notnull: 1, type: varchar}
+    - {lenght: 255, name: requested_email, type: varchar}
     - {default: 0, name: email_change_count, notnull: 1, type: smallint}
     - {default: en_us, lenght: 5, name: locale, notnull: 1, type: character}
     constraints:

@@ -26,3 +26,17 @@ engines:
     template_toolkit:
       start_tag: '[%'
       end_tag:   '%]'
+
+plugins:
+    Ajax:
+        content_type: 'application/json'
+    DBIC:
+      default:
+        dsn: dbi:Pg:dbname=smooth;host=127.0.0.1
+        schema_class: SellSmooth::Base::Db::Pg
+        user: smooth
+        password: smooth
+        options:
+          pg_enable_utf8: 1
+          RaiseError: 1
+          PrintError: 1

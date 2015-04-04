@@ -9,9 +9,13 @@ use SellSmooth::Plugins::Install::Params;
 use Module::Install::Live;
 use YAML::XS qw/LoadFile/;
 use Data::YAML::Writer;
+use SellSmooth::Base::Client;
+use SellSmooth::Base::User;
 
 with 'SellSmooth::Plugin';
 
+my $install_file =
+  File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d', 'install.yml' );
 my $params = undef;
 
 debug __PACKAGE__;
@@ -52,20 +56,39 @@ get '/install/shop' => sub {
     my %p = params;
     $params->db_settings( \%p );
 
-    my $lib = File::Spec->catfile( $FindBin::Bin, '..', 'lib' );
-    my $db  = "dbi:$p{dbEngine}:dbname=$p{dbName};host=$p{dbServer}";
-    my $dbh = DBI->connect( $db, $p{dbLogin}, $p{dbPassword} );
-    my $obj =
-      DBIx::Schema::Changelog->new( dbh => $dbh, db_driver => $p{dbEngine} );
-    $obj->table_action()
-      ->prefix( ( defined $p{db_prefix} ) ? $p{db_prefix} : '' );
-    $obj->read(
-        File::Spec->catfile( $FindBin::Bin, '..', 'resources', 'changelog' ) );
+    open my $rfh, '<', $install_file
+      or die "can't open config file: $install_file $!";
+    my $hash = LoadFile($install_file);
+    close $rfh;
 
-    $dbh->disconnect();
+    unless ( $hash->{db_finished} ) {
+        my $lib = File::Spec->catfile( $FindBin::Bin, '..', 'lib' );
+        my $db  = "dbi:$p{dbEngine}:dbname=$p{dbName};host=$p{dbServer}";
+        my $dbh = DBI->connect( $db, $p{dbLogin}, $p{dbPassword} );
+        my $obj = DBIx::Schema::Changelog->new(
+            dbh       => $dbh,
+            db_driver => $p{dbEngine}
+        );
+        $obj->table_action()
+          ->prefix( ( defined $p{db_prefix} ) ? $p{db_prefix} : '' );
+        $obj->read(
+            File::Spec->catfile(
+                $FindBin::Bin, '..', 'resources', 'changelog'
+            )
+        );
 
-    SellSmooth::Base::Install->createSchema( "SellSmooth::Base::Db::Pg",
-        $lib, $db, $p{dbLogin}, $p{dbPassword} );
+        $dbh->disconnect();
+
+        SellSmooth::Base::Install->createSchema( "SellSmooth::Base::Db::Pg",
+            $lib, $db, $p{dbLogin}, $p{dbPassword} );
+
+        $hash->{db_finished} = 1;
+        open $rfh, "> $install_file" or die $!;
+        my $yw = Data::YAML::Writer->new;
+        $yw->write( $hash, $rfh );
+
+        close $rfh;
+    }
 
     #Shopeinstellungen
     #Grundsystem auswählen (Simple, Admin, Standard, Full)
@@ -77,7 +100,6 @@ get '/install/install' => sub {
     return redirect '/install' unless $params;
     my %p = params;
     $params->shop_settings( \%p );
-    debug Dumper( \%p );
 
     #Module::Install::Live->install( $p{'plugins[]'} );
 
@@ -98,18 +120,23 @@ get '/install/finalize' => sub {
     my %p = params;
     $params->client_settings( \%p );
 
+    my $clientHdl = SellSmooth::Base::Client->new();
+    $p{client} = $clientHdl->create( \%p );
+
+    my $userHdl = SellSmooth::Base::User->new();
+    $p{user} = $userHdl->create( \%p );
+    debug Dumper( \%p );
+
     #Client erstellen
     # template daten für den client speichern
 
-    my $file =
-      File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d', 'install.yml' );
-
-    open my $rfh, '<', $file or die "can't open config file: $file $!";
-    my $hash = LoadFile($file);
+    open my $rfh, '<', $install_file
+      or die "can't open config file: $install_file $!";
+    my $hash = LoadFile($install_file);
     close $rfh;
     $hash->{enabled} = 0;
 
-    open my $rfh, "> $file" or die $!;
+    open $rfh, "> $install_file" or die $!;
     my $yw = Data::YAML::Writer->new;
     $yw->write( $hash, $rfh );
     close $rfh;

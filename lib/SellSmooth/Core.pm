@@ -7,7 +7,7 @@ use Dancer2;
 
 sub check_install {
     my ( $self, $plugins ) = @_;
-    return 1 unless $plugins->{Install};
+    return 1 unless $plugins->plugins()->{Install};
     return 0;
 }
 

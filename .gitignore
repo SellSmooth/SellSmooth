@@ -6,4 +6,5 @@
 /META.json
 /META.yml
 /Makefile.old
+/public/data/*
 /lib/SellSmooth/Base/Db/*
