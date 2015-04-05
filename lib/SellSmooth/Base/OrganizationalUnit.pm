@@ -1,8 +1,8 @@
-package SellSmooth::Base::Object;
+package SellSmooth::Base::OrganizationalUnit;
 
 =head1 NAME
 
-SellSmooth::Base::Object - Abstract object class for db objects.
+SellSmooth::Base::OrganizationalUnit - Abstract plugin class.
 
 =head1 VERSION
 
@@ -13,47 +13,79 @@ Version 0.1.0
 our $VERSION = '0.1.0';
 
 use strict;
-use warnings FATAL => 'all';
-use Moose::Role;
+use warnings;
+use Dancer2;
+use Moose;
+use Data::Dumper;
+use SellSmooth::Core::Writedataservice;
+use SellSmooth::Core::Loaddataservice;
 
-has client    => ( isa => 'Defined', is => 'ro' );
+with 'SellSmooth::Base::Object';
 
 =head1 SUBROUTINES/METHODS
 
-=head2 create
+=over 4
 
-Required sub to run create for specific action type.
-
-=cut
-
-requires 'create';
-
-=head2 update
-
-Required sub to run update for specific action type.
+=item create
 
 =cut
 
-requires 'update';
+sub create {
+    my ( $self, $params ) = @_;
 
-=head2 delete
+}
 
-Set current object only to inactive.
-
-=cut
-
-requires 'delete';
-
-=head2 remove
-
-Remove the current object from db.
-Can not be undone!!!
+=item findByNumber
 
 =cut
 
-requires 'remove';
+sub findByNumber {
+    my ( $self, $number ) = @_;
 
-1;    # End of SellSmooth::Plugin
+    my $ret =
+      SellSmooth::Core::Loaddataservice::findByNumber( 'OrganizationalUnit',
+        $number );
+    $ret->{economic_zone} =
+      SellSmooth::Core::Loaddataservice::findById( 'EconomicZone',
+        $ret->{economic_zone} );
+    $ret->{price_list} =
+      SellSmooth::Core::Loaddataservice::findById( 'PriceList',
+        $ret->{price_list} );
+    $ret->{currency} =
+      SellSmooth::Core::Loaddataservice::findById( 'Currency',
+        $ret->{price_list}->{currency} );
+    debug Dumper($ret);
+    return $ret;
+}
+
+=item update
+
+=cut
+
+sub update {
+
+}
+
+=item delete
+
+=cut
+
+sub delete {
+
+}
+
+=item remove
+
+=cut
+
+sub remove {
+
+}
+
+no Moose;
+__PACKAGE__->meta->make_immutable;
+
+1;    # End of SellSmooth::Base::OrganizationalUnit
 
 __END__
 

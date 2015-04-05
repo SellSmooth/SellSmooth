@@ -282,6 +282,10 @@
     type: createtable
   - columns:
     - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, reftable: currencies}
+      name: currency
+      notnull: 1
+      type: uuid
     - {default: 0, lenght: 1, name: net_prices, type: bit}
     name: price_lists
     type: createtable

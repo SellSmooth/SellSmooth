@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-			<h1>Installationsassistent</h1>
+			<h1>Demo Shop</h1>
 				<ul class="breadcrumb">
 					[% FOREACH commodity_group IN commodity_groups.content %]
 						<li><a href="/commodity_group/[% commodity_group.number %]">[% commodity_group.name %]</a></li>
@@ -16,13 +16,14 @@
 <section id="content">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-12">
-				[% FOREACH product IN products.content %]
-					<div style="border: 1px solid lightgray;">
-						<a href="/product/[% product.number %]">[% product.name %]</a>
-					</div>
-				[% END %]
-			</div>
+			[% FOREACH product IN products.content %]
+				<div class="col-lg-3" style="border: 1px solid lightgray;margin: 10px;">
+					<p><a href="/product/[% product.number %]">[% product.name %]</a></p>
+					<h2>[% product.prices.0.value %][% org.currency.symbol %]</h2>
+				</div>
+			[% END %]
+			<div class="col-lg-3"></div>
+			<div class="col-lg-3"></div>
 		</div>
 	</div>
 </section>

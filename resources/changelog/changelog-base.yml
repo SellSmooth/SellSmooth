@@ -24,7 +24,7 @@
     - foreign: {refcolumn: id, reftable: opening_profiles}
       name: opening_profile
       type: uuid
-    - foreign: {refcolumn: id, reftable: price_lists}
+    - foreign: {notnull: 1, refcolumn: id, reftable: price_lists}
       name: price_list
       type: uuid
     - foreign: {refcolumn: id, reftable: economic_zones}
@@ -288,12 +288,10 @@
     - foreign: {refcolumn: id, reftable: price_lists}
       name: price_list
       type: uuid
-    - {name: valid_from, type: time}
     - {name: value, notnull: 1, type: numeric}
     - foreign: {refcolumn: id, reftable: organizational_unit}
       name: org
       type: uuid
-    - {lenght: 255, name: product_code, notnull: 1, type: varchar}
     name: product_prices
     type: createtable
   - columns:
@@ -565,13 +563,19 @@
     name: promotion_action_trigger_week_days
     type: createtable
   - columns:
+    - {tpl: tpl_full}
+    name: currency_denomination_types
+    type: createtable
+  - columns:
     - foreign: {refcolumn: id, reftable: currencies}
       name: currency
       notnull: 1
       type: uuid
-    - {lenght: 255, name: name, type: varchar}
+    - foreign: {refcolumn: id, reftable: currency_denomination_types}
+      name: type
+      notnull: 1
+      type: uuid
     - {default: '0.00', name: nominal_value, notnull: 1, type: numeric}
-    - {default: '', lenght: 255, name: type, notnull: 1, type: varchar}
     - {lenght: 1, name: visible, notnull: 1, type: bit}
     constraints:
     - name: currency_denominations

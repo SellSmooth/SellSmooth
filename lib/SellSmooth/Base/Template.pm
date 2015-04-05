@@ -12,11 +12,16 @@ Version 0.1.0
 
 our $VERSION = '0.1.0';
 
+use utf8
 use strict;
 use warnings;
+use Data::Dumper;
+use Dancer2;
 use Moose;
 use MooseX::HasDefaults::RO;
 use Method::Signatures::Simple;
+
+use SellSmooth::Base::Product;
 
 has assortment => (
     lazy    => 1,
@@ -79,24 +84,13 @@ has org => (
                 number        => 1,
                 economic_zone => 1,
                 has_children  => 0,
+                price_list    => 1,
                 client        => $self->client()->{id},
             }
         ];
     }
 );
 
-has currency => (
-    lazy    => 1,
-    default => method {
-        [
-            {
-                name       => 'Euro',
-                number     => 1,
-                client     => $self->client()->{id},
-            }
-        ];
-    }
-);
 has price_list => (
     lazy    => 1,
     default => method {
@@ -104,7 +98,7 @@ has price_list => (
             {
                 name       => 'Standard',
                 number     => 1,
-                currency   => 1,
+                currency   => 'cent',
                 net_prices => 0,
                 client     => $self->client()->{id},
             }
@@ -126,7 +120,7 @@ has product => (
             },
             {
                 name            => 'Curry Sausages',
-                number          => 1,
+                number          => 2,
                 sector          => 2,
                 assortment      => 1,
                 commodity_group => 3,
@@ -187,6 +181,92 @@ has sector => (
         ];
     }
 );
+
+has product_prices => (
+    lazy    => 1,
+    default => method {
+        [
+            {
+                product    => 1,
+                price_list => 1,
+                value      => 2.95,
+            },
+            {
+                product    => 2,
+                price_list => 1,
+                value      => 1.95,
+            },
+        ];
+    }
+);
+
+sub create {
+    my ($self) = @_;
+
+    my $ass = {};
+    foreach ( @{ $self->assortment() } ) {
+        $ass->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'Assortment', $_ );
+    }
+
+    my $ez = SellSmooth::Core::Writedataservice::create( 'EconomicZone',
+        $self->economic_zone() );
+
+    my $cg = {};
+    foreach ( @{ $self->commodity_group() } ) {
+        $cg->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'CommodityGroup', $_ );
+    }
+
+    my $cur = {};
+    $cur->{ $_->{currency_key} } = $_
+      foreach ( @{ SellSmooth::Core::Loaddataservice::list('Currency') } );
+
+    my $pl = {};
+    foreach ( @{ $self->price_list() } ) {
+        $_->{currency} = $cur->{ $_->{currency} }->{id};
+        $pl->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'PriceList', $_ );
+    }
+
+    my $orgs = {};
+    foreach ( @{ $self->org() } ) {
+        $_->{economic_zone} = $ez->{id};
+        $_->{price_list}    = $pl->{ $_->{price_list} }->{id};
+        $orgs->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'OrganizationalUnit',
+            $_ );
+    }
+
+    my $st = {};
+    foreach ( @{ $self->sales_tax() } ) {
+        $_->{economic_zone} = $ez->{id};
+        $st->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'SalesTax', $_ );
+    }
+
+    my $se = {};
+    foreach ( @{ $self->sector() } ) {
+        $se->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'Sector', $_ );
+    }
+
+    my $prHdnl = SellSmooth::Base::Product->new( client => $self->client() );
+    my $pr = {};
+    foreach ( @{ $self->product() } ) {
+        $_->{assortment}      = $ass->{ $_->{assortment} }->{id};
+        $_->{sector}          = $se->{ $_->{sector} }->{id};
+        $_->{commodity_group} = $cg->{ $_->{commodity_group} }->{id};
+        $pr->{ $_->{number} } = $prHdnl->create($_);
+    }
+
+    foreach ( @{ $self->product_prices() } ) {
+        $_->{product}    = $pr->{ $_->{product} }->{id};
+        $_->{price_list} = $pl->{ $_->{price_list} }->{id};
+        SellSmooth::Core::Writedataservice::create( 'ProductPrice', $_ );
+    }
+
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

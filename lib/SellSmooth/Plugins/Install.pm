@@ -127,67 +127,8 @@ get '/install/finalize' => sub {
     my $userHdl = SellSmooth::Base::User->new();
     $p{user} = $userHdl->create( \%p );
 
-    ###########################################################################
-    my $tpl = SellSmooth::Base::Template->new( client => $p{client} );
+    SellSmooth::Base::Template->new( client => $p{client} )->create();
 
-    my $ass = {};
-    foreach ( @{ $tpl->assortment() } ) {
-        $ass->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'Assortment', $_ );
-    }
-
-    my $ez = SellSmooth::Core::Writedataservice::create( 'EconomicZone',
-        $tpl->economic_zone() );
-
-    my $orgs = {};
-    foreach ( @{ $tpl->org() } ) {
-        $_->{economic_zone} = $ez->{id};
-        $orgs->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'OrganizationalUnit',
-            $_ );
-    }
-
-    my $cg = {};
-    foreach ( @{ $tpl->commodity_group() } ) {
-        $cg->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'CommodityGroup', $_ );
-    }
-
-    my $cur = {};
-    foreach ( @{ $tpl->currency() } ) {
-        $cur->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'Currency', $_ );
-    }
-
-    my $pl = {};
-    foreach ( @{ $tpl->price_list() } ) {
-        $_->{currency}      = $cur->{ $_->{currency} }->{id};
-        $pl->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'PriceList', $_ );
-    }
-
-    my $st = {};
-    foreach ( @{ $tpl->sales_tax() } ) {
-        $_->{economic_zone} = $ez->{id};
-        $st->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'SalesTax', $_ );
-    }
-
-    my $se = {};
-    foreach ( @{ $tpl->sector() } ) {
-        $se->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'Sector', $_ );
-    }
-    my $prHdnl = SellSmooth::Base::Product->new();
-    my $pr     = {};
-    foreach ( @{ $tpl->product() } ) {
-        $_->{assortment}      = $ass->{ $_->{assortment} }->{id};
-        $_->{sector}          = $se->{ $_->{sector} }->{id};
-        $_->{commodity_group} = $cg->{ $_->{commodity_group} }->{id};
-        $pr->{ $_->{number} } = $prHdnl->create($_);
-    }
-
-    ###########################################################################
     open my $rfh, '<', $install_file
       or die "can't open config file: $install_file $!";
     my $hash = LoadFile($install_file);

@@ -41,15 +41,15 @@
 					</p>
 					<p>
 						<label for="dbName">Name der Datenbank </label>
-						<input size="10" class="text" id="dbName" name="dbName" value="SellSmooth" type="text">
+						<input size="10" class="text" id="dbName" name="dbName" value="smooth" type="text">
 					</p>
 					<p>
 						<label for="dbLogin">Datenbank Benutzer </label>
-						<input class="text" size="10" id="dbLogin" name="dbLogin" value="root" type="text">
+						<input class="text" size="10" id="dbLogin" name="dbLogin" value="smooth" type="text">
 					</p>
 					<p>
 						<label for="dbPassword">Datenbank Passwort </label>
-						<input class="text" size="10" id="dbPassword" name="dbPassword" value="" type="password">
+						<input class="text" size="10" id="dbPassword" name="dbPassword" value="smooth" type="password">
 					</p>
 					
 					<p>
