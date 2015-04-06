@@ -1,0 +1,15 @@
+[% USE Dumper %]
+<section id="content">
+	<div class="container">
+		<div class="row">
+			[% FOREACH product IN products.content %]
+				<div class="col-lg-3" style="border: 1px solid lightgray;margin: 10px;">
+					<p><a href="/product/[% product.number %]">[% product.name %]</a></p>
+					<h2>[% product.prices.0.value %][% org.currency.symbol %]</h2>
+				</div>
+			[% END %]
+			<div class="col-lg-3"></div>
+			<div class="col-lg-3"></div>
+		</div>
+	</div>
+</section>

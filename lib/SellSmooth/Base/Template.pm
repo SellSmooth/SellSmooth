@@ -12,7 +12,7 @@ Version 0.1.0
 
 our $VERSION = '0.1.0';
 
-use utf8
+use utf8;
 use strict;
 use warnings;
 use Data::Dumper;

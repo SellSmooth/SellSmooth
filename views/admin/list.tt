@@ -1,0 +1,12 @@
+[% USE Dumper %]
+<section id="content">
+	<div class="container">
+		
+		<table class="table table-striped">
+		[% FOREACH object IN objects.content %]
+			<tr><td>[% object.number %]</td><td>[% object.name %]</td></tr>
+		[% END %]
+		</table>
+		
+	</div>
+</section>

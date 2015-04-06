@@ -19,10 +19,15 @@ my $install_file =
   File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d', 'install.yml' );
 my $params = undef;
 
+open my $rfh, '<', $install_file or die "$install_file $!";
+my $plugin_hash = LoadFile($install_file);
+close $rfh;
+
 debug __PACKAGE__;
 
 get '/install' => sub {
     $params = SellSmooth::Plugins::Install::Params->new();
+    return redirect '/install/shop' if ( $plugin_hash->{db_finished} );
 
     #Sprachauswahl
     template 'install/index', {}, { layout => 'install' };
@@ -57,12 +62,7 @@ get '/install/shop' => sub {
     my %p = params;
     $params->db_settings( \%p );
 
-    open my $rfh, '<', $install_file
-      or die "can't open config file: $install_file $!";
-    my $hash = LoadFile($install_file);
-    close $rfh;
-
-    unless ( $hash->{db_finished} ) {
+    unless ( $plugin_hash->{db_finished} ) {
         my $lib = File::Spec->catfile( $FindBin::Bin, '..', 'lib' );
         my $db  = "dbi:$p{dbEngine}:dbname=$p{dbName};host=$p{dbServer}";
         my $dbh = DBI->connect( $db, $p{dbLogin}, $p{dbPassword} );
@@ -83,10 +83,10 @@ get '/install/shop' => sub {
         SellSmooth::Base::Install->createSchema( "SellSmooth::Base::Db::Pg",
             $lib, $db, $p{dbLogin}, $p{dbPassword} );
 
-        $hash->{db_finished} = 1;
+        $plugin_hash->{db_finished} = 1;
         open $rfh, "> $install_file" or die $!;
         my $yw = Data::YAML::Writer->new;
-        $yw->write( $hash, $rfh );
+        $yw->write( $plugin_hash, $rfh );
 
         close $rfh;
     }
@@ -129,15 +129,11 @@ get '/install/finalize' => sub {
 
     SellSmooth::Base::Template->new( client => $p{client} )->create();
 
-    open my $rfh, '<', $install_file
-      or die "can't open config file: $install_file $!";
-    my $hash = LoadFile($install_file);
-    close $rfh;
-    $hash->{enabled} = 0;
+    $plugin_hash->{enabled} = 0;
 
     open $rfh, "> $install_file" or die $!;
     my $yw = Data::YAML::Writer->new;
-    $yw->write( $hash, $rfh );
+    $yw->write( $plugin_hash, $rfh );
     close $rfh;
 
     template 'install/finalize', {}, { layout => 'install' };
