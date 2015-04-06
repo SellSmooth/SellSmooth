@@ -2,14 +2,18 @@
 <section id="content">
 	<div class="container">
 		<div class="row">
-			[% FOREACH product IN products.content %]
-				<div class="col-lg-3" style="border: 1px solid lightgray;margin: 10px;">
-					<p><a href="/product/[% product.number %]">[% product.name %]</a></p>
-					<h2>[% product.prices.0.value %][% org.currency.symbol %]</h2>
+			<div class="col-lg-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Number</span>
+					<input type="text" class="form-control" placeholder="Number" value="[% object.number %]" aria-describedby="basic-addon1">
 				</div>
-			[% END %]
-			<div class="col-lg-3"></div>
-			<div class="col-lg-3"></div>
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Name</span>
+					<input type="text" class="form-control" placeholder="Name" value="[% object.name %]" aria-describedby="basic-addon1">
+				</div>
+			</div>
+			<div class="col-lg-6">
+			</div>
 		</div>
 	</div>
 </section>

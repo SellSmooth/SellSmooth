@@ -1,0 +1,74 @@
+[% USE Dumper %]
+<section id="content">
+	<div class="container">
+		<h3>Product Edit</h3>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Number</span>
+					<input type="text" class="form-control" placeholder="Number" value="[% object.number %]" aria-describedby="basic-addon1">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Name</span>
+					<input type="text" class="form-control" placeholder="Name" value="[% object.name %]" aria-describedby="basic-addon1">
+				</div>
+				[% sector = object.sector %]
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Sector</span>
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						[% sector.name %]
+						<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							[% FOREACH se IN sectors %]<li>[% se.name %]</li>[% END %]
+						</ul>
+					</div>
+				</div>
+				[% assortment = object.assortment %]
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Assortment</span>
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						[% assortment.name %]
+						<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							[% FOREACH se IN assortments %]<li>[% se.name %]</li>[% END %]
+						</ul>
+					</div>
+				</div>
+				[% commodity_group = object.commodity_group %]
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Commodity Group</span>
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						[% commodity_group.name %]
+						<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							[% FOREACH se IN commodity_groups %]<li>[% se.name %]</li>[% END %]
+						</ul>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-lg-6">
+				<table class="table table-striped">
+					<tr>
+						<th>Date</th>
+						[% FOREACH lists_item IN price_lists %]
+						<th>[% lists_item.name %]</th>
+						[% END %]
+					</tr>
+					[% FOREACH price IN object.prices %]
+						<tr>
+							<td>[% price.valid_from %]</td>
+							<td>[% price.value %]</td>
+						</tr>
+					[% END %]
+				</table>
+			</div>
+		</div>
+	</div>
+</section>

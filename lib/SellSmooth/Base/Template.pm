@@ -101,6 +101,20 @@ has price_list => (
                 currency   => 'cent',
                 net_prices => 0,
                 client     => $self->client()->{id},
+            },
+            {
+                name       => 'List 2',
+                number     => 2,
+                currency   => 'cent',
+                net_prices => 0,
+                client     => $self->client()->{id},
+            },
+            {
+                name       => 'List 3',
+                number     => 3,
+                currency   => 'cent',
+                net_prices => 0,
+                client     => $self->client()->{id},
             }
         ];
     }
@@ -186,15 +200,47 @@ has product_prices => (
     lazy    => 1,
     default => method {
         [
+            { product => 1, price_list => 1, value => 2.95, },
+            { product => 1, price_list => 2, value => 4.95, },
+            { product => 1, price_list => 3, value => 1.95, },
+            { product => 2, price_list => 1, value => 1.95, },
+            { product => 2, price_list => 2, value => 0.95, },
+            { product => 2, price_list => 3, value => 1.45, },
             {
                 product    => 1,
                 price_list => 1,
-                value      => 2.95,
+                value      => 2.55,
+                valid_from => '2014-04-06',
+            },
+            {
+                product    => 1,
+                price_list => 2,
+                value      => 4.55,
+                valid_from => '2014-04-06',
+            },
+            {
+                product    => 1,
+                price_list => 3,
+                value      => 1.55,
+                valid_from => '2014-04-06',
             },
             {
                 product    => 2,
                 price_list => 1,
-                value      => 1.95,
+                value      => 1.55,
+                valid_from => '2014-04-06',
+            },
+            {
+                product    => 2,
+                price_list => 2,
+                value      => 0.55,
+                valid_from => '2014-04-06',
+            },
+            {
+                product    => 2,
+                price_list => 3,
+                value      => 1.55,
+                valid_from => '2014-04-06',
             },
         ];
     }

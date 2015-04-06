@@ -6,7 +6,7 @@ use Dancer2;
 use Moose;
 use YAML::XS qw/LoadFile/;
 use SellSmooth::Core::Loaddataservice;
-
+use Data::Dumper;
 use SellSmooth::Core;
 
 with 'SellSmooth::Plugin';
@@ -39,8 +39,13 @@ get $path. '/list' => sub {
 };
 
 get $path. '/edit/:number' => sub {
-
-    template 'admin/edit', {}, { layout => 'admin' };
+    template 'admin/edit',
+      {
+        object => SellSmooth::Core::Loaddataservice::findByNumber(
+            'CommodityGroup', params->{number}
+        ),
+      },
+      { layout => 'admin' };
 };
 
 ################################################################################
@@ -53,8 +58,10 @@ hook before_template_render => sub {
 #my $user     = ( defined $tokens->{user} ) ? $tokens->{user} : DataService::User::ViewUser->findById( session('user') );
 #my $b        = Web::Desktop::token( $packname, $user, ( defined $user ) ? $user->{locale} : language_country, $tokens->{profile} );
 #map { $tokens->{$_} = $b->{$_} } keys %$b;
-#$tokens->{nav_dyn}      = DataService::Locale::Language->getDynamic( $user->{locale});
+    $tokens->{admin_path} = '/commodity_group';
+
 #$tokens->{forum_active} = 'active ';
 #$tokens->{title}        = 'International Talk' if ( !defined $tokens->{title} );
 };
+
 1;

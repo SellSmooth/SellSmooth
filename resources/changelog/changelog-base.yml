@@ -280,7 +280,6 @@
     name: product_product_texts
     type: createtable
   - columns:
-    - {tpl: tpl_minimal}
     - foreign: {refcolumn: id, reftable: product}
       name: product
       notnull: 1
@@ -288,10 +287,14 @@
     - foreign: {refcolumn: id, reftable: price_lists}
       name: price_list
       type: uuid
-    - {name: value, notnull: 1, type: numeric}
     - foreign: {refcolumn: id, reftable: organizational_unit}
       name: org
       type: uuid
+    - {name: value, notnull: 1, type: numeric}
+    - { name: valid_from, type: date, default: current, notnull: 1 }
+    constraints:
+    - name: product_prices
+      primarykey: [product, valid_from, price_list]
     name: product_prices
     type: createtable
   - columns:
