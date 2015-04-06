@@ -1,10 +1,10 @@
 - author: Mario Zieschang
   entries:
   - add:
-    - [Euro, cent, 3, EUR, "€"]
+    - [Euro, cent, 3, EUR, €]
     - [Dollar, Cent, 3, USD, $]
     - [Swiss fran, Rappen, 2, CHF, CHF]
-    cols: [name, currency_key, decimal_places, cent_name, symbol]
+    cols: [name, cent_name, decimal_places, currency_key, symbol]
     name: currencies
     type: insert
   - add:

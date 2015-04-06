@@ -54,10 +54,17 @@ get $path. '/edit/:number' => sub {
       SellSmooth::Core::Loaddataservice::findById( 'Assortment',
         $ret->{assortment} );
 
+    my $pr_list = SellSmooth::Core::Loaddataservice::list('PriceList');
+    foreach (@$pr_list) {
+        $_->{currency} =
+          SellSmooth::Core::Loaddataservice::findById( 'Currency',
+            $_->{currency} );
+    }
+
     template 'admin/edit_product',
       {
         object      => $ret,
-        price_lists => SellSmooth::Core::Loaddataservice::list('PriceList'),
+        price_lists => $pr_list,
         sectors     => SellSmooth::Core::Loaddataservice::list('Sector'),
         assortments => SellSmooth::Core::Loaddataservice::list('Assortment'),
         commodity_groups =>

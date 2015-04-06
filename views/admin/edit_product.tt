@@ -16,39 +16,27 @@
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1">Sector</span>
 					<div class="btn-group" role="group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-						[% sector.name %]
-						<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu">
-							[% FOREACH se IN sectors %]<li>[% se.name %]</li>[% END %]
-						</ul>
+						<select class="btn btn-default dropdown-toggle">
+							[% FOREACH se IN sectors %]<option>[% se.name %]</option>[% END %]
+						</select>
 					</div>
 				</div>
 				[% assortment = object.assortment %]
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1">Assortment</span>
 					<div class="btn-group" role="group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-						[% assortment.name %]
-						<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu">
-							[% FOREACH se IN assortments %]<li>[% se.name %]</li>[% END %]
-						</ul>
+						<select class="btn btn-default dropdown-toggle">
+							[% FOREACH se IN assortments %]<option>[% se.name %]</option>[% END %]
+						</select>
 					</div>
 				</div>
 				[% commodity_group = object.commodity_group %]
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon1">Commodity Group</span>
 					<div class="btn-group" role="group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-						[% commodity_group.name %]
-						<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu">
-							[% FOREACH se IN commodity_groups %]<li>[% se.name %]</li>[% END %]
-						</ul>
+						<select class="btn btn-default dropdown-toggle">
+							[% FOREACH se IN commodity_groups %]<option>[% se.name %]</option>[% END %]
+						</select>
 					</div>
 				</div>
 
@@ -58,7 +46,7 @@
 					<tr>
 						<th>Date</th>
 						[% FOREACH lists_item IN price_lists %]
-						<th>[% lists_item.name %]</th>
+						<th>[% lists_item.name %] [% lists_item.currency.symbol %]</th>
 						[% END %]
 					</tr>
 					[% FOREACH price IN object.prices %]

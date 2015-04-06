@@ -98,21 +98,21 @@ has price_list => (
             {
                 name       => 'Standard',
                 number     => 1,
-                currency   => 'cent',
+                currency   => 'EUR',
                 net_prices => 0,
                 client     => $self->client()->{id},
             },
             {
                 name       => 'List 2',
                 number     => 2,
-                currency   => 'cent',
+                currency   => 'EUR',
                 net_prices => 0,
                 client     => $self->client()->{id},
             },
             {
                 name       => 'List 3',
                 number     => 3,
-                currency   => 'cent',
+                currency   => 'EUR',
                 net_prices => 0,
                 client     => $self->client()->{id},
             }

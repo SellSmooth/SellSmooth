@@ -1,0 +1,30 @@
+[% USE Dumper %]
+<section id="content">
+	<div class="container">
+		<h3>Product Edit</h3>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Number</span>
+					<input type="text" class="form-control" placeholder="Number" value="[% object.number %]" aria-describedby="basic-addon1">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Name</span>
+					<input type="text" class="form-control" placeholder="Name" value="[% object.name %]" aria-describedby="basic-addon1">
+				</div>
+				[% currency = object.currency %]
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Currency</span>
+					<div class="btn-group" role="group">
+						<select class="btn btn-default dropdown-toggle">
+							[% FOREACH se IN currencies %]<option>[% se.name %]</option>[% END %]
+						</select>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-lg-6">
+			</div>
+		</div>
+	</div>
+</section>

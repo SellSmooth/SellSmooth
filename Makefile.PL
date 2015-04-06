@@ -22,7 +22,7 @@ WriteMakefile(
         'Test::More'              => 0,
         'YAML'                    => 0,
         'Dancer2'                 => 0.158000,
-        'DBIx::Schema::Changelog' => 0.7.0,
+        'DBIx::Schema::Changelog' => 0.7.2,
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES    => 'SS-*' },
