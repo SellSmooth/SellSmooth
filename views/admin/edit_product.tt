@@ -52,7 +52,11 @@
 					[% FOREACH price IN object.prices %]
 						<tr>
 							<td>[% price.valid_from %]</td>
-							<td>[% price.value %]</td>
+							[% FOREACH lists_item IN price_lists %]
+								[% FOREACH value IN price.values %]
+									[% IF value.price_list == lists_item.id %] <td>[% value.value %]</td> [% END %]
+								[% END %]
+							[% END %]
 						</tr>
 					[% END %]
 				</table>

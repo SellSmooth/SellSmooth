@@ -5,8 +5,9 @@ use warnings;
 use Dancer2;
 use Moose;
 use YAML::XS qw/LoadFile/;
-
+use Data::Dumper;
 use SellSmooth::Core;
+use SellSmooth::Base::Prices;
 
 with 'SellSmooth::Plugin';
 
@@ -40,11 +41,8 @@ get $path. '/edit/:number' => sub {
     my $ret = SellSmooth::Core::Loaddataservice::findByNumber( 'Product',
         params->{number} );
 
-    $ret->{prices} = SellSmooth::Core::Loaddataservice::list(
-        'ProductPrice',
-        { product  => $ret->{id} },
-        { order_by => { '-asc' => 'valid_from' } }
-    );
+    my $prices = SellSmooth::Base::Prices->new();
+    $ret->{prices} = $prices->findByProduct($ret);
     $ret->{sector} =
       SellSmooth::Core::Loaddataservice::findById( 'Sector', $ret->{sector} );
     $ret->{commodity_group} =

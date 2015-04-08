@@ -54,7 +54,6 @@ sub findByNumber {
     $ret->{currency} =
       SellSmooth::Core::Loaddataservice::findById( 'Currency',
         $ret->{price_list}->{currency} );
-    debug Dumper($ret);
     return $ret;
 }
 
