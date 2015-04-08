@@ -42,121 +42,25 @@ sub create {
 sub findByProduct {
     my ( $self, $product ) = @_;
 
-    my $ret = SellSmooth::Core::Loaddataservice::list(
+    my $db_prices = SellSmooth::Core::Loaddataservice::list(
         'ProductPrice',
         { product  => $product->{id} },
         { order_by => { '-asc' => 'valid_from' } }
     );
 
-    debug Dumper($ret);
-    my $tmp = [];
-    foreach (@$ret) {
-
-    }
-    debug Dumper($tmp);
-
-    return [
-        {
-            valid_from => '2014-04-06',
-            values     => [
-                {
-                    org        => undef,
-                    value      => '2.55',
-                    price_list => 'b06ddbf9-cb72-def0-4c0c-90a3e35bbdff'
-                },
-                {
-                    price_list => 'cee82d02-ae26-5c65-ac16-b6a22f396968',
-                    org        => undef,
-                    value      => '4.55'
-                },
-                {
-                    org        => undef,
-                    value      => '1.55',
-                    price_list => '99c1e96b-1c27-cf16-0514-58a6a03070f3'
-                }
-            ]
-        },
-        {
-            valid_from => '2015-04-04',
-            values     => [
-                {
-                    price_list => 'b06ddbf9-cb72-def0-4c0c-90a3e35bbdff',
-                    org        => undef,
-                    value      => '2.95',
-                },
-                {
-                    price_list => 'cee82d02-ae26-5c65-ac16-b6a22f396968',
-                    org        => undef,
-                    value      => '4.95',
-                },
-                {
-                    org        => undef,
-                    value      => '1.95',
-                    price_list => '99c1e96b-1c27-cf16-0514-58a6a03070f3'
-                }
-            ]
-        },
-        {
-            valid_from => '2015-04-06',
-            values     => [
-                {
-                    price_list => 'b06ddbf9-cb72-def0-4c0c-90a3e35bbdff',
-                    org        => undef,
-                    value      => '3.95',
-                },
-                {
-                    price_list => 'cee82d02-ae26-5c65-ac16-b6a22f396968',
-                    org        => undef,
-                    value      => '2.95',
-                },
-                {
-                    org        => undef,
-                    value      => '3.95',
-                    price_list => '99c1e96b-1c27-cf16-0514-58a6a03070f3'
-                }
-            ]
-        },
-        {
-            valid_from => '2015-04-07',
-            values     => [
-                {
-                    price_list => 'b06ddbf9-cb72-def0-4c0c-90a3e35bbdff',
-                    org        => undef,
-                    value      => '3.95',
-                },
-                {
-                    price_list => 'cee82d02-ae26-5c65-ac16-b6a22f396968',
-                    org        => undef,
-                    value      => '2.95',
-                },
-                {
-                    org        => undef,
-                    value      => '3.95',
-                    price_list => '99c1e96b-1c27-cf16-0514-58a6a03070f3'
-                }
-            ]
-        },
-        {
-            valid_from => '2015-04-08',
-            values     => [
-                {
-                    price_list => 'b06ddbf9-cb72-def0-4c0c-90a3e35bbdff',
-                    org        => undef,
-                    value      => '3.95',
-                },
-                {
-                    price_list => 'cee82d02-ae26-5c65-ac16-b6a22f396968',
-                    org        => undef,
-                    value      => '2.95',
-                },
-                {
-                    org        => undef,
-                    value      => '3.95',
-                    price_list => '99c1e96b-1c27-cf16-0514-58a6a03070f3'
-                }
-            ]
+    my $tmp = {};
+    foreach (@$db_prices) {
+        unless ( $tmp->{ $_->{valid_from} } ) {
+            $tmp->{ $_->{valid_from} } = {
+                valid_from => $_->{valid_from},
+                values     => []
+            };
         }
-    ];
+        push( @{ $tmp->{ $_->{valid_from} }->{values} }, $_ );
+    }
+    my $ret = [];
+    push( @$ret, $tmp->{$_} ) foreach ( sort( keys %$tmp ) );
+    return $ret;
 }
 
 =item update

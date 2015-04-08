@@ -42,6 +42,8 @@
 
 			</div>
 			<div class="col-lg-6">
+
+				<button type="button" class="btn btn-default">Add</button>
 				<table class="table table-striped">
 					<tr>
 						<th>Date</th>
@@ -53,9 +55,11 @@
 						<tr>
 							<td>[% price.valid_from %]</td>
 							[% FOREACH lists_item IN price_lists %]
+								[% found = 0 %]
 								[% FOREACH value IN price.values %]
-									[% IF value.price_list == lists_item.id %] <td>[% value.value %]</td> [% END %]
+									[% IF value.price_list == lists_item.id %]<td>[% value.value %]</td>[% found = 1 %][% END %]
 								[% END %]
+								[% IF found == 0 %]<td></td>[% END %]
 							[% END %]
 						</tr>
 					[% END %]
