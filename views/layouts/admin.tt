@@ -51,26 +51,7 @@
 					<h1>Demo Shop Admin</h1>
 				</div>
 				<div class="col-lg-12">
-	                <div class="navbar-collapse collapse ">
-	                    <ul class="nav navbar-nav">
-	                        <li><a href="/admind3hf3bwelu">Dashboard</a></li>
-
-	                        <li>
-								<div class="btn-group">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									Core Data <span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu" role="menu">
-				                        <li><a href="/admind3hf3bwelu/commodity_group/list">Commodity Groups</a></li>
-				                        <li><a href="/admind3hf3bwelu/currency/list">Currencies</a></li>
-				                        <li><a href="/admind3hf3bwelu/price_list/list">Price Lists</a></li>
-				                        <li><a href="/admind3hf3bwelu/product/list">Products</a></li>
-									</ul>
-								</div>
-	                        </li>
-	                        
-	                    </ul>
-	                </div>
+	                [% INCLUDE admin/navigation.tt %]
 				</div>
 			</div>
 		</div>

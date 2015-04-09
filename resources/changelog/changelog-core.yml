@@ -396,7 +396,7 @@
       notnull: 1
       type: uuid
     - {lenght: '15,6', name: percentage, notnull: 1, type: decimal}
-    - {name: valid_from, notnull: 1, type: time}
+    - {name: valid_from, notnull: 1, type: date}
     constraints:
     - name: sales_tax_rates
       primarykey: [sales_tax, percentage, valid_from]
@@ -408,12 +408,12 @@
       type: uuid
     - {name: tax_index, type: integer}
     - foreign: {refcolumn: id, reftable: sales_tax}
-      name: tax
+      name: sales_tax
       notnull: 1
       type: uuid
     constraints:
     - name: sector_tax_items
-      primarykey: [sector, tax]
+      primarykey: [sector, sales_tax]
     name: sector_tax_items
     type: createtable
   id: 001.01-maz

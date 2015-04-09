@@ -1,0 +1,32 @@
+[% USE Dumper %]
+<section id="content">
+	<div class="container">
+		<h3>Sector Edit</h3>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Number</span>
+					<input type="text" class="form-control" placeholder="Number" value="[% object.number %]" aria-describedby="basic-addon1">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Name</span>
+					<input type="text" class="form-control" placeholder="Name" value="[% object.name %]" aria-describedby="basic-addon1">
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<button type="button" class="btn btn-default">Add</button>
+				[% FOREACH zone IN economic_zones %]
+				<div style="border: 1px solid lightgray;">
+					<p style="border-bottom: 1px solid lightgray;">Economy Zone: [% zone.name %]</p>
+					<table style="width:100%;">
+						<tr><th>Tax</th><th>Sub Total Index</th></tr>
+						[% FOREACH tax IN zone.taxes %]
+						<tr><td>[% tax.tax_name %]</td><td>[% tax.tax_index %]</td></tr>
+    					[% END %]
+					</table>
+				</div>
+				[% END %]
+			</div>
+		</div>
+	</div>
+</section>

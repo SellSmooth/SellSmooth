@@ -14,3 +14,13 @@
     name: currency_denomination_types
     type: insert
   id: 003.01-maz
+
+- id: 003.02-maz
+  author: "Mario Zieschang"
+  entries:
+    - type: createview
+      name: 'view_sector_economy_zone'
+      as:  'SELECT sector_tax_items.sector, sector_tax_items.tax_index, sector_tax_items.sales_tax, economic_zones.name AS zone_name, sales_tax.economic_zone, sales_tax.name AS tax_name FROM public.sector_tax_items, public.sector, public.sales_tax, public.economic_zones WHERE sector_tax_items.sector = sector.id AND sales_tax.id = sector_tax_items.sales_tax AND economic_zones.id = sales_tax.economic_zone'
+
+
+

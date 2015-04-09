@@ -173,6 +173,29 @@ has sales_tax => (
     }
 );
 
+has sales_tax_rates => (
+    lazy    => 1,
+    default => method {
+        [
+            {
+                valid_from => '2014-04-06',
+                sales_tax  => 1,
+                percentage => 19,
+            },
+            {
+                valid_from => '2014-04-06',
+                sales_tax  => 2,
+                percentage => 7,
+            },
+            {
+                valid_from => '2014-04-06',
+                sales_tax  => 3,
+                percentage => 0,
+            },
+        ];
+    }
+);
+
 has sector => (
     lazy    => 1,
     default => method {
@@ -191,6 +214,29 @@ has sector => (
                 name   => 'Tax Free',
                 number => 3,
                 client => $self->client()->{id},
+            },
+        ];
+    }
+);
+
+has sector_tax_items => (
+    lazy    => 1,
+    default => method {
+        [
+            {
+                sector    => 1,
+                tax_index => 1,
+                sales_tax => 1,
+            },
+            {
+                sector    => 3,
+                tax_index => 1,
+                sales_tax => 3,
+            },
+            {
+                sector    => 2,
+                tax_index => 1,
+                sales_tax => 2,
             },
         ];
     }
@@ -291,10 +337,23 @@ sub create {
           SellSmooth::Core::Writedataservice::create( 'SalesTax', $_ );
     }
 
+    foreach ( @{ $self->sales_tax_rates() } ) {
+        $_->{sales_tax} = $st->{ $_->{sales_tax} }->{id};
+        SellSmooth::Core::Writedataservice::create( 'SalesTaxRate', $_ );
+    }
+
     my $se = {};
     foreach ( @{ $self->sector() } ) {
         $se->{ $_->{number} } =
           SellSmooth::Core::Writedataservice::create( 'Sector', $_ );
+    }
+
+    debug Dumper( $st, $se, $self->sector_tax_items() );
+
+    foreach ( @{ $self->sector_tax_items() } ) {
+        $_->{sales_tax} = $st->{ $_->{sales_tax} }->{id};
+        $_->{sector}    = $se->{ $_->{sector} }->{id};
+        SellSmooth::Core::Writedataservice::create( 'SectorTaxItem', $_ );
     }
 
     my $prHdnl = SellSmooth::Base::Product->new( client => $self->client() );

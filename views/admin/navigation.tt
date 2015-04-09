@@ -1,0 +1,88 @@
+<div class="container-fluid">
+    <div class="navbar-header">
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href="/admind3hf3bwelu/price_list/list">Dashboard</a></li>
+            <li class='[% games_active %]has-sub'><a href='#'><span>Core Data</span></a>
+                <ul class="theme">
+                    <li><a href="/admind3hf3bwelu/product/list">Products</a></li>
+                    <li><a href="/admind3hf3bwelu/commodity_group/list">Commodity Groups</a></li>
+                    <li><a href="/admind3hf3bwelu/price_list/list">Price Lists</a></li>
+                    <li><a href="/admind3hf3bwelu/assortments/list">Assortments</a></li>
+                    <li><a href="/admind3hf3bwelu/organizational_units/list">Organizational Units</a></li>
+                    <li><a href="/admind3hf3bwelu/info_texts/list">Info Texts</a></li>
+                    <li><a href="/admind3hf3bwelu/payment_menthods/list">Payment Menthods</a></li>
+                    <li><a href="/admind3hf3bwelu/tags/list">Tags</a></li>
+                    <li><a href="/admind3hf3bwelu/accounts/list">Accounts</a></li>
+
+                    <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
+                </ul>
+            </li>
+            <li class='[% games_active %]has-sub'><a href='#'><span>Orders</span></a>
+                <ul class="theme">
+                    <li><a href="/admind3hf3bwelu/orders/list">Orders</a></li>
+                    <li><a href="/admind3hf3bwelu/invoices/list">Invoices</a></li>
+                    <li><a href="/admind3hf3bwelu/return/list">Return</a></li>
+                    <li><a href="/admind3hf3bwelu/delivery_slip/list">Delivery Slip</a></li>
+                    <li><a href="/admind3hf3bwelu/slip/list">Slip</a></li>
+                    <li><a href="/admind3hf3bwelu/statuses/list">Statuses</a></li>
+                    <li><a href="/admind3hf3bwelu/order_message/list">Order Message</a></li>
+                    <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
+                </ul>
+            </li>
+            <li class='[% games_active %]has-sub'><a href='#'><span>Customers</span></a>
+                <ul class="theme">
+                    <li><a href="/admind3hf3bwelu/customers/list">Customers</a></li>
+                    <li><a href="/admind3hf3bwelu/customer_groups/list">Groups</a></li>
+                    <li><a href="/admind3hf3bwelu/carts/list">Carts</a></li>
+                    <li><a href="/admind3hf3bwelu/threads/list">Threads</a></li>
+                    <li><a href="/admind3hf3bwelu/contacts/list">Contacts</a></li>
+                    <li><a href="/admind3hf3bwelu/receipts/list">Receipts</a></li>
+                    <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
+                </ul>
+            </li>
+            <li class='[% games_active %]has-sub'><a href='#'><span>Localization</span></a>
+                <ul class="theme">
+                    <li><a href="/admind3hf3bwelu/localization/list">Localization</a></li>
+                    <li><a href="/admind3hf3bwelu/languages/list">Languages</a></li>
+                    <li><a href="/admind3hf3bwelu/zones/list">Zones</a></li>
+                    <li><a href="/admind3hf3bwelu/countries/list">Countries</a></li>
+                    <li><a href="/admind3hf3bwelu/states/list">States</a></li>
+                    <li><a href="/admind3hf3bwelu/currencies/list">Currencies</a></li>
+                    <li><a href="/admind3hf3bwelu/sectors/list">Sectors</a></li>
+                    <li><a href="/admind3hf3bwelu/taxes/list">Taxes</a></li>
+                    <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
+                </ul>
+            </li>
+            <li class='[% games_active %]has-sub'><a href='#'><span>Carriers</span></a>
+                <ul class="theme">
+                    <li><a href="/admind3hf3bwelu/carriers/list">Carriers</a></li>
+                    <li><a href="/admind3hf3bwelu/shipping/list">Shipping</a></li>
+                    <li><a href="/admind3hf3bwelu/shipping_costs/list">Shipping Costs</a></li>
+                    <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
+                </ul>
+            </li>
+            <li class='[% games_active %]has-sub'><a href='#'><span>Inventory</span></a>
+                <ul class="theme">
+                    <li><a href="/admind3hf3bwelu/inventories/list">Inventories</a></li>
+                    <li><a href="/admind3hf3bwelu/manufacturers/list">Manufacturers</a></li>
+                    <li><a href="/admind3hf3bwelu/suppliers/list">Suppliers</a></li>
+                    <li><a href="/admind3hf3bwelu/stock_orders/list">Stock Orders</a></li>
+                    <li><a href="/admind3hf3bwelu/stock_receipts/list">Stock Receipts</a></li>
+                    <li><a href="/admind3hf3bwelu/dispatch_notifications/list">Dispatch Notifications</a></li>
+                    <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
+                </ul>
+            </li>
+            <li class='[% games_active %]has-sub'><a href='#'><span>Shop</span></a>
+                <ul class="theme">
+                    <li><a href="/admind3hf3bwelu/genders/list">Genders</a></li>
+                    <li><a href="/admind3hf3bwelu/employees/list">Employees</a></li>
+                    <li><a href="/admind3hf3bwelu/user_roles/list">User Roles</a></li>
+                    <li><a href="/admind3hf3bwelu/users/list">Users</a></li>
+                    <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
+                </ul>
+            </li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
