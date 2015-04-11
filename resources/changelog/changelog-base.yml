@@ -263,8 +263,8 @@
     type: createtable
   - columns:
     - {tpl: tpl_full_client_ref}
-    - {lenght: 255, name: iso_code, type: varchar}
-    name: language
+    - {lenght: 3, name: iso_code, type: varchar}
+    name: languages
     type: createtable
   - columns:
     - {tpl: tpl_minimal}
@@ -274,7 +274,7 @@
       type: uuid
     - {lenght: 255, name: TYPE, notnull: 1, type: varchar}
     - {name: text, type: text}
-    - foreign: {refcolumn: id, reftable: language}
+    - foreign: {refcolumn: id, reftable: languages}
       name: language
       type: uuid
     name: product_product_texts
@@ -323,6 +323,10 @@
     type: createtable
   - columns:
     - {tpl: tpl_full_client_ref}
+    - foreign: {refcolumn: id, notnull: 1, reftable: languages}
+      name: language
+      notnull: 1
+      type: uuid
     - {default: RECEIPT, lenght: 255, name: type, notnull: 1, type: varchar}
     name: info_texts
     type: createtable
@@ -739,7 +743,7 @@
     - foreign: {refcolumn: id, reftable: organizational_unit}
       name: warehouse
       type: uuid
-    - foreign: {refcolumn: id, reftable: language}
+    - foreign: {refcolumn: id, reftable: languages}
       name: language
       type: uuid
     - {lenght: 255, name: last_receipt_number, type: varchar}
@@ -921,7 +925,7 @@
     - foreign: {refcolumn: id, reftable: assortments}
       name: assortment
       type: uuid
-    - foreign: {refcolumn: id, reftable: language}
+    - foreign: {refcolumn: id, reftable: languages}
       name: language
       type: uuid
     - {name: created_on, type: time}

@@ -292,6 +292,39 @@ has product_prices => (
     }
 );
 
+has org_assortments => (
+    lazy    => 1,
+    default => method {
+        [
+            {
+                org        => 1,
+                assortment => 1,
+                valid_from => '2014-04-06',
+            },
+        ];
+    }
+);
+
+has languages => (
+    lazy    => 1,
+    default => method {
+        [
+            {
+                iso_code => 'eng',
+                number   => 1,
+                name     => 'English',
+                client   => $self->client()->{id},
+            },
+            {
+                number   => 2,
+                name     => 'German',
+                client   => $self->client()->{id},
+                iso_code => 'ger',
+            },
+        ];
+    }
+);
+
 sub create {
     my ($self) = @_;
 
@@ -348,8 +381,6 @@ sub create {
           SellSmooth::Core::Writedataservice::create( 'Sector', $_ );
     }
 
-    debug Dumper( $st, $se, $self->sector_tax_items() );
-
     foreach ( @{ $self->sector_tax_items() } ) {
         $_->{sales_tax} = $st->{ $_->{sales_tax} }->{id};
         $_->{sector}    = $se->{ $_->{sector} }->{id};
@@ -369,6 +400,18 @@ sub create {
         $_->{product}    = $pr->{ $_->{product} }->{id};
         $_->{price_list} = $pl->{ $_->{price_list} }->{id};
         SellSmooth::Core::Writedataservice::create( 'ProductPrice', $_ );
+    }
+
+    foreach ( @{ $self->org_assortments() } ) {
+        $_->{org}        = $orgs->{ $_->{org} }->{id};
+        $_->{assortment} = $ass->{ $_->{assortment} }->{id};
+        SellSmooth::Core::Writedataservice::create( 'OrgAssortment', $_ );
+    }
+
+    my $lang = {};
+    foreach ( @{ $self->languages() } ) {
+        $lang->{ $_->{number} } =
+          SellSmooth::Core::Writedataservice::create( 'Language', $_ );
     }
 
 }

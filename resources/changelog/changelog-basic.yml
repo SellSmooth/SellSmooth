@@ -1,26 +1,44 @@
 - author: Mario Zieschang
   entries:
   - add:
-    - [Euro, cent, 3, EUR, €]
+    - [Euro, cent, 3, EUR, "\u20AC"]
     - [Dollar, Cent, 3, USD, $]
     - [Swiss fran, Rappen, 2, CHF, CHF]
     cols: [name, cent_name, decimal_places, currency_key, symbol]
     name: currencies
     type: insert
   - add:
-    - ['Coin', 2]
-    - ['Banknote', 1]
+    - [Coin, 2]
+    - [Banknote, 1]
     cols: [name, number]
     name: currency_denomination_types
     type: insert
   id: 003.01-maz
-
-- id: 003.02-maz
-  author: "Mario Zieschang"
+- author: Mario Zieschang
   entries:
-    - type: createview
-      name: 'view_sector_economy_zone'
-      as:  'SELECT sector_tax_items.sector, sector_tax_items.tax_index, sector_tax_items.sales_tax, economic_zones.name AS zone_name, sales_tax.economic_zone, sales_tax.name AS tax_name FROM public.sector_tax_items, public.sector, public.sales_tax, public.economic_zones WHERE sector_tax_items.sector = sector.id AND sales_tax.id = sector_tax_items.sales_tax AND economic_zones.id = sales_tax.economic_zone'
-
-
-
+  - {as: 'SELECT sector_tax_items.sector, sector_tax_items.tax_index, sector_tax_items.sales_tax,
+      economic_zones.name AS zone_name, sales_tax.economic_zone, sales_tax.name AS
+      tax_name FROM public.sector_tax_items, public.sector, public.sales_tax, public.economic_zones
+      WHERE sector_tax_items.sector = sector.id AND sales_tax.id = sector_tax_items.sales_tax
+      AND economic_zones.id = sales_tax.economic_zone', name: view_sector_economy_zone,
+    type: createview}
+  id: 003.02-maz
+- author: Mario Zieschang
+  entries:
+  - columns:
+    - foreign: {notnull: 1, refcolumn: id, reftable: assortments}
+      name: assortment
+      notnull: 1
+      type: uuid
+    - foreign: {notnull: 1, refcolumn: id, reftable: organizational_unit}
+      name: org
+      notnull: 1
+      type: uuid
+    - {name: valid_from, notnull: 1, type: date}
+    - {name: valid_to, type: date}
+    constraints:
+    - name: org_assortments
+      primarykey: [assortment, org]
+    name: org_assortments
+    type: createtable
+  id: 003.03-maz

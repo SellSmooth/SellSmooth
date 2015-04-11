@@ -1,0 +1,6 @@
+# This is a plugin configuration file of your SellSmooth app
+
+# Your plugin name
+name: "Admin::Tags"
+
+enabled: 1

@@ -1,0 +1,77 @@
+[% USE Dumper %]
+<section id="content">
+	<div class="container">
+		<h3>Product Edit</h3>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Number</span>
+					<input type="text" class="form-control" placeholder="Number" value="[% object.number %]" aria-describedby="basic-addon1">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Name</span>
+					<input type="text" class="form-control" placeholder="Name" value="[% object.name %]" aria-describedby="basic-addon1">
+				</div>
+
+				[% pratent = object.pratent %]
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Parent</span>
+					<div class="btn-group" role="group">
+						<select class="btn btn-default dropdown-toggle">
+							[% FOREACH se IN orgs %]<option>[% se.name %]</option>[% END %]
+						</select>
+					</div>
+				</div>
+
+				[% price_list = object.price_list %]
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Price List</span>
+					<div class="btn-group" role="group">
+						<select class="btn btn-default dropdown-toggle">
+							[% FOREACH se IN price_lists %]<option>[% se.name %]</option>[% END %]
+						</select>
+					</div>
+				</div>
+
+				[% economic_zone = object.economic_zone %]
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Economic Zone</span>
+					<div class="btn-group" role="group">
+						<select class="btn btn-default dropdown-toggle">
+							[% FOREACH se IN economic_zones %]<option>[% se.name %]</option>[% END %]
+						</select>
+					</div>
+				</div>
+
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Centrality-Index</span>
+					<input type="text" class="form-control" value="[% object.centrality_index %]" aria-describedby="basic-addon1">
+				</div>
+
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">EH-Number</span>
+					<input type="text" class="form-control" value="[% object.eh_number %]" aria-describedby="basic-addon1">
+				</div>
+
+			</div>
+			<div class="col-lg-6">
+
+				<button type="button" class="btn btn-default">Add</button>
+				<table class="table table-striped">
+					<tr>
+						<th>Assortment</th>
+						<th>Valid From</th>
+						<th>Valid To</th>
+					</tr>
+					[% FOREACH assort IN object.assortments %]
+						<tr>
+							<td>[% assort.assortment.name %]</td>
+							<td>[% assort.valid_from %]</td>
+							<td>[% assort.valid_to %]</td>
+						</tr>
+					[% END %]
+				</table>
+			</div>
+		</div>
+	</div>
+</section>

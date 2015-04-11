@@ -1,0 +1,23 @@
+[% USE Dumper %]
+<section id="content">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Number</span>
+					<input type="text" class="form-control" placeholder="Number" value="[% object.number %]" aria-describedby="basic-addon1">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Name</span>
+					<input type="text" class="form-control" placeholder="Name" value="[% object.name %]" aria-describedby="basic-addon1">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Iso Code (ISO_639-3)</span>
+					<input type="text" class="form-control" placeholder="Iso Code" value="[% object.iso_code %]" aria-describedby="basic-addon1">
+				</div>
+			</div>
+			<div class="col-lg-6">
+			</div>
+		</div>
+	</div>
+</section>
