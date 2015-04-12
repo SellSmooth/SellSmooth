@@ -1,18 +1,24 @@
 <div class="row">
-	<div class="col-sm-3" >[% INCLUDE pos/receipt.tt %][% INCLUDE pos/numberfield.tt %]</div>
-	<div class="col-sm-6" >[% INCLUDE pos/selectfield.tt %]</div>
-	<div class="col-sm-3" >[% INCLUDE pos/funtions.tt %]</div>
+	<div class="col-lg-12">
+		<div class="menu-bar">
+			<p>
+				<span>Menu Bar </span><a href="http://sellsmooth.org" target="_blank">SellSmooth</a>
+			</p>
+		</div>
+		
+	</div>
 </div>
-<div id="sub-footer">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="copyright">
-					<p>
-						<span>&copy; SellSmooth 2015 All right reserved. By </span><a href="http://sellsmooth.org" target="_blank">SellSmooth</a>
-					</p>
-				</div>
-			</div>
+<div class="row">
+	<div class="col-sm-3" style="border: 1px solid lightgray;">[% INCLUDE pos/receipt.tt %][% INCLUDE pos/numberfield.tt %]</div>
+	<div class="col-sm-6" style="border: 1px solid lightgray;">[% INCLUDE pos/selectfield.tt %]</div>
+	<div class="col-sm-3" style="border: 1px solid lightgray;">[% INCLUDE pos/funtions.tt %]</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="copyright">
+			<p>
+				<span>&copy; SellSmooth 2015 All right reserved. By </span><a href="http://sellsmooth.org" target="_blank">SellSmooth</a>
+			</p>
 		</div>
 	</div>
 </div>

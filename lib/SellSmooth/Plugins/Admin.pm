@@ -10,12 +10,8 @@ use SellSmooth::Core;
 
 with 'SellSmooth::Plugin';
 
-my $admin_file =
-  File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d', 'admin.yml' );
-open my $rfh, '<', $admin_file or die "$admin_file $!";
-my $plugin_hash = LoadFile($admin_file);
-close $rfh;
-my $path = '/' . $plugin_hash->{path};
+my $plugin_hash = load_config();
+my $path        = '/' . $plugin_hash->{path};
 
 debug __PACKAGE__;
 
@@ -32,6 +28,35 @@ get $path . '/login' => sub {
 post $path . '/login' => sub {
 
     template 'admin/index', {}, { layout => 'admin' };
+};
+
+sub load_config {
+    my $file =
+      File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d', 'admin.yml' );
+    open my $rfh, '<', $file or die "$file $!";
+    my $ret = LoadFile($file);
+    close $rfh;
+    return $ret;
+}
+
+sub plugin_hash {
+    return $plugin_hash if ( defined $plugin_hash );
+    $plugin_hash = load_config();
+    return $plugin_hash;
+}
+
+################################################################################
+#######################             HOOKS                  #####################
+################################################################################
+hook before_template_render => sub {
+    my $tokens   = shift;
+    my $packname = __PACKAGE__;
+
+#my $user     = ( defined $tokens->{user} ) ? $tokens->{user} : DataService::User::ViewUser->findById( session('user') );
+#my $b        = Web::Desktop::token( $packname, $user, ( defined $user ) ? $user->{locale} : language_country, $tokens->{profile} );
+#map { $tokens->{$_} = $b->{$_} } keys %$b;
+    $tokens->{admin_path} = '/zones';
+    $tokens->{admin_conf} = plugin_hash();
 };
 
 1;

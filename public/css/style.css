@@ -1572,6 +1572,10 @@ ul.social-network li {
 	font-size:12px;
 }
 
+.menu-bar {
+	height: 0px;
+}
+
 #sub-footer ul.social-network {
 	float:right;
 }

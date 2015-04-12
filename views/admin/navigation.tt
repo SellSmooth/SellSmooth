@@ -1,86 +1,87 @@
+[% use Dumper %]
 <div class="container-fluid">
     <div class="navbar-header">
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li><a href="/admind3hf3bwelu/price_list/list">Dashboard</a></li>
+            <li><a href="/[% admin_conf.path %]">Dashboard</a></li>
             <li class='[% games_active %]has-sub'><a href='#'><span>Core Data</span></a>
                 <ul class="theme">
-                    <li><a href="/admind3hf3bwelu/product/list">Products</a></li>
-                    <li><a href="/admind3hf3bwelu/commodity_group/list">Commodity Groups</a></li>
-                    <li><a href="/admind3hf3bwelu/price_list/list">Price Lists</a></li>
-                    <li><a href="/admind3hf3bwelu/assortments/list">Assortments</a></li>
-                    <li><a href="/admind3hf3bwelu/organizational_units/list">Organizational Units</a></li>
-                    <li><a href="/admind3hf3bwelu/info_texts/list">Info Texts</a></li>
-                    <li><a href="/admind3hf3bwelu/payment_menthods/list">Payment Menthods</a></li>
-                    <li><a href="/admind3hf3bwelu/tags/list">Tags</a></li>
-                    <li><a href="/admind3hf3bwelu/accounts/list">Accounts</a></li>
+                    <li><a href="/[% admin_conf.path %]/product/list">Products</a></li>
+                    <li><a href="/[% admin_conf.path %]/commodity_group/list">Commodity Groups</a></li>
+                    <li><a href="/[% admin_conf.path %]/price_list/list">Price Lists</a></li>
+                    <li><a href="/[% admin_conf.path %]/assortments/list">Assortments</a></li>
+                    <li><a href="/[% admin_conf.path %]/organizational_units/list">Organizational Units</a></li>
+                    <li><a href="/[% admin_conf.path %]/info_texts/list">Info Texts</a></li>
+                    <li><a href="/[% admin_conf.path %]/payment_menthods/list">Payment Menthods</a></li>
+                    <li><a href="/[% admin_conf.path %]/tags/list">Tags</a></li>
+                    <li><a href="/[% admin_conf.path %]/accounts/list">Accounts</a></li>
 
                     <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
                 </ul>
             </li>
             <li class='[% games_active %]has-sub'><a href='#'><span>Orders</span></a>
                 <ul class="theme">
-                    <li><a href="/admind3hf3bwelu/orders/list">Orders</a></li>
-                    <li><a href="/admind3hf3bwelu/invoices/list">Invoices</a></li>
-                    <li><a href="/admind3hf3bwelu/return/list">Return</a></li>
-                    <li><a href="/admind3hf3bwelu/delivery_slip/list">Delivery Slip</a></li>
-                    <li><a href="/admind3hf3bwelu/slip/list">Slip</a></li>
-                    <li><a href="/admind3hf3bwelu/statuses/list">Statuses</a></li>
-                    <li><a href="/admind3hf3bwelu/order_message/list">Order Message</a></li>
+                    <li><a href="/[% admin_conf.path %]/orders/list">Orders</a></li>
+                    <li><a href="/[% admin_conf.path %]/invoices/list">Invoices</a></li>
+                    <li><a href="/[% admin_conf.path %]/return/list">Return</a></li>
+                    <li><a href="/[% admin_conf.path %]/delivery_slip/list">Delivery Slip</a></li>
+                    <li><a href="/[% admin_conf.path %]/slip/list">Slip</a></li>
+                    <li><a href="/[% admin_conf.path %]/statuses/list">Statuses</a></li>
+                    <li><a href="/[% admin_conf.path %]/order_message/list">Order Message</a></li>
                     <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
                 </ul>
             </li>
             <li class='[% games_active %]has-sub'><a href='#'><span>Customers</span></a>
                 <ul class="theme">
-                    <li><a href="/admind3hf3bwelu/customers/list">Customers</a></li>
-                    <li><a href="/admind3hf3bwelu/customer_groups/list">Groups</a></li>
-                    <li><a href="/admind3hf3bwelu/carts/list">Carts</a></li>
-                    <li><a href="/admind3hf3bwelu/threads/list">Threads</a></li>
-                    <li><a href="/admind3hf3bwelu/contacts/list">Contacts</a></li>
-                    <li><a href="/admind3hf3bwelu/receipts/list">Receipts</a></li>
+                    <li><a href="/[% admin_conf.path %]/customers/list">Customers</a></li>
+                    <li><a href="/[% admin_conf.path %]/customer_groups/list">Groups</a></li>
+                    <li><a href="/[% admin_conf.path %]/carts/list">Carts</a></li>
+                    <li><a href="/[% admin_conf.path %]/threads/list">Threads</a></li>
+                    <li><a href="/[% admin_conf.path %]/contacts/list">Contacts</a></li>
+                    <li><a href="/[% admin_conf.path %]/receipts/list">Receipts</a></li>
                     <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
                 </ul>
             </li>
             <li class='[% games_active %]has-sub'><a href='#'><span>Localization</span></a>
                 <ul class="theme">
-                    <li><a href="/admind3hf3bwelu/localization/list">Localization</a></li>
-                    <li><a href="/admind3hf3bwelu/languages/list">Languages</a></li>
-                    <li><a href="/admind3hf3bwelu/zones/list">Zones</a></li>
-                    <li><a href="/admind3hf3bwelu/countries/list">Countries</a></li>
-                    <li><a href="/admind3hf3bwelu/states/list">States</a></li>
-                    <li><a href="/admind3hf3bwelu/currencies/list">Currencies</a></li>
-                    <li><a href="/admind3hf3bwelu/sectors/list">Sectors</a></li>
-                    <li><a href="/admind3hf3bwelu/taxes/list">Taxes</a></li>
+                    <li><a href="/[% admin_conf.path %]/localization/list">Localization</a></li>
+                    <li><a href="/[% admin_conf.path %]/languages/list">Languages</a></li>
+                    <li><a href="/[% admin_conf.path %]/zones/list">Zones</a></li>
+                    <li><a href="/[% admin_conf.path %]/countries/list">Countries</a></li>
+                    <li><a href="/[% admin_conf.path %]/states/list">States</a></li>
+                    <li><a href="/[% admin_conf.path %]/currencies/list">Currencies</a></li>
+                    <li><a href="/[% admin_conf.path %]/sectors/list">Sectors</a></li>
+                    <li><a href="/[% admin_conf.path %]/taxes/list">Taxes</a></li>
                     <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
                 </ul>
             </li>
             <li class='[% games_active %]has-sub'><a href='#'><span>Carriers</span></a>
                 <ul class="theme">
-                    <li><a href="/admind3hf3bwelu/carriers/list">Carriers</a></li>
-                    <li><a href="/admind3hf3bwelu/shipping/list">Shipping</a></li>
-                    <li><a href="/admind3hf3bwelu/shipping_costs/list">Shipping Costs</a></li>
+                    <li><a href="/[% admin_conf.path %]/carriers/list">Carriers</a></li>
+                    <li><a href="/[% admin_conf.path %]/shipping/list">Shipping</a></li>
+                    <li><a href="/[% admin_conf.path %]/shipping_costs/list">Shipping Costs</a></li>
                     <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
                 </ul>
             </li>
             <li class='[% games_active %]has-sub'><a href='#'><span>Inventory</span></a>
                 <ul class="theme">
-                    <li><a href="/admind3hf3bwelu/inventories/list">Inventories</a></li>
-                    <li><a href="/admind3hf3bwelu/manufacturers/list">Manufacturers</a></li>
-                    <li><a href="/admind3hf3bwelu/suppliers/list">Suppliers</a></li>
-                    <li><a href="/admind3hf3bwelu/stock_orders/list">Stock Orders</a></li>
-                    <li><a href="/admind3hf3bwelu/stock_receipts/list">Stock Receipts</a></li>
-                    <li><a href="/admind3hf3bwelu/dispatch_notifications/list">Dispatch Notifications</a></li>
+                    <li><a href="/[% admin_conf.path %]/inventories/list">Inventories</a></li>
+                    <li><a href="/[% admin_conf.path %]/manufacturers/list">Manufacturers</a></li>
+                    <li><a href="/[% admin_conf.path %]/suppliers/list">Suppliers</a></li>
+                    <li><a href="/[% admin_conf.path %]/stock_orders/list">Stock Orders</a></li>
+                    <li><a href="/[% admin_conf.path %]/stock_receipts/list">Stock Receipts</a></li>
+                    <li><a href="/[% admin_conf.path %]/dispatch_notifications/list">Dispatch Notifications</a></li>
                     <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
                 </ul>
             </li>
             <li class='[% games_active %]has-sub'><a href='#'><span>Shop</span></a>
                 <ul class="theme">
-                    <li><a href="/admind3hf3bwelu/pos_standard" onclick="javascript:void window.open('/admind3hf3bwelu/pos_standard','1428827215834','width=1024,height=600,toolbar=0,menubar=0,location=0,status=0,scrollbars=0,resizable=0,left=0,top=0');return false;">POS</a></li>
-                    <li><a href="/admind3hf3bwelu/genders/list">Genders</a></li>
-                    <li><a href="/admind3hf3bwelu/employees/list">Employees</a></li>
-                    <li><a href="/admind3hf3bwelu/user_roles/list">User Roles</a></li>
-                    <li><a href="/admind3hf3bwelu/users/list">Users</a></li>
+                    <li><a href="/[% admin_conf.path %]/pos_standard" onclick="javascript:void window.open('/[% admin_conf.path %]/pos_standard','1428827215834','width=1024,height=600,toolbar=0,menubar=0,location=0,status=0,scrollbars=0,resizable=0,left=0,top=0');return false;">POS</a></li>
+                    <li><a href="/[% admin_conf.path %]/genders/list">Genders</a></li>
+                    <li><a href="/[% admin_conf.path %]/employees/list">Employees</a></li>
+                    <li><a href="/[% admin_conf.path %]/user_roles/list">User Roles</a></li>
+                    <li><a href="/[% admin_conf.path %]/users/list">Users</a></li>
                     <!--li><a href='/gg_four_kingdoms'><span>Good Game Poker</span></a></li-->
                 </ul>
             </li>

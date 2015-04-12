@@ -5,6 +5,7 @@
 			<div class="col-lg-12">
 			<h1>Demo Shop</h1>
 				<ul class="breadcrumb">
+					<li><a href="/">All</a></li>
 					[% FOREACH commodity_group IN commodity_groups.content %]
 						<li><a href="/commodity_group/[% commodity_group.number %]">[% commodity_group.name %]</a></li>
 					[% END %]
@@ -19,7 +20,7 @@
 			[% FOREACH product IN products.content %]
 				<div class="col-lg-3" style="border: 1px solid lightgray;margin: 10px;">
 					<p><a href="/product/[% product.number %]">[% product.name %]</a></p>
-					<h2>[% product.prices.0.value %][% org.currency.symbol %]</h2>
+					[% IF product.prices.0 %]<h2>[% product.prices.0.value %][% org.currency.symbol %]</h2>[% ELSE %]<h2> n.A.</h2>[% END %]
 				</div>
 			[% END %]
 			<div class="col-lg-3"></div>

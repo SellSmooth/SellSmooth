@@ -2,9 +2,7 @@
 [% FOREACH product IN products.content %]
 	<div class="row">
 		<div class="col-sm-3">
-			<button class="btn btn-default">
-				[% product.name %] [% product.prices.0.value %][% org.currency.symbol %]
-			</button>
+			<button class="btn btn-default">[% product.name %]</button>
 		</div>
 	</div>
 [% END %]

@@ -11,19 +11,14 @@ use SellSmooth::Core;
 
 with 'SellSmooth::Plugin';
 
-my $file = File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d', 'admin.yml' );
-open my $rfh, '<', $file or die "$file $!";
-my $admin_hash = LoadFile($file);
-close $rfh;
-
-$file =
+my $file =
   File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d',
     'admin_info_text.yml' );
-open $rfh, '<', $file or die "$file $!";
+open my $rfh, '<', $file or die "$file $!";
 my $plugin_hash = LoadFile($file);
 close $rfh;
 
-my $path = '/' . $admin_hash->{path} . '/info_texts';
+my $path = '/' . SellSmooth::Plugins::Admin->plugin_hash()->{path} . '/info_texts';
 
 debug __PACKAGE__;
 
@@ -59,9 +54,7 @@ hook before_template_render => sub {
 #my $b        = Web::Desktop::token( $packname, $user, ( defined $user ) ? $user->{locale} : language_country, $tokens->{profile} );
 #map { $tokens->{$_} = $b->{$_} } keys %$b;
     $tokens->{admin_path} = '/info_texts';
-
-#$tokens->{forum_active} = 'active ';
-#$tokens->{title}        = 'International Talk' if ( !defined $tokens->{title} );
+    $tokens->{admin_conf} = SellSmooth::Plugins::Admin->plugin_hash();
 };
 
 1;
