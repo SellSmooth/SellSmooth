@@ -76,6 +76,7 @@
             </li>
             <li class='[% games_active %]has-sub'><a href='#'><span>Shop</span></a>
                 <ul class="theme">
+                    <li><a href="/admind3hf3bwelu/pos_standard" onclick="javascript:void window.open('/admind3hf3bwelu/pos_standard','1428827215834','width=800,height=600,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');return false;">POS</a></li>
                     <li><a href="/admind3hf3bwelu/genders/list">Genders</a></li>
                     <li><a href="/admind3hf3bwelu/employees/list">Employees</a></li>
                     <li><a href="/admind3hf3bwelu/user_roles/list">User Roles</a></li>

@@ -1,0 +1,5 @@
+[% FOREACH product IN products.content %]
+	<button class="btn btn-default">
+		[% product.name %] [% product.prices.0.value %][% org.currency.symbol %]
+	</button>
+[% END %]

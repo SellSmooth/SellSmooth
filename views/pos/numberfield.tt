@@ -1,0 +1,6 @@
+<div class="row">
+	<div class="col-lg-4"><button class="btn btn-default">1</button><button class="btn btn-default">2</button><button class="btn btn-default">3</button><button class="btn btn-default">+</button></div>
+	<div class="col-lg-4"><button class="btn btn-default">4</button><button class="btn btn-default">5</button><button class="btn btn-default">6</button><button class="btn btn-default">-</button></div>
+	<div class="col-lg-4"><button class="btn btn-default">7</button><button class="btn btn-default">8</button><button class="btn btn-default">9</button><button class="btn btn-default">*</button></div>
+	<div class="col-lg-4"><button class="btn btn-default">C</button><button class="btn btn-default">0</button><button class="btn btn-default">=</button><button class="btn btn-default">/</button></div>
+</div>
