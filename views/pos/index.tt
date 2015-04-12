@@ -1,21 +1,18 @@
-<div id="maincontainer">
-
-	<div id="topsection"><div class="innertube"><p>Sell Smooth Web POS</p></div></div>
-
-	<div id="contentwrapper">
-		<div id="contentcolumn">
-			<div class="innertube">[% INCLUDE pos/selectfield.tt %]</div>
+<div class="row">
+	<div class="col-sm-3" >[% INCLUDE pos/receipt.tt %][% INCLUDE pos/numberfield.tt %]</div>
+	<div class="col-sm-6" >[% INCLUDE pos/selectfield.tt %]</div>
+	<div class="col-sm-3" >[% INCLUDE pos/funtions.tt %]</div>
+</div>
+<div id="sub-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="copyright">
+					<p>
+						<span>&copy; SellSmooth 2015 All right reserved. By </span><a href="http://sellsmooth.org" target="_blank">SellSmooth</a>
+					</p>
+				</div>
+			</div>
 		</div>
 	</div>
-
-	<div id="leftcolumn">
-		<div class="innertube row"><div class="col-lg-12">[% INCLUDE pos/receipt.tt %]</div><div class="col-lg-12">[% INCLUDE pos/numberfield.tt %]</div></div>
-	</div>
-
-	<div id="rightcolumn">
-		<div class="innertube">[% INCLUDE pos/funtions.tt %]</div>
-	</div>
-
-	<div id="footer"><p> Status Label</p></div>
-
 </div>

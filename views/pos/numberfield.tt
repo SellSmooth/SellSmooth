@@ -1,6 +1,34 @@
-<div class="row">
-	<div class="col-lg-4"><button class="btn btn-default">1</button><button class="btn btn-default">2</button><button class="btn btn-default">3</button><button class="btn btn-default">+</button></div>
-	<div class="col-lg-4"><button class="btn btn-default">4</button><button class="btn btn-default">5</button><button class="btn btn-default">6</button><button class="btn btn-default">-</button></div>
-	<div class="col-lg-4"><button class="btn btn-default">7</button><button class="btn btn-default">8</button><button class="btn btn-default">9</button><button class="btn btn-default">*</button></div>
-	<div class="col-lg-4"><button class="btn btn-default">C</button><button class="btn btn-default">0</button><button class="btn btn-default">=</button><button class="btn btn-default">/</button></div>
+<style type="text/css">
+.btn-numpad{
+	width: 45px;
+}
+</style>
+<div class="container">
+	<div class="btn-group" role="group" aria-label="...">
+		<button class="btn btn-default btn-numpad">7</button>
+		<button class="btn btn-default btn-numpad">8</button>
+		<button class="btn btn-default btn-numpad">9</button>
+		<button class="btn btn-default btn-numpad">/</button>
+	</div>
+	<br />
+	<div class="btn-group" role="group" aria-label="...">
+		<button class="btn btn-default btn-numpad">4</button>
+		<button class="btn btn-default btn-numpad">5</button>
+		<button class="btn btn-default btn-numpad">6</button>
+		<button class="btn btn-default btn-numpad">*</button>
+	</div>
+	<br />
+	<div class="btn-group" role="group" aria-label="...">
+		<button class="btn btn-default btn-numpad">1</button>
+		<button class="btn btn-default btn-numpad">2</button>
+		<button class="btn btn-default btn-numpad">3</button>
+		<button class="btn btn-default btn-numpad">-</button>
+	</div>
+	<br />
+	<div class="btn-group" role="group" aria-label="...">
+		<button class="btn btn-default btn-numpad">0</button>
+		<button class="btn btn-default btn-numpad">00</button>
+		<button class="btn btn-default btn-numpad">,</button>
+		<button class="btn btn-default btn-numpad">+</button>
+	</div>
 </div>

@@ -1,5 +1,11 @@
+<div class="container">
 [% FOREACH product IN products.content %]
-	<button class="btn btn-default">
-		[% product.name %] [% product.prices.0.value %][% org.currency.symbol %]
-	</button>
+	<div class="row">
+		<div class="col-sm-3">
+			<button class="btn btn-default">
+				[% product.name %] [% product.prices.0.value %][% org.currency.symbol %]
+			</button>
+		</div>
+	</div>
 [% END %]
+</div>

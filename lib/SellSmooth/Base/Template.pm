@@ -139,6 +139,30 @@ has product => (
                 assortment      => 1,
                 commodity_group => 3,
                 client          => $self->client()->{id},
+            },
+            {
+                name            => 'Cola',
+                number          => 3,
+                sector          => 2,
+                assortment      => 1,
+                commodity_group => 2,
+                client          => $self->client()->{id},
+            },
+            {
+                name            => 'Coffe',
+                number          => 4,
+                sector          => 2,
+                assortment      => 1,
+                commodity_group => 2,
+                client          => $self->client()->{id},
+            },
+            {
+                name            => 'Shoes',
+                number          => 5,
+                sector          => 1,
+                assortment      => 1,
+                commodity_group => 1,
+                client          => $self->client()->{id},
             }
         ];
     }
