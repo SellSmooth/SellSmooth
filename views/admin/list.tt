@@ -2,9 +2,9 @@
 <section id="content">
 	<div class="container">
 		<div class="btn-group" role="group" aria-label="...">
-			<button type="button" class="btn btn-default">Add</button>
+			<button id="add_new_object" type="button" class="btn btn-default">Add</button>
 			<button type="button" class="btn btn-default">Edit</button>
-			<button type="button" class="btn btn-default">Delete</button>
+			<button id="del_new_object" type="button" class="btn btn-default">Delete</button>
 		</div>
 		<table class="table table-striped">
 		[% FOREACH object IN objects.content %]

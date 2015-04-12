@@ -95,6 +95,11 @@ sub listActive {
 	return list( $schema, { active => 1 }, $options );
 }
 ###############################################################################
+sub highestNumber {
+	my ( $schema ) = @_;
+	return 123456;
+}
+###############################################################################
 sub list {
 	my ( $schema, $search, $options ) = @_;
 	try {

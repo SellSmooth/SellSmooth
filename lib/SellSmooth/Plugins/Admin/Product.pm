@@ -3,6 +3,8 @@ package SellSmooth::Plugins::Admin::Product;
 use strict;
 use warnings;
 use Dancer2;
+use Dancer2::Plugin::Ajax;
+use Dancer2::Serializer::JSON;
 use Moose;
 use YAML::XS qw/LoadFile/;
 use Data::Dumper;
@@ -20,6 +22,31 @@ close $rfh;
 my $path = '/' . SellSmooth::Plugins::Admin->plugin_hash()->{path} . '/product';
 
 debug __PACKAGE__;
+
+ajax $path. '/create' => sub {
+    my $ret =
+      { number => SellSmooth::Core::Loaddataservice::highestNumber('Product') };
+
+    my $pr_list = SellSmooth::Core::Loaddataservice::list('PriceList');
+    foreach (@$pr_list) {
+        $_->{currency} =
+          SellSmooth::Core::Loaddataservice::findById( 'Currency',
+            $_->{currency} );
+    }
+
+    return template 'admin/edit_product',
+      {
+        object      => $ret,
+        price_lists => $pr_list,
+        sectors     => SellSmooth::Core::Loaddataservice::list('Sector'),
+        assortments => SellSmooth::Core::Loaddataservice::list('Assortment'),
+        commodity_groups =>
+          SellSmooth::Core::Loaddataservice::list('CommodityGroup'),
+      },
+      { layout => undef };
+
+    #return to_json( $ret, { utf8 => 1 } );
+};
 
 get $path. '/list' => sub {
 
