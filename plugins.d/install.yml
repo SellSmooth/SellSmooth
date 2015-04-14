@@ -1,5 +1,5 @@
 ---
-db_finished: 1
-enabled: 0
+db_finished: 0
+enabled: 1
 name: Install
 ...
