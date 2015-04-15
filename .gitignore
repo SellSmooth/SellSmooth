@@ -8,3 +8,4 @@
 /Makefile.old
 /public/data/*
 /lib/SellSmooth/Base/Db/*
+/plugins.d/install.yml
