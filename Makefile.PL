@@ -23,6 +23,7 @@ WriteMakefile(
         'YAML'                    => 0,
         'Dancer2'                 => 0.158000,
         'DBIx::Schema::Changelog' => 0.7.2,
+        'Data::YAML::Writer'      => 0.0.7,
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES    => 'SS-*' },

@@ -43,6 +43,31 @@ sub create {
     );
 }
 
+=item findByNumber
+
+=cut
+
+sub load_full {
+    my ( $self, $sector ) = @_;
+    $sector = SellSmooth::Core::Loaddataservice::findById( 'Sector', $sector );
+    $sector->{taxes} =
+      SellSmooth::Core::Loaddataservice::list( 'SectorTaxItem',
+        { sector => $sector->{id} },
+      );
+    foreach ( @{ $sector->{taxes} } ) {
+        my $tax =
+          SellSmooth::Core::Loaddataservice::findById( 'SalesTax', $_->{sales_tax} );
+        $tax->{rates} = SellSmooth::Core::Loaddataservice::list(
+            'SalesTaxRate',
+            {
+                sales_tax => $tax->{id}
+            }
+        );
+        $_->{sales_tax} = $tax;
+    }
+    return $sector;
+}
+
 =item update
 
 =cut

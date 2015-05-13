@@ -12,11 +12,11 @@ use Data::YAML::Writer;
 use SellSmooth::Base::Client;
 use SellSmooth::Base::User;
 use SellSmooth::Base::Template;
+use SellSmooth::Base::Install;
 
 with 'SellSmooth::Plugin';
 
-my $install_file =
-  File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d', 'install.yml' );
+my $install_file = File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d', 'install.yml' );
 my $params = undef;
 
 open my $rfh, '<', $install_file or die "$install_file $!";
@@ -65,22 +65,24 @@ get '/install/shop' => sub {
     unless ( $plugin_hash->{db_finished} ) {
         my $lib = File::Spec->catfile( $FindBin::Bin, '..', 'lib' );
         my $db  = "dbi:$p{dbEngine}:dbname=$p{dbName};host=$p{dbServer}";
-        my $dbh = DBI->connect( $db, $p{dbLogin}, $p{dbPassword} );
+        my $dbh = DBI->connect(
+            $db,
+            $p{dbLogin},
+            $p{dbPassword},
+            {
+                pg_utf8_strings => 1,
+            }
+        );
         my $obj = DBIx::Schema::Changelog->new(
             dbh       => $dbh,
             db_driver => $p{dbEngine}
         );
-        $obj->table_action()
-          ->prefix( ( defined $p{db_prefix} ) ? $p{db_prefix} : '' );
-        $obj->read(
-            File::Spec->catfile(
-                $FindBin::Bin, '..', 'resources', 'changelog'
-            )
-        );
+        $obj->table_action()->prefix( ( defined $p{db_prefix} ) ? $p{db_prefix} : '' );
+        $obj->read( File::Spec->catfile( $FindBin::Bin, '..', 'resources', 'changelog' ) );
 
         $dbh->disconnect();
 
-        SellSmooth::Base::Install->createSchema( "SellSmooth::Base::Db::Pg",
+        SellSmooth::Base::Install->createSchema( "SellSmooth::Base::Db::$p{dbEngine}",
             $lib, $db, $p{dbLogin}, $p{dbPassword} );
 
         $plugin_hash->{db_finished} = 1;
