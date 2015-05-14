@@ -1,0 +1,30 @@
+[% USE Dumper %]
+<section id="content">
+	<div class="container">
+		[% commodity_group = object.commodity_group %]
+		[% assortment = object.assortment %]
+		<h4>[% commodity_group.name %] ([% assortment.name %])</h4>
+		<h3>Product: [% object.name %]</h3>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Number</span>
+					<input type="text" class="form-control" placeholder="Number" value="[% object.number %]" aria-describedby="basic-addon1"></div>
+				[% sector = object.sector %]
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">Sector</span>
+					<div class="btn-group" role="group">
+						<input type="text" class="form-control" placeholder="Number" value="[% sector.name %]" aria-describedby="basic-addon1"></div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				[% IF object.image %]<img src="[% request.uri_base %]/[% object.image %]">[% END %]
+				[% IF object.prices.0 %]
+				<h2>[% object.prices.0.value %][% org.currency.symbol %]</h2>
+				[% ELSE %]
+				<h2>n.A.</h2>
+				[% END %]
+			</div>
+		</div>
+	</div>
+</section>

@@ -20,4 +20,4 @@ use SellSmooth::Base::Install;
 #SellSmooth::Base::Install->createSchema( "SellSmooth::Base::Db::Pg",
 #    $lib, $db, "smooth", "smooth" );
 
-SellSmooth->dance;
+SellSmooth->to_app;
