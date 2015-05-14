@@ -13,6 +13,7 @@ use MooseX::Types::LoadableClass qw(LoadableClass);
 has plugins => ( default => sub { {} } );
 
 has enabled => (
+    lazy    => 1,
     default => sub {
         my $self    = shift;
         my $enabled = [];
