@@ -69,6 +69,18 @@ sub remove {
 
 }
 
+=item find_by_number
+
+=cut
+
+sub find_by_number {}
+
+=item find_by_id
+
+=cut
+
+sub find_by_id {}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

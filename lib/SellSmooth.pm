@@ -10,6 +10,8 @@ use SellSmooth::Core;
 use SellSmooth::Plugins;
 use SellSmooth::Core::Loaddataservice;
 use SellSmooth::Base::OrganizationalUnit;
+use SellSmooth::Base::Product;
+use SellSmooth::Base::CommodityGroup;
 
 our $VERSION = '0.1.0';
 
@@ -18,22 +20,16 @@ load $_ foreach @{ $plg->enabled() };
 
 get '/' => sub {
     return redirect '/install' unless ( SellSmooth::Core->check_install($plg) );
-    my $products =
-      SellSmooth::Core::Loaddataservice::list( 'Product', {}, { page => 1 } );
-    foreach ( @{ $products->{content} } ) {
-        $_->{prices} =
-          SellSmooth::Core::Loaddataservice::list( 'ProductPrice',
-            { product => $_->{id} } );
-    }
 
-    my $orgHndl = SellSmooth::Base::OrganizationalUnit->new( client => {} );
+    my $org_hndl     = SellSmooth::Base::OrganizationalUnit->new( client => {}, db_object => 'OrganizationalUnit' );
+    my $product_hndl = SellSmooth::Base::Product->new( client => {}, db_object => 'Product' );
+    my $com_group_hndl = SellSmooth::Base::CommodityGroup->new( db_object => 'CommodityGroup' );
+
     template 'index',
       {
-        products         => $products,
-        org              => $orgHndl->findByNumber(1),
-        commodity_groups => SellSmooth::Core::Loaddataservice::list(
-            'CommodityGroup', {}, { page => 1 }
-        ),
+        products         => $product_hndl->list_refer( {}, { page => 1 } ),
+        org              => $org_hndl->find_by_number(1),
+        commodity_groups => $com_group_hndl->list( {}, { page => 1 } ),
       };
 };
 

@@ -1,8 +1,8 @@
-package SellSmooth::Base::Object;
+package SellSmooth::Base::PriceList;
 
 =head1 NAME
 
-SellSmooth::Base::Object - Abstract object class for db objects.
+SellSmooth::Base::Product - Abstract plugin class.
 
 =head1 VERSION
 
@@ -13,75 +13,57 @@ Version 0.1.0
 our $VERSION = '0.1.0';
 
 use strict;
-use warnings FATAL => 'all';
-use Moose::Role;
+use warnings;
+use Dancer2;
+use Moose;
+use Data::Dumper;
+use SellSmooth::Core::Writedataservice;
+use SellSmooth::Core::Loaddataservice;
 
-has client    => ( isa => 'Defined', is => 'ro' );
-has db_object => ( isa => 'Defined', is => 'ro', );
+with 'SellSmooth::Base::Object';
 
 =head1 SUBROUTINES/METHODS
 
-=head2 create
+=over 4
 
-Required sub to run create for specific action type.
-
-=cut
-
-requires 'create';
-
-=head2 update
-
-Required sub to run update for specific action type.
+=item create
 
 =cut
 
-requires 'update';
-
-=head2 delete
-
-Set current object only to inactive.
-
-=cut
-
-requires 'delete';
-
-=head2 remove
-
-Remove the current object from db.
-Can not be undone!!!
-
-=cut
-
-requires 'remove';
-
-=item find_by_number
-
-=cut
-
-sub find_by_number {
-    my ( $self, $number ) = @_;
-    return SellSmooth::Core::Loaddataservice::findByNumber( $self->db_object(), $number );
+sub create {
+    my ( $self, $params ) = @_;
+    return SellSmooth::Core::Writedataservice::create( $self->db_object(),
+        $params );
 }
 
-=item find_by_id
+=item update
 
 =cut
 
-sub find_by_id {
-    my ( $self, $id ) = @_;
-    return SellSmooth::Core::Loaddataservice::findById( $self->db_object(), $id );
+sub update {
+
 }
 
-=item find_by_id
+=item delete
 
 =cut
 
-sub list {
-    my ( $self, $params, $options ) = @_;
-    return SellSmooth::Core::Loaddataservice::list( $self->db_object(), $params, $options );
+sub delete {
+
 }
 
-1;    # End of SellSmooth::Plugin
+=item remove
+
+=cut
+
+sub remove {
+
+}
+
+no Moose;
+__PACKAGE__->meta->make_immutable;
+
+1;    # End of SellSmooth::Base::Client
 
 __END__
 

@@ -42,7 +42,7 @@ get $path. '/:number' => sub {
     template 'product',
       {
         object => $object,
-        org    => $orgHndl->findByNumber(1),
+        org    => $orgHndl->find_by_number(1),
         commodity_groups =>
           SellSmooth::Core::Loaddataservice::list( 'CommodityGroup', {}, { page => 1 } ),
       };

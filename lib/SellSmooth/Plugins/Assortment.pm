@@ -8,11 +8,14 @@ use YAML::XS qw/LoadFile/;
 use SellSmooth::Core::Loaddataservice;
 use Data::Dumper;
 use SellSmooth::Core;
+use SellSmooth::Base::Assortment;
+use SellSmooth::Base::OrganizationalUnit;
+use SellSmooth::Base::Product;
+use SellSmooth::Base::CommodityGroup;
 
 with 'SellSmooth::Plugin';
 
-my $file = File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d',
-    'assortment.yml' );
+my $file = File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d', 'assortment.yml' );
 open my $rfh, '<', $file or die "$file $!";
 my $plugin_hash = LoadFile($file);
 close $rfh;
@@ -22,29 +25,20 @@ my $path = '/assortment';
 debug __PACKAGE__;
 
 get $path. '/:number' => sub {
-    my $object =
-      SellSmooth::Core::Loaddataservice::findByNumber( 'Assortment',
-        params->{number} );
 
-    my $products = SellSmooth::Core::Loaddataservice::list(
-        'Product',
-        { assortment => $object->{id} },
-        { page            => 1 }
-    );
-    foreach ( @{ $products->{content} } ) {
-        $_->{prices} =
-          SellSmooth::Core::Loaddataservice::list( 'ProductPrice',
-            { product => $_->{id} } );
-    }
-    my $orgHndl = SellSmooth::Base::OrganizationalUnit->new( client => {} );
+    my $assort_hndl = SellSmooth::Base::Assortment->new( client => {}, db_object => 'Assortment' );
+    my $org_hndl = SellSmooth::Base::OrganizationalUnit->new( client => {}, db_object => 'OrganizationalUnit' );
+    my $product_hndl = SellSmooth::Base::Product->new( client => {}, db_object => 'Product' );
+    my $com_group_hndl = SellSmooth::Base::CommodityGroup->new( db_object => 'CommodityGroup' );
+
+    my $object = SellSmooth::Core::Loaddataservice::findByNumber( 'Assortment', params->{number} );
+
     template 'index',
       {
-        object           => $object,
-        products         => $products,
-        org              => $orgHndl->findByNumber(1),
-        assortments => SellSmooth::Core::Loaddataservice::list(
-            'Assortment', {}, { page => 1 }
-        ),
+        object   => $object,
+        products => $product_hndl->list_refer( { assortment => $object->{id} }, { page => 1 } ),
+        org      => $org_hndl->findByNumber(1),
+        assortments => $assort_hndl->list( {}, { page => 1 } ),
       };
 };
 
@@ -58,10 +52,10 @@ hook before_template_render => sub {
 #my $user     = ( defined $tokens->{user} ) ? $tokens->{user} : DataService::User::ViewUser->findById( session('user') );
 #my $b        = Web::Desktop::token( $packname, $user, ( defined $user ) ? $user->{locale} : language_country, $tokens->{profile} );
 #map { $tokens->{$_} = $b->{$_} } keys %$b;
-    $tokens->{admin_path} = '/assortment';
+    $tokens->{admin_path} = $path;
 
-#$tokens->{forum_active} = 'active ';
-#$tokens->{title}        = 'International Talk' if ( !defined $tokens->{title} );
+    #$tokens->{forum_active} = 'active ';
+    #$tokens->{title}        = 'International Talk' if ( !defined $tokens->{title} );
 };
 
 1;

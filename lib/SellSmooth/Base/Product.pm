@@ -17,10 +17,17 @@ use warnings;
 use Dancer2;
 use Moose;
 use Data::Dumper;
+use MooseX::HasDefaults::RO;
 use SellSmooth::Core::Writedataservice;
 use SellSmooth::Core::Loaddataservice;
+use SellSmooth::Base::ProductPrice;
 
 with 'SellSmooth::Base::Object';
+
+has product_price => (
+    isa     => 'SellSmooth::Base::Object',
+    default => sub { SellSmooth::Base::ProductPrice->new( db_object => 'ProductPrice' ) }
+);
 
 =head1 SUBROUTINES/METHODS
 
@@ -32,7 +39,7 @@ with 'SellSmooth::Base::Object';
 
 sub create {
     my ( $self, $params ) = @_;
-    return SellSmooth::Core::Writedataservice::create( 'Product', $params );
+    return SellSmooth::Core::Writedataservice::create( $self->db_object(), $params );
 }
 
 =item update
@@ -57,6 +64,17 @@ sub delete {
 
 sub remove {
 
+}
+
+=item list
+
+=cut
+
+sub list_refer {
+    my ( $self, $params, $options ) = @_;
+    my $products = $self->list( $params, $options );
+    $_->{prices} = $self->product_price->list( { product => $_->{id} } ) foreach ( @{ $products->{content} } );
+    return $products;
 }
 
 no Moose;

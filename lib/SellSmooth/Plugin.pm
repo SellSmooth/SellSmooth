@@ -17,23 +17,17 @@ use warnings FATAL => 'all';
 use Moose::Role;
 use MooseX::Types::Moose qw(Defined Int);
 
-has conf    => ( isa => 'Defined', is => 'ro' );
-has enabled => ( isa => 'Int',     is => 'rw' );
+has conf => ( isa => 'Defined', is => 'ro' );
+has enabled => (
+    lazy    => 1,
+    isa     => 'Int',
+    is      => 'ro',
+    default => sub { ( shift->conf()->{enabled} ) ? 1 : 0 }
+);
 
 =head1 SUBROUTINES/METHODS
 
-=head2 BUILD
-
-Run to check driver version with installed db driver.
-
-Creates changelog table if it's not existing.
-
 =cut
-
-sub BUILD {
-    my $self = shift;
-    $self->enabled( $self->conf()->{enabled} ? 1 : 0 );
-}
 
 1;    # End of SellSmooth::Plugin
 

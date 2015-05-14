@@ -63,6 +63,18 @@ sub findByProduct {
     return $ret;
 }
 
+=item find_by_number
+
+=cut
+
+sub find_by_number {}
+
+=item find_by_id
+
+=cut
+
+sub find_by_id {}
+
 =item update
 
 =cut

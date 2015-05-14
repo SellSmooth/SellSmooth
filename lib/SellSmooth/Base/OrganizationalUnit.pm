@@ -17,6 +17,10 @@ use warnings;
 use Dancer2;
 use Moose;
 use Data::Dumper;
+use MooseX::HasDefaults::RO;
+use SellSmooth::Base::EconomicZone;
+use SellSmooth::Base::PriceList;
+use SellSmooth::Base::Currency;
 use SellSmooth::Core::Writedataservice;
 use SellSmooth::Core::Loaddataservice;
 
@@ -30,31 +34,46 @@ with 'SellSmooth::Base::Object';
 
 =cut
 
+has economic_zone => (
+    isa     => 'SellSmooth::Base::Object',
+    default => sub { SellSmooth::Base::EconomicZone->new( db_object => 'EconomicZone' ) }
+);
+has price_list => (
+    isa     => 'SellSmooth::Base::Object',
+    default => sub { SellSmooth::Base::PriceList->new( db_object => 'PriceList' ) }
+);
+has currency => (
+    isa     => 'SellSmooth::Base::Object',
+    default => sub { SellSmooth::Base::Currency->new( db_object => 'Currency' ) }
+);
+
 sub create {
     my ( $self, $params ) = @_;
 
 }
 
-=item findByNumber
+=item find_by_number
 
 =cut
 
-sub findByNumber {
+sub find_by_number {
     my ( $self, $number ) = @_;
 
-    my $ret =
-      SellSmooth::Core::Loaddataservice::findByNumber( 'OrganizationalUnit',
-        $number );
-    $ret->{economic_zone} =
-      SellSmooth::Core::Loaddataservice::findById( 'EconomicZone',
-        $ret->{economic_zone} );
-    $ret->{price_list} =
-      SellSmooth::Core::Loaddataservice::findById( 'PriceList',
-        $ret->{price_list} );
-    $ret->{currency} =
-      SellSmooth::Core::Loaddataservice::findById( 'Currency',
-        $ret->{price_list}->{currency} );
-    return $ret;
+    my $org = SellSmooth::Core::Loaddataservice::findByNumber( $self->db_object(), $number );
+    print Dumper($org);
+    $org->{economic_zone} = $self->economic_zone->find_by_id( $org->{economic_zone} );
+    $org->{price_list}    = $self->price_list->find_by_id( $org->{price_list} );
+    $org->{currency}      = $self->currency->find_by_id( $org->{price_list}->{currency} );
+    print Dumper($org);
+    return $org;
+}
+
+=item find_by_id
+
+=cut
+
+sub find_by_id {
+
 }
 
 =item update
