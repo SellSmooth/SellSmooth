@@ -21,6 +21,7 @@ use MooseX::HasDefaults::RO;
 use SellSmooth::Core::Writedataservice;
 use SellSmooth::Core::Loaddataservice;
 use SellSmooth::Base::ProductPrice;
+use SellSmooth::Base::Sector;
 
 with 'SellSmooth::Base::Object';
 
@@ -28,45 +29,24 @@ has product_price => (
     isa     => 'SellSmooth::Base::Object',
     default => sub { SellSmooth::Base::ProductPrice->new( db_object => 'ProductPrice' ) }
 );
+has sector => (
+    isa     => 'SellSmooth::Base::Object',
+    default => sub { SellSmooth::Base::Sector->new( db_object => 'Sector' ) }
+);
+has commodity_group => (
+    isa     => 'SellSmooth::Base::Object',
+    default => sub { SellSmooth::Base::CommodityGroup->new( db_object => 'CommodityGroup' ) }
+);
+has assortment => (
+    isa     => 'SellSmooth::Base::Object',
+    default => sub { SellSmooth::Base::Assortment->new( db_object => 'Assortment' ) }
+);
 
-=head1 SUBROUTINES/METHODS
+=head1 commodity_group = head1 SUBROUTINES / METHODS
 
 =over 4
 
-=item create
-
-=cut
-
-sub create {
-    my ( $self, $params ) = @_;
-    return SellSmooth::Core::Writedataservice::create( $self->db_object(), $params );
-}
-
-=item update
-
-=cut
-
-sub update {
-
-}
-
-=item delete
-
-=cut
-
-sub delete {
-
-}
-
-=item remove
-
-=cut
-
-sub remove {
-
-}
-
-=item list
+=item find_by_number
 
 =cut
 
@@ -75,6 +55,21 @@ sub list_refer {
     my $products = $self->list( $params, $options );
     $_->{prices} = $self->product_price->list( { product => $_->{id} } ) foreach ( @{ $products->{content} } );
     return $products;
+}
+
+=item find_by_number
+
+=cut
+
+sub find_by_number {
+    my ( $self, $number ) = @_;
+    my $product = SellSmooth::Core::Loaddataservice::findByNumber( $self->db_object(), $number );
+    $product->{prices}          = $self->product_price->list( { product => $product->{id} } );
+    $product->{sector}          = $self->sector->find_by_id( $product->{sector} );
+    $product->{commodity_group} = $self->commodity_group->find_by_id( $product->{commodity_group} );
+    $product->{assortment}      = $self->assortment->find_by_id( $product->{assortment} );
+    $product->{image}           = 'products/' . $product->{number} . '.jpg';
+    return $product;
 }
 
 no Moose;

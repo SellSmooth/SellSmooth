@@ -11,7 +11,7 @@
 			<tr>
 				<td>[% object.number %]</td>
 				<td>[% object.name %]</td>
-				<td><a href="/[% admin_conf.path %]/edit/[% object.number %]"class="btn btn-default" >Edit</a></td>
+				<td><a href="[% admin_path %]/edit/[% object.number %]"class="btn btn-default" >Edit</a></td>
 			</tr>
 		[% END %]
 		</table>

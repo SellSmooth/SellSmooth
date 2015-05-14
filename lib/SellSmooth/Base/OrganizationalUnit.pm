@@ -47,24 +47,16 @@ has currency => (
     default => sub { SellSmooth::Base::Currency->new( db_object => 'Currency' ) }
 );
 
-sub create {
-    my ( $self, $params ) = @_;
-
-}
-
 =item find_by_number
 
 =cut
 
 sub find_by_number {
     my ( $self, $number ) = @_;
-
     my $org = SellSmooth::Core::Loaddataservice::findByNumber( $self->db_object(), $number );
-    print Dumper($org);
     $org->{economic_zone} = $self->economic_zone->find_by_id( $org->{economic_zone} );
     $org->{price_list}    = $self->price_list->find_by_id( $org->{price_list} );
     $org->{currency}      = $self->currency->find_by_id( $org->{price_list}->{currency} );
-    print Dumper($org);
     return $org;
 }
 
@@ -73,30 +65,12 @@ sub find_by_number {
 =cut
 
 sub find_by_id {
-
-}
-
-=item update
-
-=cut
-
-sub update {
-
-}
-
-=item delete
-
-=cut
-
-sub delete {
-
-}
-
-=item remove
-
-=cut
-
-sub remove {
+    my ( $self, $id ) = @_;
+    my $org = SellSmooth::Core::Loaddataservice::findById( $self->db_object(), $id );
+    $org->{economic_zone} = $self->economic_zone->find_by_id( $org->{economic_zone} );
+    $org->{price_list}    = $self->price_list->find_by_id( $org->{price_list} );
+    $org->{currency}      = $self->currency->find_by_id( $org->{price_list}->{currency} );
+    return $org;
 
 }
 

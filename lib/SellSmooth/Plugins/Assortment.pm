@@ -31,13 +31,12 @@ get $path. '/:number' => sub {
     my $product_hndl = SellSmooth::Base::Product->new( client => {}, db_object => 'Product' );
     my $com_group_hndl = SellSmooth::Base::CommodityGroup->new( db_object => 'CommodityGroup' );
 
-    my $object = SellSmooth::Core::Loaddataservice::findByNumber( 'Assortment', params->{number} );
-
+    my $object = $assort_hndl->find_by_number( params->{number} );
     template 'index',
       {
         object   => $object,
         products => $product_hndl->list_refer( { assortment => $object->{id} }, { page => 1 } ),
-        org      => $org_hndl->findByNumber(1),
+        org      => $org_hndl->find_by_number(1),
         assortments => $assort_hndl->list( {}, { page => 1 } ),
       };
 };

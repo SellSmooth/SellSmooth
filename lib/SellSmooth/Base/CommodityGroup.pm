@@ -32,7 +32,6 @@ with 'SellSmooth::Base::Object';
 
 sub create {
     my ( $self, $params ) = @_;
-    debug Dumper($params);
     return SellSmooth::Core::Writedataservice::create(
         $self->db_object(),
         {
@@ -43,46 +42,6 @@ sub create {
     );
 
 }
-
-=item update
-
-=cut
-
-sub update {
-
-}
-
-=item delete
-
-=cut
-
-sub delete {
-
-}
-
-=item remove
-
-=cut
-
-sub remove {
-
-}
-
-=item find_by_number
-
-=cut
-
-sub find_by_number {
-    my ( $self, $number ) = @_;
-    return SellSmooth::Core::Loaddataservice::findByNumber( $self->db_object(),
-        $number );
-}
-
-=item find_by_id
-
-=cut
-
-sub find_by_id { }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

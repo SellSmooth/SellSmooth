@@ -5,10 +5,10 @@ use warnings;
 use Dancer2;
 use Moose;
 use YAML::XS qw/LoadFile/;
-use SellSmooth::Core::Loaddataservice;
-use Data::Dumper;
 use SellSmooth::Core;
-use SellSmooth::Base::Sector;
+use SellSmooth::Base::Product;
+use SellSmooth::Base::OrganizationalUnit;
+use SellSmooth::Base::CommodityGroup;
 
 with 'SellSmooth::Plugin';
 
@@ -22,29 +22,15 @@ my $path = '/product';
 debug __PACKAGE__;
 
 get $path. '/:number' => sub {
-    my $object =
-      SellSmooth::Core::Loaddataservice::findByNumber( 'Product', params->{number} );
-
-    $object->{prices} =
-      SellSmooth::Core::Loaddataservice::list( 'ProductPrice',
-        { product => $object->{id} } );
-    my $sector_handler = SellSmooth::Base::Sector->new();
-    $object->{sector} = $sector_handler->load_full( $object->{sector} );
-    $object->{commodity_group} =
-      SellSmooth::Core::Loaddataservice::findById( 'CommodityGroup',
-        $object->{commodity_group} );
-    $object->{assortment} =
-      SellSmooth::Core::Loaddataservice::findById( 'Assortment', $object->{assortment} );
-
-    my $orgHndl = SellSmooth::Base::OrganizationalUnit->new( client => {} );
-    $object->{image} = 'products/'.$object->{number}.'.jpg';
-    #debug Dumper $object;
+    my $product_hndl = SellSmooth::Base::Product->new( client => {}, db_object => 'Product' );
+    my $org_hndl = SellSmooth::Base::OrganizationalUnit->new( client => {}, db_object => 'OrganizationalUnit' );
+    my $com_group_hndl = SellSmooth::Base::CommodityGroup->new( client => {}, db_object => 'CommodityGroup' );
+    my $object = $product_hndl->find_by_number( params->{number} );
     template 'product',
       {
-        object => $object,
-        org    => $orgHndl->find_by_number(1),
-        commodity_groups =>
-          SellSmooth::Core::Loaddataservice::list( 'CommodityGroup', {}, { page => 1 } ),
+        object           => $object,
+        org              => $org_hndl->find_by_number(1),
+        commodity_groups => $com_group_hndl->list( {}, { page => 1 } ),
       };
 };
 

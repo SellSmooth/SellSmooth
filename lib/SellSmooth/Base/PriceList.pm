@@ -14,50 +14,34 @@ our $VERSION = '0.1.0';
 
 use strict;
 use warnings;
-use Dancer2;
 use Moose;
-use Data::Dumper;
+use MooseX::HasDefaults::RO;
 use SellSmooth::Core::Writedataservice;
 use SellSmooth::Core::Loaddataservice;
 
 with 'SellSmooth::Base::Object';
 
+has currency => (
+    isa     => 'SellSmooth::Base::Object',
+    default => sub { SellSmooth::Base::Currency->new( db_object => 'Currency' ) }
+);
+
 =head1 SUBROUTINES/METHODS
+
+=item list
 
 =over 4
 
-=item create
-
 =cut
 
-sub create {
-    my ( $self, $params ) = @_;
-    return SellSmooth::Core::Writedataservice::create( $self->db_object(),
-        $params );
-}
+sub list {
+    my ( $self, $params, $options ) = @_;
 
-=item update
+    my $pr_lists = SellSmooth::Core::Loaddataservice::list( $self->db_object(), $params, $options );
 
-=cut
+    $_->{currency} = $self->currency->find_by_id( $_->{currency} ) foreach (@$pr_lists);
 
-sub update {
-
-}
-
-=item delete
-
-=cut
-
-sub delete {
-
-}
-
-=item remove
-
-=cut
-
-sub remove {
-
+    return $pr_lists;
 }
 
 no Moose;

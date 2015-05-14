@@ -15,6 +15,8 @@ our $VERSION = '0.1.0';
 use strict;
 use warnings FATAL => 'all';
 use Moose::Role;
+use SellSmooth::Core::Writedataservice;
+use SellSmooth::Core::Loaddataservice;
 
 has client    => ( isa => 'Defined', is => 'ro' );
 has db_object => ( isa => 'Defined', is => 'ro', );
@@ -27,7 +29,10 @@ Required sub to run create for specific action type.
 
 =cut
 
-requires 'create';
+sub create {
+    my ( $self, $params ) = @_;
+    return SellSmooth::Core::Writedataservice::create( $self->db_object(), $params );
+}
 
 =head2 update
 
@@ -35,7 +40,11 @@ Required sub to run update for specific action type.
 
 =cut
 
-requires 'update';
+sub update {
+    my ( $self, $object, $options ) = @_;
+    return SellSmooth::Core::Writedataservice::update( $self->db_object(), $object, $options );
+
+}
 
 =head2 delete
 
@@ -43,7 +52,10 @@ Set current object only to inactive.
 
 =cut
 
-requires 'delete';
+sub delete {
+    my ( $self, $object ) = @_;
+    return $self->update( $object, { active => 0 } );
+}
 
 =head2 remove
 
@@ -52,7 +64,10 @@ Can not be undone!!!
 
 =cut
 
-requires 'remove';
+sub remove {
+    my ( $self, $params ) = @_;
+    return SellSmooth::Core::Writedataservice::removeById( $self->db_object(), $params );
+}
 
 =item find_by_number
 
