@@ -12,8 +12,7 @@ WriteMakefile(
     AUTHOR       => q{YOUR NAME <youremail@example.com>},
     VERSION_FROM => 'lib/SS.pm',
     ABSTRACT     => 'YOUR APPLICATION ABSTRACT',
-    (
-        $eumm_version >= 6.3001
+    (   $eumm_version >= 6.3001
         ? ( 'LICENSE' => 'perl' )
         : ()
     ),
@@ -24,6 +23,10 @@ WriteMakefile(
         'Dancer2'                 => 0.158000,
         'DBIx::Schema::Changelog' => 0.7.2,
         'Data::YAML::Writer'      => 0.0.7,
+        'Math::Round'             => 0.07,
+        'Dancer2::Plugin::DBIC'   => 0.0009,
+        'Crypt::SaltedHash'       => 0.09,
+        'Crypt::GeneratePassword' => 0.04,
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES    => 'SS-*' },
