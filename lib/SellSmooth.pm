@@ -5,7 +5,7 @@ use warnings;
 use Data::Dumper;
 use Module::Load;
 use Dancer2;
-
+use Dancer2::Plugin::Localization;
 use SellSmooth::Core;
 use SellSmooth::Plugins;
 use SellSmooth::Core::Loaddataservice;
@@ -31,6 +31,12 @@ get '/' => sub {
         org              => $org_hndl->find_by_number(1),
         commodity_groups => $com_group_hndl->list( {}, { page => 1 } ),
       };
+};
+
+hook before_template_render => sub {
+    my $tokens   = shift;
+    my $packname = __PACKAGE__;
+    $tokens->{locale_tags} = tags(language_country);
 };
 
 dance;

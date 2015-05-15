@@ -57,6 +57,7 @@ hook before_template_render => sub {
 #map { $tokens->{$_} = $b->{$_} } keys %$b;
     $tokens->{admin_path} = '/zones';
     $tokens->{admin_conf} = plugin_hash();
+    $tokens->{locale_tags} = tags(language_country);
 };
 
 1;

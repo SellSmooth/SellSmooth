@@ -72,7 +72,9 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="widget">
-							<h5 class="widgetheading">Get in touch with us</h5>
+						
+
+							<h5 class="widgetheading">[% (locale_tags.footer.sellsmooth_contact) ? locale_tags.footer.sellsmooth_contact : '!footer.sellsmooth_contact' %]</h5>
 							<address> <strong>Sell Smooth</strong>
 								<br>
 								Schulstraße 4
@@ -86,22 +88,22 @@
 					</div>
 					<div class="col-md-3">
 						<div class="widget">
-							<h5 class="widgetheading">Pages</h5>
+							<h5 class="widgetheading">[% (locale_tags.footer.pages) ? locale_tags.footer.pages : '!footer.pages' %]</h5>
 							<ul class="link-list">
 								<li>
-									<a href="#">Press release</a>
+									<a href="#">[% (locale_tags.footer.press_release) ? locale_tags.footer.press_release : '!footer.press_release' %]</a>
 								</li>
 								<li>
-									<a href="#">Terms and conditions</a>
+									<a href="#">[% (locale_tags.footer.terms_and_conditions) ? locale_tags.footer.terms_and_conditions : '!footer.terms_and_conditions' %]</a>
 								</li>
 								<li>
-									<a href="#">Privacy policy</a>
+									<a href="#">[% (locale_tags.footer.privacy_policy) ? locale_tags.footer.privacy_policy : '!footer.privacy_policy' %]</a>
 								</li>
 								<li>
-									<a href="#">Career center</a>
+									<a href="#">[% (locale_tags.footer.career_center) ? locale_tags.footer.career_center : '!footer.career_center' %]</a>
 								</li>
 								<li>
-									<a href="#">Contact us</a>
+									<a href="#">[% (locale_tags.footer.contact_us) ? locale_tags.footer.contact_us : '!footer.contact_us' %]</a>
 								</li>
 							</ul>
 						</div>

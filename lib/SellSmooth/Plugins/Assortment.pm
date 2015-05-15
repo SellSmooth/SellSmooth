@@ -52,6 +52,7 @@ hook before_template_render => sub {
 #my $b        = Web::Desktop::token( $packname, $user, ( defined $user ) ? $user->{locale} : language_country, $tokens->{profile} );
 #map { $tokens->{$_} = $b->{$_} } keys %$b;
     $tokens->{admin_path} = $path;
+    $tokens->{locale_tags} = tags(language_country);
 
     #$tokens->{forum_active} = 'active ';
     #$tokens->{title}        = 'International Talk' if ( !defined $tokens->{title} );

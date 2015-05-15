@@ -86,8 +86,9 @@ hook before_template_render => sub {
 #my $user     = ( defined $tokens->{user} ) ? $tokens->{user} : DataService::User::ViewUser->findById( session('user') );
 #my $b        = Web::Desktop::token( $packname, $user, ( defined $user ) ? $user->{locale} : language_country, $tokens->{profile} );
 #map { $tokens->{$_} = $b->{$_} } keys %$b;
-    $tokens->{admin_path} = '/organizational_units';
+    $tokens->{admin_path} = $path;
     $tokens->{admin_conf} = SellSmooth::Plugins::Admin->plugin_hash();
+    $tokens->{locale_tags} = tags(language_country);
 };
 
 1;

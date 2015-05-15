@@ -40,3 +40,9 @@ plugins:
           pg_enable_utf8: 1
           RaiseError: 1
           PrintError: 1
+    Localization:
+      path: resources
+      supported:
+          - de_de
+          - en_us
+      default: en_us

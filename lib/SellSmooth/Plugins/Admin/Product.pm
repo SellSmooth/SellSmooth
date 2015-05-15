@@ -72,6 +72,7 @@ hook before_template_render => sub {
 #map { $tokens->{$_} = $b->{$_} } keys %$b;
     $tokens->{admin_path} = $path;
     $tokens->{admin_conf} = SellSmooth::Plugins::Admin->plugin_hash();
+    $tokens->{locale_tags} = tags(language_country);
 
 };
 
