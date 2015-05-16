@@ -1,20 +1,15 @@
 [% USE Dumper %]
-<section id="content">
-	<div class="container">
-		<div class="btn-group" role="group" aria-label="...">
-			<button id="add_new_object" type="button" class="btn btn-default">Add</button>
-			<button type="button" class="btn btn-default">Edit</button>
-			<button id="del_new_object" type="button" class="btn btn-default">Delete</button>
-		</div>
-		<table class="table table-striped">
-		[% FOREACH object IN objects.content %]
-			<tr>
-				<td>[% object.number %]</td>
-				<td>[% object.name %]</td>
-				<td><a href="[% admin_path %]/edit/[% object.number %]"class="btn btn-default" >Edit</a></td>
-			</tr>
-		[% END %]
-		</table>
-		
-	</div>
-</section>
+<div class="btn-group" role="group" aria-label="...">
+	<button id="add_new_object" type="button" class="btn btn-default">Add</button>
+	<button type="button" class="btn btn-default">Edit</button>
+	<button id="del_new_object" type="button" class="btn btn-default">Delete</button>
+</div>
+<table class="table table-striped">
+[% FOREACH object IN objects.content %]
+	<tr>
+		<td>[% object.number %]</td>
+		<td>[% object.name %]</td>
+		<td><a href="[% admin_path %]/edit/[% object.number %]"class="btn btn-default" >Edit</a></td>
+	</tr>
+[% END %]
+</table>

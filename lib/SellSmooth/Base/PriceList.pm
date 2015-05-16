@@ -23,7 +23,7 @@ with 'SellSmooth::Base::Object';
 
 has currency => (
     isa     => 'SellSmooth::Base::Object',
-    default => sub { SellSmooth::Base::Currency->new( db_object => 'Currency' ) }
+    default => sub { SellSmooth::Base::Currency->new( client => shift->client(),db_object => 'Currency' ) }
 );
 
 =head1 SUBROUTINES/METHODS

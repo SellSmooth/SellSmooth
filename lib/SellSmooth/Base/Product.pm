@@ -27,19 +27,19 @@ with 'SellSmooth::Base::Object';
 
 has product_price => (
     isa     => 'SellSmooth::Base::Object',
-    default => sub { SellSmooth::Base::ProductPrice->new( db_object => 'ProductPrice' ) }
+    default => sub { SellSmooth::Base::ProductPrice->new( client => shift->client(), db_object => 'ProductPrice' ) }
 );
 has sector => (
     isa     => 'SellSmooth::Base::Object',
-    default => sub { SellSmooth::Base::Sector->new( db_object => 'Sector' ) }
+    default => sub { SellSmooth::Base::Sector->new( client => shift->client(), db_object => 'Sector' ) }
 );
 has commodity_group => (
     isa     => 'SellSmooth::Base::Object',
-    default => sub { SellSmooth::Base::CommodityGroup->new( db_object => 'CommodityGroup' ) }
+    default => sub { SellSmooth::Base::CommodityGroup->new( client => shift->client(), db_object => 'CommodityGroup' ) }
 );
 has assortment => (
     isa     => 'SellSmooth::Base::Object',
-    default => sub { SellSmooth::Base::Assortment->new( db_object => 'Assortment' ) }
+    default => sub { SellSmooth::Base::Assortment->new( client => shift->client(), db_object => 'Assortment' ) }
 );
 
 =head1 commodity_group = head1 SUBROUTINES / METHODS

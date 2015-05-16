@@ -1,4 +1,4 @@
-package SellSmooth::Base::Install;
+package SellSmooth::Core::Schema;
 
 use DBIx::Class::Schema::Loader qw/ make_schema_at /;
 

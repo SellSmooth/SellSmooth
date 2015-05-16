@@ -21,63 +21,51 @@ use Moose;
 use MooseX::HasDefaults::RO;
 use Method::Signatures::Simple;
 
+use SellSmooth::Base::Assortment;
+use SellSmooth::Base::Currency;
+use SellSmooth::Base::Language;
 use SellSmooth::Base::Product;
+use SellSmooth::Base::PriceList;
+use SellSmooth::Base::SalesTax;
+use SellSmooth::Base::Sector;
+use SellSmooth::Base::ProductPrice;
+use SellSmooth::Base::OrganizationalUnit;
+use SellSmooth::Base::OrgAssortment;
+use SellSmooth::Base::SectorTaxItem;
+use SellSmooth::Base::SalesTaxRate;
+use SellSmooth::Base::EconomicZone;
+use SellSmooth::Base::CommodityGroup;
+
+has client => ( isa => 'Defined' );
 
 has assortment => (
     lazy    => 1,
-    default => method {
-        [
-            {
-                name   => 'Standard',
-                number => 1,
-                client => $self->client()->{id},
-            }
-        ];
+    default => sub {
+        [ { name => 'Standard', number => 1, client => shift->client()->{id}, } ];
     }
 );
-
-has client => ( default => sub { {} } );
 
 has commodity_group => (
     lazy    => 1,
     default => method {
         [
-            {
-                name         => 'Standard',
-                number       => 1,
-                has_children => 0,
-                client       => $self->client()->{id},
-            },
-            {
-                name         => 'Drinks',
-                number       => 2,
-                has_children => 0,
-                client       => $self->client()->{id},
-            },
-            {
-                name         => 'Foods',
-                number       => 3,
-                has_children => 0,
-                client       => $self->client()->{id},
-            },
+            { name => 'Standard', number => 1, has_children => 0, client => $self->client()->{id}, },
+            { name => 'Drinks',   number => 2, has_children => 0, client => $self->client()->{id}, },
+            { name => 'Foods',    number => 3, has_children => 0, client => $self->client()->{id}, },
         ];
     }
 );
 
 has economic_zone => (
     lazy    => 1,
-    default => method {
-        {
-            name   => 'Germany',
-            number => 1,
-            client => $self->client()->{id},
-        };
+    default => sub {
+        { name => 'Germany', number => 1, client => shift->client()->{id}, };
     }
 );
 
 has org => (
     lazy    => 1,
-    default => method {
+    default => sub {
         [
             {
                 name          => 'Standard',
@@ -85,7 +73,7 @@ has org => (
                 economic_zone => 1,
                 has_children  => 0,
                 price_list    => 1,
-                client        => $self->client()->{id},
+                client        => shift->client()->{id},
             }
         ];
     }
@@ -95,27 +83,9 @@ has price_list => (
     lazy    => 1,
     default => method {
         [
-            {
-                name       => 'Standard',
-                number     => 1,
-                currency   => 'EUR',
-                net_prices => 0,
-                client     => $self->client()->{id},
-            },
-            {
-                name       => 'List 2',
-                number     => 2,
-                currency   => 'EUR',
-                net_prices => 0,
-                client     => $self->client()->{id},
-            },
-            {
-                name       => 'List 3',
-                number     => 3,
-                currency   => 'EUR',
-                net_prices => 0,
-                client     => $self->client()->{id},
-            }
+            { name => 'Standard', number => 1, currency => 'EUR', net_prices => 0, client => $self->client()->{id}, },
+            { name => 'List 2',   number => 2, currency => 'EUR', net_prices => 0, client => $self->client()->{id}, },
+            { name => 'List 3',   number => 3, currency => 'EUR', net_prices => 0, client => $self->client()->{id}, }
         ];
     }
 );
@@ -172,50 +142,20 @@ has sales_tax => (
     lazy    => 1,
     default => method {
         [
-            {
-                name          => 'Standard',
-                number        => 1,
-                economic_zone => 1,
-                included      => 1,
-                client        => $self->client()->{id},
-            },
-            {
-                name          => 'Reduced',
-                number        => 2,
-                economic_zone => 1,
-                included      => 1,
-                client        => $self->client()->{id},
-            },
-            {
-                name          => 'Tax Free',
-                number        => 3,
-                economic_zone => 1,
-                included      => 1,
-                client        => $self->client()->{id},
-            },
+            { name => 'Standard', number => 1, economic_zone => 1, included => 1, client => $self->client()->{id}, },
+            { name => 'Reduced',  number => 2, economic_zone => 1, included => 1, client => $self->client()->{id}, },
+            { name => 'Tax Free', number => 3, economic_zone => 1, included => 1, client => $self->client()->{id}, },
         ];
     }
 );
 
 has sales_tax_rates => (
     lazy    => 1,
-    default => method {
+    default => sub {
         [
-            {
-                valid_from => '2014-04-06',
-                sales_tax  => 1,
-                percentage => 19,
-            },
-            {
-                valid_from => '2014-04-06',
-                sales_tax  => 2,
-                percentage => 7,
-            },
-            {
-                valid_from => '2014-04-06',
-                sales_tax  => 3,
-                percentage => 0,
-            },
+            { valid_from => '2014-04-06', sales_tax => 1, percentage => 19, },
+            { valid_from => '2014-04-06', sales_tax => 2, percentage => 7, },
+            { valid_from => '2014-04-06', sales_tax => 3, percentage => 0, },
         ];
     }
 );
@@ -224,51 +164,27 @@ has sector => (
     lazy    => 1,
     default => method {
         [
-            {
-                name   => 'Standard',
-                number => 1,
-                client => $self->client()->{id},
-            },
-            {
-                name   => 'Reduced',
-                number => 2,
-                client => $self->client()->{id},
-            },
-            {
-                name   => 'Tax Free',
-                number => 3,
-                client => $self->client()->{id},
-            },
+            { name => 'Standard', number => 1, client => $self->client()->{id}, },
+            { name => 'Reduced',  number => 2, client => $self->client()->{id}, },
+            { name => 'Tax Free', number => 3, client => $self->client()->{id}, },
         ];
     }
 );
 
 has sector_tax_items => (
     lazy    => 1,
-    default => method {
+    default => sub {
         [
-            {
-                sector    => 1,
-                tax_index => 1,
-                sales_tax => 1,
-            },
-            {
-                sector    => 3,
-                tax_index => 1,
-                sales_tax => 3,
-            },
-            {
-                sector    => 2,
-                tax_index => 1,
-                sales_tax => 2,
-            },
+            { sector => 1, tax_index => 1, sales_tax => 1, },
+            { sector => 3, tax_index => 1, sales_tax => 3, },
+            { sector => 2, tax_index => 1, sales_tax => 2, },
         ];
     }
 );
 
 has product_prices => (
     lazy    => 1,
-    default => method {
+    default => sub {
         [
             { product => 1, price_list => 1, value => 2.95, },
             { product => 1, price_list => 2, value => 4.95, },
@@ -276,56 +192,20 @@ has product_prices => (
             { product => 2, price_list => 1, value => 1.95, },
             { product => 2, price_list => 2, value => 0.95, },
             { product => 2, price_list => 3, value => 1.45, },
-            {
-                product    => 1,
-                price_list => 1,
-                value      => 2.55,
-                valid_from => '2014-04-06',
-            },
-            {
-                product    => 1,
-                price_list => 2,
-                value      => 4.55,
-                valid_from => '2014-04-06',
-            },
-            {
-                product    => 1,
-                price_list => 3,
-                value      => 1.55,
-                valid_from => '2014-04-06',
-            },
-            {
-                product    => 2,
-                price_list => 1,
-                value      => 1.55,
-                valid_from => '2014-04-06',
-            },
-            {
-                product    => 2,
-                price_list => 2,
-                value      => 0.55,
-                valid_from => '2014-04-06',
-            },
-            {
-                product    => 2,
-                price_list => 3,
-                value      => 1.55,
-                valid_from => '2014-04-06',
-            },
+            { product => 1, price_list => 1, value => 2.55, valid_from => '2014-04-06', },
+            { product => 1, price_list => 2, value => 4.55, valid_from => '2014-04-06', },
+            { product => 1, price_list => 3, value => 1.55, valid_from => '2014-04-06', },
+            { product => 2, price_list => 1, value => 1.55, valid_from => '2014-04-06', },
+            { product => 2, price_list => 2, value => 0.55, valid_from => '2014-04-06', },
+            { product => 2, price_list => 3, value => 1.55, valid_from => '2014-04-06', },
         ];
     }
 );
 
 has org_assortments => (
     lazy    => 1,
-    default => method {
-        [
-            {
-                org        => 1,
-                assortment => 1,
-                valid_from => '2014-04-06',
-            },
-        ];
+    default => sub {
+        [ { org => 1, assortment => 1, valid_from => '2014-04-06', }, ];
     }
 );
 
@@ -333,109 +213,91 @@ has languages => (
     lazy    => 1,
     default => method {
         [
-            {
-                iso_code => 'eng',
-                number   => 1,
-                name     => 'English',
-                client   => $self->client()->{id},
-            },
-            {
-                number   => 2,
-                name     => 'German',
-                client   => $self->client()->{id},
-                iso_code => 'ger',
-            },
+            { iso_code => 'eng', number => 1, name => 'English', client => $self->client()->{id}, },
+            { number => 2, name => 'German', client => $self->client()->{id}, iso_code => 'ger', },
         ];
+    }
+);
+
+has handlers => (
+    lazy    => 1,
+    default => method {
+        my $cl = $self->client();
+        print Dumper($cl);
+        return {
+            assortment      => SellSmooth::Base::Assortment->new( client     => $cl, db_object => 'Assortment' ),
+            commodity_group => SellSmooth::Base::CommodityGroup->new( client => $cl, db_object => 'CommodityGroup' ),
+            currency        => SellSmooth::Base::Currency->new( client       => $cl, db_object => 'Currency' ),
+            economic_zone   => SellSmooth::Base::EconomicZone->new( client   => $cl, db_object => 'EconomicZone' ),
+            language        => SellSmooth::Base::Language->new( client       => $cl, db_object => 'Language' ),
+            org_unit => SellSmooth::Base::OrganizationalUnit->new( client => $cl, db_object => 'OrganizationalUnit' ),
+            org_assortment => SellSmooth::Base::OrgAssortment->new( client => $cl, db_object => 'OrgAssortment' ),
+            product_price  => SellSmooth::Base::ProductPrice->new( client  => $cl, db_object => 'ProductPrice' ),
+            product        => SellSmooth::Base::Product->new( client       => $cl, db_object => 'Product' ),
+            price_list     => SellSmooth::Base::PriceList->new( client     => $cl, db_object => 'PriceList' ),
+            sales_tax      => SellSmooth::Base::SalesTax->new( client      => $cl, db_object => 'SalesTax' ),
+            sector         => SellSmooth::Base::Sector->new( client        => $cl, db_object => 'Sector' ),
+            sales_tax_item => SellSmooth::Base::SectorTaxItem->new( client => $cl, db_object => 'SectorTaxItem' ),
+            sales_tax_rate => SellSmooth::Base::SalesTaxRate->new( client  => $cl, db_object => 'SalesTaxRate' ),
+        };
     }
 );
 
 sub create {
     my ($self) = @_;
 
-    my $ass = {};
-    foreach ( @{ $self->assortment() } ) {
-        $ass->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'Assortment', $_ );
-    }
+    my ( $ass, $cg, $cur, $pl, $orgs, $st, $se, $pr, $lang ) = {};
+    my $ez = $self->handlers->{economic_zone}->create( $self->economic_zone() );
+    $ass->{ $_->{number} } = $self->handlers->{assortment}->create($_)      foreach ( @{ $self->assortment() } );
+    $cg->{ $_->{number} }  = $self->handlers->{commodity_group}->create($_) foreach ( @{ $self->commodity_group() } );
+    $se->{ $_->{number} }  = $self->handlers->{sector}->create($_)          foreach ( @{ $self->sector() } );
 
-    my $ez = SellSmooth::Core::Writedataservice::create( 'EconomicZone',
-        $self->economic_zone() );
+    $self->handlers->{language}->create($_) foreach ( @{ $self->languages() } );
+    $cur->{ $_->{currency_key} } = $_ foreach ( @{ $self->handlers->{currency}->list() } );
 
-    my $cg = {};
-    foreach ( @{ $self->commodity_group() } ) {
-        $cg->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'CommodityGroup', $_ );
-    }
-
-    my $cur = {};
-    $cur->{ $_->{currency_key} } = $_
-      foreach ( @{ SellSmooth::Core::Loaddataservice::list('Currency') } );
-
-    my $pl = {};
     foreach ( @{ $self->price_list() } ) {
         $_->{currency} = $cur->{ $_->{currency} }->{id};
-        $pl->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'PriceList', $_ );
+        $pl->{ $_->{number} } = $self->handlers->{price_list}->create($_);
     }
-
-    my $orgs = {};
     foreach ( @{ $self->org() } ) {
-        $_->{economic_zone} = $ez->{id};
-        $_->{price_list}    = $pl->{ $_->{price_list} }->{id};
-        $orgs->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'OrganizationalUnit',
-            $_ );
+        $_->{economic_zone}     = $ez->{id};
+        $_->{price_list}        = $pl->{ $_->{price_list} }->{id};
+        $orgs->{ $_->{number} } = $self->handlers->{org_unit}->create($_);
     }
 
-    my $st = {};
     foreach ( @{ $self->sales_tax() } ) {
         $_->{economic_zone} = $ez->{id};
-        $st->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'SalesTax', $_ );
+        $st->{ $_->{number} } = $self->handlers->{sales_tax}->create($_);
     }
 
     foreach ( @{ $self->sales_tax_rates() } ) {
         $_->{sales_tax} = $st->{ $_->{sales_tax} }->{id};
-        SellSmooth::Core::Writedataservice::create( 'SalesTaxRate', $_ );
-    }
-
-    my $se = {};
-    foreach ( @{ $self->sector() } ) {
-        $se->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'Sector', $_ );
+        $self->handlers->{sales_tax_rate}->create($_);
     }
 
     foreach ( @{ $self->sector_tax_items() } ) {
         $_->{sales_tax} = $st->{ $_->{sales_tax} }->{id};
         $_->{sector}    = $se->{ $_->{sector} }->{id};
-        SellSmooth::Core::Writedataservice::create( 'SectorTaxItem', $_ );
+        $self->handlers->{sales_tax_item}->create($_);
     }
 
-    my $prHdnl = SellSmooth::Base::Product->new( client => $self->client() );
-    my $pr = {};
     foreach ( @{ $self->product() } ) {
         $_->{assortment}      = $ass->{ $_->{assortment} }->{id};
         $_->{sector}          = $se->{ $_->{sector} }->{id};
         $_->{commodity_group} = $cg->{ $_->{commodity_group} }->{id};
-        $pr->{ $_->{number} } = $prHdnl->create($_);
+        $pr->{ $_->{number} } = $self->handlers->{product}->create($_);
     }
 
     foreach ( @{ $self->product_prices() } ) {
         $_->{product}    = $pr->{ $_->{product} }->{id};
         $_->{price_list} = $pl->{ $_->{price_list} }->{id};
-        SellSmooth::Core::Writedataservice::create( 'ProductPrice', $_ );
+        $self->handlers->{product_price}->create($_);
     }
 
     foreach ( @{ $self->org_assortments() } ) {
         $_->{org}        = $orgs->{ $_->{org} }->{id};
         $_->{assortment} = $ass->{ $_->{assortment} }->{id};
-        SellSmooth::Core::Writedataservice::create( 'OrgAssortment', $_ );
-    }
-
-    my $lang = {};
-    foreach ( @{ $self->languages() } ) {
-        $lang->{ $_->{number} } =
-          SellSmooth::Core::Writedataservice::create( 'Language', $_ );
+        $self->handlers->{org_assortment}->create($_);
     }
 
 }

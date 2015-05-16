@@ -26,60 +26,7 @@ with 'SellSmooth::Base::Object';
 
 =over 4
 
-=item create
-
 =cut
-
-sub create {
-    my ( $self, $params ) = @_;
-
-    #debug Dumper($params);
-
-    return SellSmooth::Core::Writedataservice::create(
-        'Client',
-        {
-            #name    => $params->{admin_firstname},
-            #surname => $params->{admin_lastname},
-            #email   => $params->{admin_email}
-        }
-    );
-}
-
-=item update
-
-=cut
-
-sub update {
-
-}
-
-=item delete
-
-=cut
-
-sub delete {
-
-}
-
-=item remove
-
-=cut
-
-sub remove {
-
-}
-
-=item find_by_number
-
-=cut
-
-sub find_by_number {}
-
-=item find_by_id
-
-=cut
-
-sub find_by_id {}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

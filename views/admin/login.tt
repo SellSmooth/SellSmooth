@@ -1,0 +1,51 @@
+<div class="row">
+	<div class="col-md-12">
+		<div id="std_container" style="visibility: visible;">
+			<form id="form_777470" class="appnitro"  method="post" action="#">
+				<div class="form_description">
+					<h2>
+						[% (locale_tags.sign_in_title) ? locale_tags.sign_in_title : '!sign_in_title' %]
+					</h2>
+				</div>
+				<br />
+				<div class="input-group" style="width: 400px;">
+					<span class="input-group-addon">EMail</span>
+					<input name="xxx" type="text" class="form-control" placeholder="Nickname"></div>
+				<br />
+				<div class="input-group"  style="width: 400px;">
+					<span class="input-group-addon">Password</span>
+					<input name="yyy" type="password" class="form-control" placeholder="Password"></div>
+				<br />
+				<input class="btn btn-default" type="submit" />
+				<div>
+					<a href="/register">
+						[% (locale_tags.still_not_registered) ? locale_tags.still_not_registered : '!still_not_registered' %]?
+					</a>
+				</div>
+				<br />
+			</form>
+			[% IF error %]
+			<form id="form_777471" class="appnitro"  method="post" action="/new_password">
+				<div class="form_description">
+					<h2>
+						[%  (locale_tags.offline_forgot_password) ? locale_tags.offline_forgot_password : '!offline_forgot_password' %]?
+					</h2>
+				</div>
+				<br />
+
+				<div class="input-group" style="width: 400px;">
+					<span class="input-group-addon">Nickname</span>
+					<input name="xxx" type="text" class="form-control" placeholder="Nickname"></div>
+				<br />
+				<div class="input-group"  style="width: 400px;">
+					<span class="input-group-addon">
+						[% (locale_tags.or_email) ? locale_tags.or_email : '!or_email' %]
+					</span>
+					<input name="yyy" type="text" class="form-control" placeholder="[% loc_inf.or_email %]"></div>
+				<br />
+				<input class="btn btn-default" type="submit" />
+			</form>
+			[% END %]
+		</div>
+	</div>
+</div>

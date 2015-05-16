@@ -3,6 +3,7 @@ package SellSmooth::Plugins::Install;
 use strict;
 use warnings;
 use Dancer2;
+use Dancer2::Plugin::Localization;
 use Data::Dumper;
 use Moose;
 use SellSmooth::Plugins::Install::Params;
@@ -12,7 +13,7 @@ use Data::YAML::Writer;
 use SellSmooth::Base::Client;
 use SellSmooth::Base::User;
 use SellSmooth::Base::Template;
-use SellSmooth::Base::Install;
+use SellSmooth::Core::Schema;
 
 with 'SellSmooth::Plugin';
 
@@ -65,24 +66,13 @@ get '/install/shop' => sub {
     unless ( $plugin_hash->{db_finished} ) {
         my $lib = File::Spec->catfile( $FindBin::Bin, '..', 'lib' );
         my $db  = "dbi:$p{dbEngine}:dbname=$p{dbName};host=$p{dbServer}";
-        my $dbh = DBI->connect(
-            $db,
-            $p{dbLogin},
-            $p{dbPassword},
-            {
-                pg_utf8_strings => 1,
-            }
-        );
-        my $obj = DBIx::Schema::Changelog->new(
-            dbh       => $dbh,
-            db_driver => $p{dbEngine}
-        );
+        my $dbh = DBI->connect( $db, $p{dbLogin}, $p{dbPassword}, { pg_utf8_strings => 1, } );
+        my $obj = DBIx::Schema::Changelog->new( dbh => $dbh, db_driver => $p{dbEngine} );
         $obj->table_action()->prefix( ( defined $p{db_prefix} ) ? $p{db_prefix} : '' );
         $obj->read( File::Spec->catfile( $FindBin::Bin, '..', 'resources', 'changelog' ) );
-
         $dbh->disconnect();
 
-        SellSmooth::Base::Install->createSchema( "SellSmooth::Base::Db::$p{dbEngine}",
+        SellSmooth::Core::Schema->createSchema( "SellSmooth::Base::Db::$p{dbEngine}",
             $lib, $db, $p{dbLogin}, $p{dbPassword} );
 
         $plugin_hash->{db_finished} = 1;
@@ -123,11 +113,11 @@ get '/install/finalize' => sub {
     my %p = params;
     $params->client_settings( \%p );
 
-    my $clientHdl = SellSmooth::Base::Client->new();
-    $p{client} = $clientHdl->create( \%p );
-
-    my $userHdl = SellSmooth::Base::User->new();
-    $p{user} = $userHdl->create( \%p );
+    my $client_hndl = SellSmooth::Base::Client->new( db_object => 'Client' );
+    $p{client} = $client_hndl->create( {} );
+    debug Dumper( $p{client} );
+    my $user_hndl = SellSmooth::Base::User->new( client => $p{client}, db_object => 'User' );
+    $p{user} = $user_hndl->create( \%p );
 
     SellSmooth::Base::Template->new( client => $p{client} )->create();
 

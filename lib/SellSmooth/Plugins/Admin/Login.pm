@@ -1,4 +1,4 @@
-package SellSmooth::Plugins::Admin::Sectors;
+package SellSmooth::Plugins::Admin::Login;
 
 use strict;
 use warnings;
@@ -13,34 +13,36 @@ debug;
 
 with 'SellSmooth::Plugin';
 
-my $file = File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d', 'admin_sectors.yml' );
+my $file = File::Spec->catfile( $FindBin::Bin, '..', 'plugins.d', 'admin.yml' );
 open my $rfh, '<', $file or die "$file $!";
 my $plugin_hash = LoadFile($file);
 close $rfh;
 
-my $path = '/' . SellSmooth::Plugins::Admin->plugin_hash()->{path} . '/sectors';
+my $path = '/' . $plugin_hash->{path} . '/login';
 
-get $path. '/list' => sub {
-
-    template 'admin/list',
-      { objects => SellSmooth::Core::Loaddataservice::list( 'Sector', {}, { page => 1 } ), },
-      { layout => 'admin' };
+get $path => sub {
+    app->destroy_session;
+    template 'admin/login', {}, { layout => 'admin' };
 };
 
-get $path. '/edit/:number' => sub {
+post $path => sub {
+    my $user_hndl = SellSmooth::Base::User->new( client => {}, db_object => 'User' );
+    my $lang      = language_country;
+    my $user      = $user_hndl->find_by_email( params->{'xxx'} );
+    my $err       = undef;
 
-    my $ret = SellSmooth::Core::Loaddataservice::findByNumber( 'Sector', params->{number} );
-
-    my $zones = SellSmooth::Core::Loaddataservice::list('EconomicZone');
-    foreach (@$zones) {
-        $_->{taxes} = SellSmooth::Core::Loaddataservice::list(
-            'ViewSectorEconomyZone',
-            { sector => $ret->{id}, economic_zone => $_->{id} },
-            { order_by => { '-asc' => 'tax_index' } }
-        );
+    if ( defined $user && $user ne '' ) {
+        if ( SellSmooth::Core::Password->verify( $user_hndl->find_by_id( $user->{id} ), params->{'yyy'} ) ) {
+            $user_hndl->update_last_login($user);
+            $user_hndl->update_last_idle_remind($user);
+            session 'client' => $user->{client};
+            return redirect $path;
+        }
+        else { $err = 'error_invalid_passwd'; }
     }
+    else { $err = 'error_invalid_user'; }
 
-    template 'admin/edit_sector', { object => $ret, economic_zones => $zones }, { layout => 'admin' };
+    template 'admin/login', { error => $err }, { layout => 'admin' };
 };
 
 ################################################################################
@@ -54,7 +56,7 @@ hook before_template_render => sub {
 #my $b        = Web::Desktop::token( $packname, $user, ( defined $user ) ? $user->{locale} : language_country, $tokens->{profile} );
 #map { $tokens->{$_} = $b->{$_} } keys %$b;
     $tokens->{admin_path}  = $path;
-    $tokens->{admin_conf}  = SellSmooth::Plugins::Admin->plugin_hash();
+    $tokens->{admin_conf}  = $plugin_hash;
     $tokens->{locale_tags} = tags(language_country);
 };
 

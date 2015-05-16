@@ -1,8 +1,8 @@
-package SellSmooth::Base::Sector;
+package SellSmooth::Base::OrgAssortment;
 
 =head1 NAME
 
-SellSmooth::Base::Sector - Abstract plugin class.
+SellSmooth::Base::OrgAssortment - Abstract plugin class.
 
 =head1 VERSION
 
@@ -17,45 +17,11 @@ use warnings;
 use Dancer2;
 use Moose;
 use Data::Dumper;
-use MooseX::HasDefaults::RO;
 use SellSmooth::Core::Writedataservice;
 use SellSmooth::Core::Loaddataservice;
 
 with 'SellSmooth::Base::Object';
 
-has sector_tax_item => (
-    isa     => 'SellSmooth::Base::Object',
-    default => sub { SellSmooth::Base::SectorTaxItem->new( client => shift->client(), db_object => 'SectorTaxItem' ) }
-);
-has sales_tax => (
-    isa     => 'SellSmooth::Base::Object',
-    default => sub { SellSmooth::Base::SalesTax->new( client => shift->client(), db_object => 'SalesTax' ) }
-);
-has sales_tax_rate => (
-    isa     => 'SellSmooth::Base::Object',
-    default => sub { SellSmooth::Base::SalesTaxRate->new( client => shift->client(), db_object => 'SalesTaxRate' ) }
-);
-
-=head1 SUBROUTINES/METHODS
-
-=over 4
-
-=item load_full
-
-=cut
-
-sub load_full {
-    my ( $self, $sector ) = @_;
-    $sector = SellSmooth::Core::Loaddataservice::findById( $self->db_object(), $sector );
-
-    $sector->{taxes} = $self->sector_tax_item->list( { sector => $sector->{id} } );
-    foreach ( @{ $sector->{taxes} } ) {
-        my $tax = $self->sales_tax->find_by_id( $_->{sales_tax} );
-        $tax->{rates} = $self->sales_tax_rate->list( { sales_tax => $tax->{id} } );
-        $_->{sales_tax} = $tax;
-    }
-    return $sector;
-}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

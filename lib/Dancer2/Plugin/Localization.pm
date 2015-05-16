@@ -21,7 +21,6 @@ register language_country => sub {
     my $browser = HTTP::BrowserDetect->new($agent);
     my $lang    = ( defined $browser->language() ) ? lc $browser->language() : 'en';
     my $coun    = ( defined $browser->country() ) ? lc $browser->country() : 'us';
-    print Dumper( $browser, $lang, $coun );
     my %loc_maped = map { $_ => 1 } @{ $loc->{supported} };
     return $lang . '_' . $coun if ( exists $loc_maped{ $lang . '_' . $coun } );
     return ( exists $loc->{$lang} ) ? $loc->{$lang} : $loc->{default};

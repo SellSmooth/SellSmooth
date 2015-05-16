@@ -9,6 +9,7 @@ use TryCatch;
 sub create {
 	my ( $schema, $options ) = @_;
 	try {
+		print Dumper($schema, $options);
 		my $res = schema->resultset($schema)->create($options);
 		return undef unless ($res);
 		return undef unless ( $res->{_column_data} );

@@ -27,14 +27,13 @@ with 'SellSmooth::Base::Object';
 =over 4
 
 =item create
-
 =cut
 
 sub create {
     my ( $self, $params ) = @_;
     my $pas = SellSmooth::Core::Password->crypt( $params->{admin_password} );
     return SellSmooth::Core::Writedataservice::create(
-        'User',
+        $self->db_object(),
         {
             name          => $params->{admin_firstname},
             surname       => $params->{admin_lastname},
@@ -45,6 +44,15 @@ sub create {
         }
     );
 
+}
+
+=item create
+
+=cut
+
+sub find_by_email {
+    my ( $self, $email ) = @_;
+    return SellSmooth::Core::Loaddataservice::find( $self->db_object(), { email => $email } );
 }
 
 no Moose;

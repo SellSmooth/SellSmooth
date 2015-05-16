@@ -1,6 +1,4 @@
 [% USE Dumper %]
-<section id="content">
-	<div class="container">
 		<h3>Sector Edit</h3>
 		<div class="row">
 			<div class="col-lg-6">
@@ -28,5 +26,3 @@
 				[% END %]
 			</div>
 		</div>
-	</div>
-</section>

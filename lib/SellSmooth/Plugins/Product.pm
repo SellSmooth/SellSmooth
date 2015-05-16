@@ -3,12 +3,14 @@ package SellSmooth::Plugins::Product;
 use strict;
 use warnings;
 use Dancer2;
+use Dancer2::Plugin::Localization;
 use Moose;
 use YAML::XS qw/LoadFile/;
 use SellSmooth::Core;
 use SellSmooth::Base::Product;
 use SellSmooth::Base::OrganizationalUnit;
 use SellSmooth::Base::CommodityGroup;
+debug;
 
 with 'SellSmooth::Plugin';
 
@@ -18,8 +20,6 @@ my $plugin_hash = LoadFile($file);
 close $rfh;
 
 my $path = '/product';
-
-debug __PACKAGE__;
 
 get $path. '/:number' => sub {
     my $product_hndl = SellSmooth::Base::Product->new( client => {}, db_object => 'Product' );
@@ -41,7 +41,7 @@ hook before_template_render => sub {
     my $tokens   = shift;
     my $packname = __PACKAGE__;
 
-#my $user     = ( defined $tokens->{user} ) ? $tokens->{user} : DataService::User::ViewUser->findById( session('user') );
+#my $user     = ( defined $tokens->{user} ) ? $tokens->{user} : DataService::User::ViewUser->findById( session('client') );
 #my $b        = Web::Desktop::token( $packname, $user, ( defined $user ) ? $user->{locale} : language_country, $tokens->{profile} );
 #map { $tokens->{$_} = $b->{$_} } keys %$b;
     $tokens->{admin_path} = $path;

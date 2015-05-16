@@ -26,22 +26,7 @@ with 'SellSmooth::Base::Object';
 
 =over 4
 
-=item create
-
 =cut
-
-sub create {
-    my ( $self, $params ) = @_;
-    return SellSmooth::Core::Writedataservice::create(
-        $self->db_object(),
-        {
-            name   => $params->{name},
-            number => $params->{number},
-            client => $params->{client}->{id},
-        }
-    );
-
-}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
