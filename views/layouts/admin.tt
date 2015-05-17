@@ -35,6 +35,7 @@
                 <div class="navbar-collapse collapse ">
                 </div>
             </div>
+            [% IF logged_in %][% INCLUDE admin/nav_profile.tt %][% END %]
         </div>
 	</header>
 	<section id="inner-headline">

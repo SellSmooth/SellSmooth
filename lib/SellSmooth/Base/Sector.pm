@@ -20,6 +20,9 @@ use Data::Dumper;
 use MooseX::HasDefaults::RO;
 use SellSmooth::Core::Writedataservice;
 use SellSmooth::Core::Loaddataservice;
+use SellSmooth::Base::SalesTax;
+use SellSmooth::Base::SectorTaxItem;
+use SellSmooth::Base::SalesTaxRate;
 
 with 'SellSmooth::Base::Object';
 

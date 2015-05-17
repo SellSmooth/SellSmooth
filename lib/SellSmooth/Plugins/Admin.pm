@@ -11,6 +11,7 @@ use SellSmooth::Core;
 use SellSmooth::Base::User;
 
 use SellSmooth::Plugins::Admin::Login;
+use SellSmooth::Base::Client;
 debug;
 
 with 'SellSmooth::Plugin';
@@ -41,15 +42,16 @@ sub plugin_hash {
 ################################################################################
 hook before => sub {
     my $self = shift;
-    debug Dumper($self);
-    my $user_hndl = SellSmooth::Base::User->new( client => {}, db_object => 'User' );
-    my $user = $user_hndl->find_by_id( session('client') );
-    return redirect '/' . $plugin_hash->{path} . '/login' unless ($user);
+    my $client   = SellSmooth::Base::Client->new( db_object => 'Client' )->find_by_id( session('client') );
+    debug Dumper( $client, session('client') );
+    return redirect '/' . $plugin_hash->{path} . '/login' unless ($client);
 };
 
 hook before_template_render => sub {
     my $tokens   = shift;
     my $packname = __PACKAGE__;
+    my $client   = SellSmooth::Base::Client->new( db_object => 'Client' )->find_by_id( session('client') );
+    $tokens->{logged_in} = ( defined $client ) ? 1 : 0;
 
 #my $user     = ( defined $tokens->{user} ) ? $tokens->{user} : DataService::User::ViewUser->findById( session('client') );
 #my $b        = Web::Desktop::token( $packname, $user, ( defined $user ) ? $user->{locale} : language_country, $tokens->{profile} );

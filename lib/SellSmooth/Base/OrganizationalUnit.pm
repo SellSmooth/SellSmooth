@@ -28,14 +28,17 @@ with 'SellSmooth::Base::Object';
 
 has economic_zone => (
     isa     => 'SellSmooth::Base::Object',
+    lazy    => 1,
     default => sub { SellSmooth::Base::EconomicZone->new( client => shift->client(), db_object => 'EconomicZone' ) }
 );
 has price_list => (
     isa     => 'SellSmooth::Base::Object',
+    lazy    => 1,
     default => sub { SellSmooth::Base::PriceList->new( client => shift->client(), db_object => 'PriceList' ) }
 );
 has currency => (
     isa     => 'SellSmooth::Base::Object',
+    lazy    => 1,
     default => sub { SellSmooth::Base::Currency->new( client => shift->client(), db_object => 'Currency' ) }
 );
 

@@ -36,13 +36,17 @@ get $path. '/edit/:number' => sub {
 ################################################################################
 #######################             HOOKS                  #####################
 ################################################################################
+hook before => sub {
+    my $self = shift;
+    my $client = SellSmooth::Base::Client->new( db_object => 'Client' )->find_by_id( session('client') );
+    return redirect '/' . SellSmooth::Plugins::Admin->plugin_hash()->{path} . '/login' unless ($client);
+};
+
 hook before_template_render => sub {
     my $tokens   = shift;
     my $packname = __PACKAGE__;
-
-#my $user     = ( defined $tokens->{user} ) ? $tokens->{user} : DataService::User::ViewUser->findById( session('client') );
-#my $b        = Web::Desktop::token( $packname, $user, ( defined $user ) ? $user->{locale} : language_country, $tokens->{profile} );
-#map { $tokens->{$_} = $b->{$_} } keys %$b;
+    my $client   = SellSmooth::Base::Client->new( db_object => 'Client' )->find_by_id( session('client') );
+    $tokens->{logged_in}   = ( defined $client ) ? 1 : 0;
     $tokens->{admin_path}  = $path;
     $tokens->{admin_conf}  = SellSmooth::Plugins::Admin->plugin_hash();
     $tokens->{locale_tags} = tags(language_country);

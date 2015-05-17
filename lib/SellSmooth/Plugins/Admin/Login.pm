@@ -36,7 +36,9 @@ post $path => sub {
             $user_hndl->update_last_login($user);
             $user_hndl->update_last_idle_remind($user);
             session 'client' => $user->{client};
-            return redirect $path;
+            session 'user'   => $user;
+            debug Dumper($path);
+            return redirect '/' . $plugin_hash->{path};
         }
         else { $err = 'error_invalid_passwd'; }
     }

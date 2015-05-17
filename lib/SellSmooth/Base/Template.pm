@@ -221,9 +221,8 @@ has languages => (
 
 has handlers => (
     lazy    => 1,
-    default => method {
-        my $cl = $self->client();
-        print Dumper($cl);
+    default => sub {
+        my $cl = shift->client();
         return {
             assortment      => SellSmooth::Base::Assortment->new( client     => $cl, db_object => 'Assortment' ),
             commodity_group => SellSmooth::Base::CommodityGroup->new( client => $cl, db_object => 'CommodityGroup' ),

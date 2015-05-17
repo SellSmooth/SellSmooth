@@ -55,6 +55,22 @@ sub find_by_email {
     return SellSmooth::Core::Loaddataservice::find( $self->db_object(), { email => $email } );
 }
 
+=item update_last_login
+
+=cut
+
+sub update_last_login {
+    my ( $self, $user ) = @_;
+}
+
+=item update_last_idle_remind
+
+=cut
+
+sub update_last_idle_remind {
+    my ( $self, $user ) = @_;
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 

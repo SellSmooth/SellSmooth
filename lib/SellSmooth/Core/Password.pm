@@ -12,7 +12,7 @@ sub verify {
     my ( $self, $user, $password ) = @_;
     $password = md5_hex($password);
     my $crypt2 = Crypt::SaltedHash->new( algorithm => 'SHA-512' );
-    return 0 if ( !$crypt2->validate( $user->{pass}, $password ) );
+    return 0 if ( !$crypt2->validate( $user->{password_hash}, $password ) );
     return 1;
 }
 ###############################################################################
