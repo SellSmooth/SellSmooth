@@ -25,8 +25,12 @@ WriteMakefile(
         'Data::YAML::Writer'      => 0.0.7,
         'Math::Round'             => 0.07,
         'Dancer2::Plugin::DBIC'   => 0.0009,
+        'Dancer2::Plugin::Ajax'   => 0.200000,
+        'HTTP::BrowserDetect'     => 2.01,
         'Crypt::SaltedHash'       => 0.09,
+        'Math::Round'             => 0.07,
         'Crypt::GeneratePassword' => 0.04,
+        'TryCatch'                => 1.003002
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES    => 'SS-*' },
