@@ -1,1 +1,11 @@
-nav_profile
+<div class="navbar-collapse collapse" id="navbar">
+	<ul class="nav navbar-nav navbar-right">
+		<li>
+			<a href="">Support</a>
+		</li>
+		<li>
+			<a href="">[% user %]</a>
+		</li>
+	</ul>
+</div>
+<!--/.nav-collapse -->
